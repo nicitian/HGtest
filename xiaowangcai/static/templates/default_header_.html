@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block header %}
+<div class="w-1k f-cb">
+<ul class="f-cb f-fr home-header">
+    <li class="f-fl ac-level p-r" id='ac-level'>
+        <div style="min-width: 170px;text-align: right;">
+            <a id="id_user_name" class="tp-nv" href="/home/user">
+            {{ user.username }}
+            </a>
+            <img class="tri_down" src="/static/image/web/home/triangle_down.png" style="padding-right:13px;">
+            <a class="logout" id='logout-btn'>
+                <span style="padding-left:17px;">
+                    退出
+                </span>
+            </a>
+        </div>
+    </li>
+    <li class="f-fl">
+        <span class="tp-nv v-bar" style="padding-left:0px;">
+            |
+        </span>
+    </li>
+    <li class="f-fl">
+        <a class="tp-nv" href="/home/capital" title="账户中心">
+            账户：
+            <span class="ye">
+                {{ user.principal }}
+            </span>
+            金
+        </a>
+        <a class="striking" title="账户充值" href="/home/capital/recharge">
+            充值
+        </a>
+    </li>
+</ul>
+</div>
+{% endblock %}

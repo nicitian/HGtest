@@ -1,0 +1,88 @@
+﻿<html>
+<head>
+<title>move_pic</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+<script type="text/javascript">
+function formSubmit(obj){
+	var svrIp = document.getElementById("svr_ip").value;
+	var formObj = obj.parentNode;
+	var uri = formObj.attributes.getNamedItem('action').value;
+	formObj.action = svrIp + '/' + uri;
+	formObj.submit();
+}
+</script>
+<style>
+.field_span{
+	width:100px;
+	text-align:right;
+	margin: 0 20px 0 0;
+	display:inline-block;
+}
+.sub_btn{
+	margin:10px 0 10px 100px;
+}
+</style>
+</head>
+<body>
+<div style="text-align:center;"><h1>1数据迁移</h1></div>
+
+	服务器接口地址：<input id="svr_ip" type="text" size="50px" value="http://localhost:8000" /><br />
+
+	<div><h2>一 appeal</h2></div>
+	
+	<div><h3>1.tasks_appeal表 生成csv文件 </h3></div>
+	<form action="make_tasks_appeal_txt" method="get">
+		<input class="sub_btn" type="submit" value="提交" onclick="formSubmit(this);"/>
+	</form>
+    <div><h3>2.tasks_appeal表 修改数据库 </h3></div>
+    <form action="change_tasks_appeal_db" method="get">
+		<input class="sub_btn" type="submit" value="提交" onclick="formSubmit(this);"/>
+	</form>
+
+    <div><h2>二 order</h2></div>
+
+	<div><h3>1.order 生成csv文件 </h3></div>
+	<form action="make_tasks_order_txt" method="get">
+		<input class="sub_btn" type="submit" value="提交" onclick="formSubmit(this);"/>
+	</form>
+    <div><h3>2.order 修改数据库 </h3></div>
+    <form action="change_tasks_order_db" method="get">
+		<input class="sub_btn" type="submit" value="提交" onclick="formSubmit(this);"/>
+	</form>
+
+    <div><h2>三 task</h2></div>
+
+	<div><h3>1.task 生成csv文件 </h3></div>
+	<form action="make_tasks_task_txt" method="get">
+		<input class="sub_btn" type="submit" value="提交" onclick="formSubmit(this);"/>
+	</form>
+    <div><h3>2.task 修改数据库 </h3></div>
+    <form action="change_tasks_task_db" method="get">
+		<input class="sub_btn" type="submit" value="提交" onclick="formSubmit(this);"/>
+	</form>
+
+    <div><h2>四 tbaccount</h2></div>
+
+	<div><h3>1.tbaccount 生成csv文件 </h3></div>
+	<form action="make_user_tbaccount_txt" method="get">
+		<input class="sub_btn" type="submit" value="提交" onclick="formSubmit(this);"/>
+	</form>
+    <div><h3>2.tbaccount 修改数据库 </h3></div>
+    <form action="change_user_tbaccount_db" method="get">
+		<input class="sub_btn" type="submit" value="提交" onclick="formSubmit(this);"/>
+	</form>
+
+
+    <div><h2>无 user</h2></div>
+
+	<div><h3>1.user 生成csv文件 </h3></div>
+	<form action="make_user_user_txt" method="get">
+		<input class="sub_btn" type="submit" value="提交" onclick="formSubmit(this);"/>
+	</form>
+    <div><h3>2.user 修改数据库 </h3></div>
+    <form action="change_user_user_db" method="get">
+		<input class="sub_btn" type="submit" value="提交" onclick="formSubmit(this);"/>
+	</form>
+</body>
+</html>

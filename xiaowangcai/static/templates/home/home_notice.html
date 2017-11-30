@@ -1,0 +1,54 @@
+{% extends "home/home_.html" %}
+{% block section_css %}
+<style>
+.notice-lst {
+  margin: 0 28px;
+  min-height: 500px;
+}
+.notice-lst > li {
+  padding-bottom: 7px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #f6f7f7;
+  padding-left: 16px;
+  padding-right: 8px;
+  position: relative;
+  color: #737272;
+}
+.notice-lst .notice-dot {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+.notice-lst a {
+  color: #737272;
+}
+</style>
+{% endblock %}
+{% block section_title %}商家公告{% endblock %}
+{% block section %}
+<ul class="notice-lst">
+{% for notice in notices %}
+    <li class="f-cb">
+        <img class="notice-dot" />
+        <a href="/home/notice/detail?notice_id={{notice.id}}">
+            {{notice.title}}
+        </a>
+        <span style="color:red;">
+            {% if notice.is_new %}
+            NEW
+            {% endif %}
+        </span>
+        <span class="time f-fr">
+            {{notice.create_date}}
+        </span>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
+{% block section_js %}
+<script>
+$($('.nav-item')[0]).addClass('active');
+dot_image='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAcSURBVHjaYtRc/u4/AxpgYsACKBQEAAAA//8DABnNAsclV3qKAAAAAElFTkSuQmCC';
+$('.notice-dot').attr('src',dot_image);
+</script>
+{% endblock %}

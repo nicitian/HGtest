@@ -1,0 +1,235 @@
+{% extends "home/home_.html" %}
+{% block section_css %}
+<style type="text/css">
+.method-1 {
+  padding-bottom: 28px;
+  border-bottom: 1px dashed #d3d4d4;
+  margin-bottom: 32px;
+}
+.czmethod {
+  margin-left: 16px;
+  margin-right: 26px;
+  font-size: 15px;
+}
+.method {
+  font-weight: 800;
+  color: #3cb3f6;
+}
+.ipt {
+  padding: 4px;
+  border: 1px solid #bebfbf;
+  width: 67px;
+  color: #666;
+}
+.wrap-bankname {
+  margin: 1em 0;
+}
+.recentraninfo {
+  margin: 12px 16px;
+  border-top: 1px solid #ccc;
+  padding-top: 1em;
+}
+.recentraninfo h2 {
+  padding-bottom: 1em;
+}
+.recharge-table{
+	margin: 16px;
+	width: 765px;
+	font-size: 15px;
+}
+#recharge-submit{
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  height: 40px;
+  background-color: #1C86EE;
+  font-size: 1.4em;
+  color: white;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border-width: 0;
+}
+.re-td{
+	padding-top: 15px;
+}
+</style>
+{% endblock %}
+{% block section_title %}账户充值{% endblock %}
+{% block section %}
+  <div class="czmethod method-1"> 
+   <table> 
+    <tbody>
+     <tr> 
+      <td width="8%" class="method"></td>
+      <td><span style="font-size: 14px;font-weight: bold;">目前平台仅支持银行卡转账，免手续费，人工审核时间约1-2小时，转账成功后联系我们客服即时完成充值</span></td>
+     </tr> 
+     <tr> 
+      <td></td> 
+      <td style="padding-top: 1em;"> 
+       <table style="width: 655px;"> 
+        <tbody>
+         <tr> 
+          <td width="12%" style="color: #d74444;font-weight: bold;*width:14%;">注意事项：</td> 
+          <td class="prompt">①转账时务必带零头，如1000.3或200.08等，并备注你的手赚ID <span style="color: red;">{{user.id}}</span></td>
+         </tr> 
+         <tr> 
+          <td></td> 
+          <td>
+           <div class="prompt" style="padding-top: 18px;line-height: 1.8em;">
+            ②非工作日审核较慢，建议提前安排充值。
+           </div></td> 
+         </tr> 
+         <tr> 
+          <td></td> 
+          <td>
+           <div class="prompt" style="padding-top: 18px;line-height: 1.8em;">
+            ③转账尽量不要使用支付宝直接转账(因为taobao可以监控)，建议提现到网银，再使用网银手机银行转账
+           </div></td> 
+         </tr> 
+        </tbody>
+       </table> </td> 
+     </tr> 
+     <tr> 
+      <td></td> 
+      <td> 
+       <div style="background-color: #eff0f0;width: 260px;margin-top: 1em;padding: 4px;font-weight: bold;">
+        第一步：请先转账到手赚官方账号：
+       </div> </td> 
+     </tr> 
+     <tr> 
+      <td></td> 
+      <td>
+       <div style="padding-top: 8px;padding-bottom: 24px;">
+        手赚官方账号：
+        <span style="color: #52b8f2;font-size:24px;"> 6217 9939 0001 9402 654 (中国邮政储蓄银行莆田市荔城区支行)</span> <span style="color:red;">（黄钰）</span>
+       </div>
+       <div style="padding-top: 8px;padding-bottom: 24px;">
+        手赚官方账号二：
+        <span style="color: #52b8f2;font-size:24px;"> 6214 8352 1297 2796 (招商银行苏州分行太仓支行)</span> <span style="color:red;">（黄钰）</span>
+       </div>
+       </td> 
+     </tr> 
+     <tr> 
+      <td></td> 
+      <td> 
+       <div style="background-color: #eff0f0;width: 210px;padding: 4px;margin-bottom: 0.8em;font-weight: bold;">
+        第二步：请确认提交转账金额：
+       </div> </td> 
+     </tr> 
+     <tr> 
+      <td></td> 
+      <td class="f-pr"> 转入金额：<input class="ipt tran-money f-tar" id="transmoney" type="text" /> 元 <span style="color: #908e8e;">（1金=1元）</span> <span style="color: red;">(一次转账只能提交一次充值，如发现恶意重复提交，将罚款甚至封号)</span> </td>
+     </tr> 
+     <tr> 
+      <td></td> 
+      <td class="f-pr"> 
+       <div class="wrap-bankname">
+        转入银行名称：
+        <select style="font-size: 15px;" name="bankname"> <option>招商银行</option><option>中国邮政储蓄银行</option></select>
+       </div> 
+       <div class="dowtri"></div> </td> 
+     </tr> 
+     <tr> 
+      <td></td> 
+      <td> 
+       <div style="line-height: 2.0em;">
+        转出银行卡姓名：
+        <input class="ipt" id="username" type="text" name="username" placeholder="例：张三" style="width: 150px;font-size: 15px;" /> (请填写你转出银行卡开户账号的姓名，方便财务核对；如果是支付宝，请填写支付宝账号名)
+       </div> </td> 
+     </tr> 
+    </tbody>
+   </table> 
+  </div>
+  <div style='width:100%;'><button id="recharge-submit">确认提交</button></div> 
+  <div class="recentraninfo"> 
+   <h2>最近5条转账记录</h2> 
+   <table class="recharge-table"  border="0" cellspacing="0" cellpadding="0"> 
+    <thead> 
+     <tr> 
+      <td width="20%">提交时间</td> 
+      <td width="10%">金额</td> 
+      <td width="10%">开户名</td> 
+      <td width="20%">转账银行</td> 
+      <td width="20%">审核状态</td> 
+      <td width="20%">审核时间</td> 
+     </tr>
+    </thead> 
+    <tbody>
+    	{% for r in recharges %}
+         <tr>
+                <td class='re-td'>
+                    <div class="plat">
+                        {{r.create_time_str}}
+                    </div>
+                </td>
+                <td class='re-td'>
+                    <div class="shopinfo lim-w">
+                        {{r.amount}}
+                    </div>
+                </td>
+                <td class='re-td'>
+                    <div class="shopinfo lim-w">
+                        {{r.account_name}}
+                    </div>
+                </td>
+                <td class='re-td'>
+                    <div class="shopinfo lim-w">
+                        {{r.bank_name}}
+                    </div>
+                </td>
+                <td class='re-td'>
+                    <div class="shopinfo lim-w">
+                        {% ifequal r.verify_status 0 %}
+                        <span class='fc-orange'>待审核</span>
+                        {% endifequal %}
+                        {% ifequal r.verify_status 1 %}
+                        <span class='fc-blue'>审核通过</span>
+                        {% endifequal %}
+                        {% ifequal r.verify_status 2 %}
+                        <span class='fc-red'>审核不通过</span>
+                        {% endifequal %}
+                    </div>
+                </td>
+                <td class='re-td'>
+                    <div class="lim-w">
+                        {{r.verify_time_str}}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+   </table> 
+  </div>
+{% endblock %}
+{% block section_js %}
+<script type="text/javascript">
+var enable=true;
+var uid=laifu.get_user_id();
+$(document).ready(function(){
+	$($('.nav-item')[3]).addClass('active');
+	$('#recharge-submit').bind('click',function(){
+		if(enable){
+			var amount=$('#transmoney').val();
+			var bank_name=$('select[name="bankname"]').val();
+			var account_name=$('#username').val();
+			enable=false;
+			$.post('/rest_web/management/recharge/create',{
+				'amount':amount,
+				'bank_name':bank_name,
+				'account_name':account_name,
+				'user_id':uid,
+			},function(res){
+				enable=true;
+				if(res.code==0){
+					alert('提交成功');
+					history.go(0);
+				}else{
+					alert('提交失败，请填写正确的数据格式。要求最多精确到分（0.01元）即可');
+				}
+			});
+		}
+	});
+});
+</script>
+{% endblock %}

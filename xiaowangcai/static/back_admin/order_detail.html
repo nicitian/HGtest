@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>任务详情</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+		<link rel="stylesheet" href="css/datepicker.css" />
+		<link rel="stylesheet" href="css/select2.css" />
+		<link rel="stylesheet" href="css/unicorn.main.css" />
+		<link rel="stylesheet" href="css/self-define.css" />
+		<link rel="stylesheet" href="css/unicorn.red.css" class="skin-color" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+	<body>
+		
+		
+		<div id="header">
+			<h1><a href="./index.html">任务详情</a></h1>		
+		</div>
+		
+		<div id="search">
+			<input type="text" placeholder="搜索..." /><button type="submit" class="tip-right" title="Search"><i class="icon-search icon-white"></i></button>
+		</div>
+		<div id="user-nav" class="navbar navbar-inverse">
+			<ul class="nav btn-group">
+				<li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text">用户</span></a></li>
+				<li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">设置</span></a></li>
+				<li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
+			</ul>
+		</div>
+						
+		<div id="sidebar">
+			<a href="#" class="visible-phone"><i class="icon icon-home"></i> 首页</a>
+			<ul>
+				<li><a href="index.html"><i class="icon icon-home"></i> <span>首页</span></a></li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-pencil"></i> <span>资金管理</span> <span class="label">4</span></a>
+					<ul>
+						<li><a href="acc_manage.html">账户管理</a></li>
+						<li><a href="rebate_manage.html">返款管理</a></li>
+						<li><a href="fund_detail.html">资金明细</a></li>
+						<li><a href="recharge_manage.html">充值管理</a></li>
+					</ul>
+				</li>
+				<li><a href="user_info.html"><i class="icon icon-user"></i> <span>用户审核</span></a></li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-file"></i> <span>账号审核</span> <span class="label">5</span></a>
+					<ul>
+						<li><a href="user_level.html">用户等级</a></li>
+						<li><a href="identity_info.html">身份信息</a></li>
+						<li><a href="credit_card.html">银行卡信息</a></li>
+						<li><a href="taobao_acc.html">淘宝账号</a></li>
+						<li><a href="store_info.html">店铺信息</a></li>
+					</ul>
+				</li>
+				<li class="submenu active open">
+					<a href="#"><i class="icon icon-tasks"></i> <span>任务中心</span> <span class="label">3</span></a>
+					<ul>
+						<li class="active"><a href="task_manage.html">任务管理</a></li>
+						<li><a href="order_manage.html">订单管理</a></li>
+						<li><a href="problem_orders.html">问题订单</a></li>
+					</ul>
+				</li>
+				<li><a href="notice_manage.html"><i class="icon icon-bullhorn"></i> <span>公告管理</span></a></li>
+				<li><a href="appeal_center.html"><i class="icon icon-comment"></i> <span>申述中心</span></a></li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-wrench"></i> <span>平台账号</span> <span class="label">2</span></a>
+					<ul>
+						<li><a href="pl_acc_manage.html">账号管理</a></li>
+						<li><a href="authority_manage.html">权限管理</a></li>
+					</ul>
+				</li>
+                 <li class="submenu">
+                    <a href="#"><i class="icon icon-book"></i> <span>其他</span> <span class="label">2</span></a>
+                    <ul>
+                        <li><a href="tk_manage.html">淘宝客管理</a></li>
+                        <li><a href="tk_ad_manage.html">淘宝客广告管理</a></li>
+                    </ul>
+                </li>
+			</ul>
+		</div>
+		
+		<div id="style-switcher">
+			<i class="icon-arrow-left icon-white"></i>
+			<span>Style:</span>
+			<a href="#grey" style="background-color: #555555;border-color: #aaaaaa;"></a>
+			<a href="#blue" style="background-color: #2D2F57;"></a>
+			<a href="#red" style="background-color: #673232;"></a>
+		</div>
+		
+		<div id="content">
+			<div id="content-header">
+				<h1>任务详情</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="index.html" title="返回首页" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+				<a href="#" class="tip-bottom">任务中心</a>
+				<a href="#" class="current">任务详情</a>
+			</div>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="span12" id="id_task_detail">
+
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						2015 &copy; 版权所有 杭州手赚科技有限公司 <a href="http://120.26.214.214/">(ShouZhuan)</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="order_oper_detail">
+			<!--div id="order_detail" class="modal hide in" aria-hidden="false" style="display: none;width:700px;">
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">×</button>
+					<h3>订单操作进展</h3>
+				</div>
+				<div class="modal-body">
+					<table class="table s-table-bordered" id="acc_table">
+						<thead>
+							<tr>
+								<th>任务步骤</th>
+								<th>操作者</th>
+								<th>操作时间</th>
+								<th>内容</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>货比三家</td>
+								<td>买手</td>
+								<td>2015-10-02 19:20:03</td>
+								<td>
+									<img width="80" height="80" src="http://7xkvel.com1.z0.glb.clouddn.com/FmBkTbKUKVokvfyYtOef3K8f2d7L">
+									<img width="80" height="80" src="http://7xkvel.com1.z0.glb.clouddn.com/FmBkTbKUKVokvfyYtOef3K8f2d7L">
+									<img width="80" height="80" src="http://7xkvel.com1.z0.glb.clouddn.com/FmBkTbKUKVokvfyYtOef3K8f2d7L">
+								</td>
+							</tr>
+							<tr>
+								<td>收藏任务</td>
+								<td>买手</td>
+								<td>2015-10-02 19:20:03</td>
+								<td>
+								</td>
+							</tr>
+							<tr>
+								<td>确认无误发放佣金</td>
+								<td>商家</td>
+								<td>2015-10-02 19:20:03</td>
+								<td>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<a data-dismiss="modal" class="btn btn-primary" href="#">确定</a>
+					<a data-dismiss="modal" class="btn" href="#">取消</a>
+				</div>
+			</div-->
+		</div>
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.ui.custom.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/bootstrap-colorpicker.js"></script>
+		<script src="js/bootstrap-datepicker.js"></script>
+		<script src="js/jquery.uniform.js"></script>
+		<script src="js/select2.min.js"></script>
+		<script src="js/unicorn.js"></script>
+		<script src="js/unicorn.form_common.js"></script>
+		<script type="text/javascript">
+			Date.prototype.format = function(format){ 
+				var o = { 
+					"M+" : this.getMonth()+1, //month 
+					"d+" : this.getDate(), //day 
+					"h+" : this.getHours(), //hour 
+					"m+" : this.getMinutes(), //minute 
+					"s+" : this.getSeconds(), //second 
+					"q+" : Math.floor((this.getMonth()+3)/3), //quarter 
+					"S" : this.getMilliseconds() //millisecond 
+				}
+				
+				if(/(y+)/.test(format)) { 
+					format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+				} 
+				
+				for(var k in o) { 
+					if(new RegExp("("+ k +")").test(format)) { 
+						format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length)); 
+					} 
+				} 
+				return format; 
+			}
+			function Request(strName) 
+			{ 
+				var strHref = window.document.location.href; 
+				var intPos = strHref.indexOf("?"); 
+				var strRight = strHref.substr(intPos + 1); 
+				
+				var arrTmp = strRight.split("&"); 
+				for(var i = 0; i < arrTmp.length; i++) 
+				{ 
+					var arrTemp = arrTmp[i].split("="); 
+				
+					if(arrTemp[0].toUpperCase() == strName.toUpperCase()) return arrTemp[1]; 
+				} 
+				return ""; 
+			} 
+			var task_id=Request("task_id");
+			
+			function init_page(){
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/management/task/get/"+task_id,
+					data: "",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						
+						var task_crt_time	= new Date(msg.data.task.create_time);
+						var task_type	= '';
+						if(msg.data.task.task_type == 0){
+							task_type	= '手机淘宝';
+						}else if(msg.data.task.task_type == 1){
+							task_type	= '电脑淘宝';
+						}else if(msg.data.task.task_type == 2){
+							task_type	= '浏览任务';
+						}else if(msg.data.task.task_type == 3){
+							task_type	= '特别任务';
+						}
+						
+						var commodities_arr	= eval('('+msg.data.task.commodities+')');
+						var task_com_type	= "";
+						if(commodities_arr.length > 1){
+							task_com_type	= "多商品任务";
+						}else{
+							task_com_type	= "单商品任务";
+						}
+						
+						var search_arr	= eval('('+msg.data.task.search_entries+')');
+						
+						var orders_arr	= msg.data.orders;
+						var total_orders	= orders_arr.length;
+						var accept_orders	= 0;
+						var order_list_table	= "";
+						var order_oper_list	= "";
+						for(var i=0;i<total_orders;i++){
+							
+							//统计已接单数
+							if(orders_arr[i].status != 0){
+								accept_orders	+= 1;
+							}
+							
+							var order_rcv_time	= ""; 
+							if(orders_arr[i].receive_time == null){
+								order_rcv_time	= "-";
+							}else{
+								var receive_time	= new Date(orders_arr[i].receive_time);
+								order_rcv_time	= receive_time.format("yyyy-MM-dd hh:mm:ss");
+							}
+							
+							var order_type	= "";
+							if(orders_arr[i].order_type == 0){
+								order_type	= "普通好评单";
+							}else if(orders_arr[i].order_type == 1){
+								order_type	= "关键词好评单";
+							}else if(orders_arr[i].order_type == 2){
+								order_type	= "图文好评单";
+							}else if(orders_arr[i].order_type == 3){
+								order_type	= "流量单";
+							}else if(orders_arr[i].order_type == 4){
+								order_type	= "收藏单";
+							}else if(orders_arr[i].order_type == 5){
+								order_type	= "直通车单";
+							}
+							
+							var finish_step	= -1;
+							var order_cur_status	= "";
+							if(orders_arr[i].order_type == 3 || orders_arr[i].order_type == 4){
+								if(orders_arr[i].status == 0){
+									finish_step	= 0;
+									order_cur_status	= "未接单";
+								}else if(orders_arr[i].status == 1){
+									finish_step	= 1;
+									order_cur_status	= "已接单";
+								}else if(orders_arr[i].status == 105){
+									finish_step	= 2;
+									order_cur_status	= "待确认";
+								}else if(orders_arr[i].status == 106){
+									finish_step	= 3;
+									order_cur_status	= "已确认";
+								}else if(orders_arr[i].status == 10){
+									finish_step	= 4;
+									order_cur_status	= "已完成";
+								}
+							}else if(orders_arr[i].order_type == 6){
+								if(orders_arr[i].status == 0){
+									finish_step	= 0;
+									order_cur_status	= "未接单";
+								}else if(orders_arr[i].status == 1){
+									finish_step	= 1;
+									order_cur_status	= "已接单";
+								}else if(orders_arr[i].status == 107){
+									finish_step	= 2;
+									order_cur_status	= "已完成浏览+收藏,坐等购买";
+								}else if(orders_arr[i].status == 102){
+									finish_step	= 3;
+									order_cur_status	= "购买收藏宝贝";
+								}else if(orders_arr[i].status == 103){
+									finish_step	= 4;
+									order_cur_status	= "已返款";
+								}else if(orders_arr[i].status == 104){
+									finish_step	= 5;
+									order_cur_status	= "已发货";
+								}else if(orders_arr[i].status == 105){
+									finish_step	= 6;
+									order_cur_status	= "已好评";
+								}else if(orders_arr[i].status == 106){
+									finish_step	= 7;
+									order_cur_status	= "已确认";
+								}else if(orders_arr[i].status == 10){
+									finish_step	= 8;
+									order_cur_status	= "已完成";
+								}
+							}else{
+								if(orders_arr[i].status == 0){
+									finish_step	= 0;
+									order_cur_status	= "未接单";
+								}else if(orders_arr[i].status == 1){
+									finish_step	= 1;
+									order_cur_status	= "已接单";
+								}else if(orders_arr[i].status == 100){
+									finish_step	= 2;
+									order_cur_status	= "完成货比三家";
+								}else if(orders_arr[i].status == 101){
+									finish_step	= 3;
+									order_cur_status	= "完成第二步";
+								}else if(orders_arr[i].status == 102){
+									finish_step	= 4;
+									order_cur_status	= "完成第三步";
+								}else if(orders_arr[i].status == 103){
+									finish_step	= 5;
+									order_cur_status	= "已返款";
+								}else if(orders_arr[i].status == 104){
+									finish_step	= 6;
+									order_cur_status	= "已发货";
+								}else if(orders_arr[i].status == 105){
+									finish_step	= 7;
+									order_cur_status	= "已好评";
+								}else if(orders_arr[i].status == 106){
+									finish_step	= 8;
+									order_cur_status	= "已确认";
+								}else if(orders_arr[i].status == 10){
+									finish_step	= 9;
+									order_cur_status	= "已完成";
+								}
+							}
+							
+							if(orders_arr[i].status != 0){
+								order_list_table	+= '<tr>'
+									+'<td>'+order_rcv_time+'</td>'
+									+'<td>'+orders_arr[i].taobao.user_id+'</td>'
+									+'<td>'+orders_arr[i].taobao.wangwang+'</td>'
+									+'<td>'+order_type+'</td>'
+									+'<td>'+order_cur_status+'</td>'
+									+'<td>无</td>'
+									+'<td><a href="#order_detail_'+orders_arr[i].id+'" data-toggle="modal">订单详情</a></td>'
+								+'</tr>';
+							}else{
+								order_list_table	+= '<tr>'
+									+'<td>'+order_rcv_time+'</td>'
+									+'<td>-</td>'
+									+'<td>-</td>'
+									+'<td>'+order_type+'</td>'
+									+'<td>'+order_cur_status+'</td>'
+									+'<td>无</td>'
+									+'<td><a href="#order_detail_'+orders_arr[i].id+'" data-toggle="modal">订单详情</a></td>'
+								+'</tr>';
+							}
+							
+							var step_detail_arr	= eval('('+orders_arr[i].step_detail+')');
+							if(step_detail_arr != ""){
+								
+							order_oper_list	+= '<div id="order_detail_'+orders_arr[i].id+'" class="modal hide in" aria-hidden="false" style="display: none;width:700px;">'
+								+'<div class="modal-header">'
+									+'<button data-dismiss="modal" class="close" type="button">×</button>'
+									+'<h3>订单操作进展</h3>'
+								+'</div>'
+								+'<div class="modal-body">'
+									+'<table class="table s-table-bordered" id="acc_table">'
+										+'<thead>'
+											+'<tr>'
+												+'<th>任务步骤</th>'
+												+'<th>操作者</th>'
+												+'<th>操作时间</th>'
+												+'<th>内容</th>'
+											+'</tr>'
+										+'</thead>'
+										+'<tbody>';
+								
+								if(orders_arr[i].order_type == 3){
+									if(finish_step > 1){
+										var pic_path_list	= "";
+										var step_oper_time	= new Date(step_detail_arr.step_0.create_time);
+										for(var k=0;k<step_detail_arr.step_0.pic_path.length;k++){
+											pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_0.pic_path[k]+'">';
+										}
+										
+										order_oper_list	+= '<tr>'
+											+'<td>已浏览宝贝</td>'
+											+'<td>买手</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td>'+pic_path_list+'</td>'
+										+'</tr>';
+									}
+									if(finish_step > 2){
+										var step_oper_time	= new Date(step_detail_arr.step_6.create_time);
+										order_oper_list	+= '<tr>'
+											+'<td>确认无误发放佣金</td>'
+											+'<td>商家</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td></td>'
+										+'</tr>';
+									}
+								}else if(orders_arr[i].order_type == 4){
+									if(finish_step > 1){
+										if(step_detail_arr.step_0.create_time != null){
+											var pic_path_list	= "";
+											var step_oper_time	= new Date(step_detail_arr.step_0.create_time);
+											for(var k=0;k<step_detail_arr.step_0.pic_path.length;k++){
+												pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_0.pic_path[k]+'">';
+											}
+											
+											order_oper_list	+= '<tr>'
+												+'<td>已浏览宝贝</td>'
+												+'<td>买手</td>'
+												+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+												+'<td>'+pic_path_list+'</td>'
+											+'</tr>';
+										}
+										if(step_detail_arr.step_1.create_time != null){
+											var pic_path_list	= "";
+											var step_oper_time	= new Date(step_detail_arr.step_1.create_time);
+											for(var k=0;k<step_detail_arr.step_1.pic_path.length;k++){
+												pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_1.pic_path[k]+'">';
+											}
+											
+											order_oper_list	+= '<tr>'
+												+'<td>已收藏店铺/宝贝</td>'
+												+'<td>买手</td>'
+												+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+												+'<td>'+pic_path_list+'</td>'
+											+'</tr>';
+										}
+									}
+									if(finish_step > 2){
+										var step_oper_time	= new Date(step_detail_arr.step_6.create_time);
+										order_oper_list	+= '<tr>'
+											+'<td>确认无误发放佣金</td>'
+											+'<td>商家</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td></td>'
+										+'</tr>';
+									}
+								}else if(orders_arr[i].order_type == 6){
+									if(finish_step > 1){
+										var pic_path_list	= "";
+										var step_oper_time	= new Date(step_detail_arr.step_8.create_time);
+										for(var k=0;k<step_detail_arr.step_8.pic_path.length;k++){
+											pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_8.pic_path[k]+'">';
+										}
+										
+										for(var v=0;v<step_detail_arr.step_9.pic_path.length;v++){
+											pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_9.pic_path[v]+'">';
+										}
+										
+										order_oper_list	+= '<tr>'
+											+'<td>浏览收藏加购物车</td>'
+											+'<td>买手</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td>'+pic_path_list+'</td>'
+										+'</tr>';
+									}
+									if(finish_step > 2){
+										var pic_path_list	= "";
+										var step_oper_time	= new Date(step_detail_arr.step_0.create_time);
+										for(var k=0;k<step_detail_arr.step_0.pic_path.length;k++){
+											pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_0.pic_path[k]+'">';
+										}
+										
+										order_oper_list	+= '<tr>'
+											+'<td>找到购物车中宝贝下单并支付</td>'
+											+'<td>买手</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td>'+pic_path_list+'</td>'
+										+'</tr>';
+									}
+									if(finish_step > 3){
+										var step_oper_time	= new Date(step_detail_arr.step_3.create_time);
+										order_oper_list	+= '<tr>'
+											+'<td>商家返款</td>'
+											+'<td>商家</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td></td>'
+										+'</tr>';
+									}
+									if(finish_step > 4){
+										var step_oper_time	= new Date(step_detail_arr.step_4.create_time);
+										order_oper_list	+= '<tr>'
+											+'<td>商家发货</td>'
+											+'<td>商家</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td></td>'
+										+'</tr>';
+									}
+									if(finish_step > 5){
+										var step_oper_time	= new Date(step_detail_arr.step_5.create_time);
+										var pic_path_list	= "";
+										for(var k=0;k<step_detail_arr.step_5.pic_path.length;k++){
+											pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_5.pic_path[k]+'">';
+										}
+										
+										order_oper_list	+= '<tr>'
+											+'<td>收货并好评</td>'
+											+'<td>买手</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td>'+pic_path_list+'</td>'
+										+'</tr>';
+									}
+									if(finish_step > 7){
+										var step_oper_time	= new Date(step_detail_arr.step_6.create_time);
+										order_oper_list	+= '<tr>'
+											+'<td>确认无误发放佣金</td>'
+											+'<td>商家</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td></td>'
+										+'</tr>';
+									}
+								}else{
+									if(finish_step > 1){
+										var pic_path_list	= "";
+										var step_oper_time	= new Date(step_detail_arr.step_0.create_time);
+										for(var k=0;k<step_detail_arr.step_0.pic_path.length;k++){
+											pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_0.pic_path[k]+'">';
+										}
+										
+										order_oper_list	+= '<tr>'
+											+'<td>货比三家</td>'
+											+'<td>买手</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td>'+pic_path_list+'</td>'
+										+'</tr>';
+									}
+									if(finish_step > 2){
+										var pic_path_list	= "";
+										var step_oper_time	= new Date(step_detail_arr.step_1.create_time);
+										for(var k=0;k<step_detail_arr.step_1.pic_path.length;k++){
+											pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_1.pic_path[k]+'">';
+										}
+										
+										order_oper_list	+= '<tr>'
+											+'<td>浏览店铺及目标商品</td>'
+											+'<td>买手</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td>'+pic_path_list+'</td>'
+										+'</tr>';
+									}
+									if(finish_step > 3){
+										var step_oper_time	= new Date(step_detail_arr.step_2.create_time);
+										var pic_path_list	= "";
+										for(var k=0;k<step_detail_arr.step_2.pic_path.length;k++){
+											pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_2.pic_path[k]+'">';
+										}
+										
+										order_oper_list	+= '<tr>'
+											+'<td>聊天下单和支付</td>'
+											+'<td>买手</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td>'+pic_path_list+'</td>'
+										+'</tr>';
+									}
+									if(finish_step > 4){
+										var step_oper_time	= new Date(step_detail_arr.step_3.create_time);
+										order_oper_list	+= '<tr>'
+											+'<td>商家返款</td>'
+											+'<td>商家</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td></td>'
+										+'</tr>';
+									}
+									if(finish_step > 5){
+										var step_oper_time	= new Date(step_detail_arr.step_4.create_time);
+										order_oper_list	+= '<tr>'
+											+'<td>商家发货</td>'
+											+'<td>商家</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td></td>'
+										+'</tr>';
+									}
+									if(finish_step > 6){
+										var step_oper_time	= new Date(step_detail_arr.step_5.create_time);
+										var pic_path_list	= "";
+										for(var k=0;k<step_detail_arr.step_5.pic_path.length;k++){
+											pic_path_list	+= '<img width="80" height="80" src="'+step_detail_arr.step_5.pic_path[k]+'">';
+										}
+										
+										order_oper_list	+= '<tr>'
+											+'<td>收货并好评</td>'
+											+'<td>买手</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td>'+pic_path_list+'</td>'
+										+'</tr>';
+									}
+									if(finish_step > 7){
+										var step_oper_time	= new Date(step_detail_arr.step_6.create_time);
+										order_oper_list	+= '<tr>'
+											+'<td>确认无误发放佣金</td>'
+											+'<td>商家</td>'
+											+'<td>'+step_oper_time.format("yyyy-MM-dd hh:mm:ss")+'</td>'
+											+'<td></td>'
+										+'</tr>';
+									}
+								}
+								
+								order_oper_list	+= '</tbody>'
+									+'</table>'
+								+'</div>'
+								+'<div class="modal-footer">'
+									+'<a data-dismiss="modal" class="btn btn-primary">确定</a>'
+									+'<a data-dismiss="modal" class="btn">取消</a>'
+								+'</div>'
+							+'</div>';
+							}
+							document.getElementById('order_oper_detail').innerHTML=order_oper_list;
+						}
+						
+						var rebate_type	= "";
+						if(msg.data.task.return_type == 0){
+							rebate_type	= "系统返款";
+						}else{
+							rebate_type	= "商家返款";
+						}
+						
+						var order_types_arr	= eval('('+msg.data.task.order_types+')');
+						
+						//获取数据
+						var task_detail_con	= "";
+						task_detail_con	+= '<div class="widget-box">'
+							+'<div class="widget-title">'
+								+'<span class="icon"><img class="plat-logo f-fl" src="img/plat_logo.png"></span>'
+								+'<h5>任务详情</h5>'
+								+'<span class="label label-info">'+task_crt_time.format("yyyy-MM-dd hh:mm:ss")+'</span>'
+								+'<span class="label">发布时间：</span>'
+								+'<span class="label label-info">'+msg.data.task.id+'</span>'
+								+'<span class="label">任务编号：</span>'
+								+'<span class="label label-info">'+task_type+'</span>'
+							+'</div>'
+							+'<div class="widget-content nopadding">'
+								+'<div class="invoice-content">'
+									+'<span class="label label-info">任务生成订单总数</span>：'+total_orders+'单'
+									+'<span class="label label-info">已接任务数</span>：'+accept_orders+'单'
+									+'<span class="label label-info">'+task_com_type+'</span>'
+									+'<table class="table s-table-bordered" id="acc_table">'
+										+'<thead>'
+											+'<tr>'
+												+'<th>任务商品信息</th>'
+												+'<th>展示价(元)</th>'
+												+'<th>成交价(元)</th>'
+												+'<th>每单拍下数量</th>'
+											+'</tr>'
+										+'</thead>'
+										+'<tbody>'
+											+'<tr>'
+												+'<td>'
+													+'<a href="#" width="80" height="80" class="thumbnail f-fl"><img width="80" height="80" src="'+commodities_arr[0].pic_path+'" alt=""></a>'
+													+'<div class="f-fl f-ml">'
+														+'<div class="mainkw lim-w" style="width:500px;text-align: left;">'+commodities_arr[0].name+'</div>'
+														+'<div class="mainkw lim-w" style="width:500px;text-align: left;">搜索关键字：'+search_arr[0].keyword+'</div>'
+														+'<div class="mainkw lim-w" style="width:500px;text-align: left;">商品链接：<a href="'+commodities_arr[0].url+'" target="_blank">'+commodities_arr[0].url+'</a></div>'
+													+'</div>'
+												+'</td>'
+												+'<td id=""><h4>￥'+commodities_arr[0].displayprice+'</h4></td>'
+												+'<td id=""><h4>￥'+commodities_arr[0].unitprice+'</h4></td>'
+												+'<td id=""><h4>'+commodities_arr[0].num+'</h4></td>'
+											+'</tr>'
+										+'</tbody>'
+									+'</table>'
+									+'<table class="table s-table-bordered">'
+										+'<thead>'
+											+'<tr>'
+												+'<th>商家备注</th>'
+											+'</tr>'
+										+'</thead>'
+										+'<tbody>'
+											+'<tr>'
+												+'<td><textarea disabled="ture" style="width: 99%;">'+msg.data.task.task_remark+'</textarea></td>'
+											+'</tr>'
+										+'</tbody>'
+									+'</table>'
+									+'<table class="table s-table-bordered" id="acc_table">'
+										+'<thead>'
+											+'<tr>'
+												+'<th>任务类型</th>'
+												+'<th>淘宝店铺</th>'
+												+'<th>旺旺名称</th>'
+												+'<th>返款方式</th>'
+												+'<th>是否包邮</th>'
+												+'<th>价格区间</th>'
+												+'<th>所在城市</th>'
+											+'</tr>'
+										+'</thead>'
+										+'<tbody>'
+											+'<tr>'
+												+'<td>'+task_type+'</td>'
+												+'<td>'+msg.data.task.store.name+'</td>'
+												+'<td>'+msg.data.task.store.wangwang+'</td>'
+												+'<td>'+rebate_type+'</td>'
+												+'<td>是</td>'
+												+'<td>'+msg.data.task.low_price+' - '+msg.data.task.up_price+'</td>'
+												+'<td>'+msg.data.task.commodity_address+'</td>'
+											+'</tr>'
+										+'</tbody>'
+									+'</table>'
+									+'<table class="table s-table-bordered" id="acc_table">'
+										+'<thead>'
+											+'<tr>'
+												+'<th>普通好评(单)</th>'
+												+'<th>关键字好评(单)</th>'
+												+'<th>图文好评(单)</th>'
+												+'<th>流量(单)</th>'
+												+'<th>收藏、加购物车(单)</th>'
+												+'<th>直通车(单)</th>'
+											+'</tr>'
+										+'</thead>'
+										+'<tbody>'
+											+'<tr>'
+												+'<td>'+order_types_arr[0].order_total+'</td>'
+												+'<td>'+order_types_arr[1].order_total+'</td>'
+												+'<td>'+order_types_arr[2].order_total+'</td>'
+												+'<td>'+order_types_arr[3].order_total+'</td>'
+												+'<td>'+order_types_arr[4].order_total+'</td>'
+												+'<td>'+order_types_arr[5].order_total+'</td>'
+											+'</tr>'
+										+'</tbody>'
+									+'</table>'
+									+'<table class="table s-table-bordered" id="acc_table">'
+										+'<thead>'
+											+'<tr>'
+												+'<th>接单时间</th>'
+												+'<th>手赚ID</th>'
+												+'<th>旺旺名称</th>'
+												+'<th>订单类别</th>'
+												+'<th>订单状态</th>'
+												+'<th>申诉状态</th>'
+												+'<th>查看详情</th>'
+											+'</tr>'
+										+'</thead>'
+										+'<tbody>'
+											+order_list_table
+										+'</tbody>'
+									+'</table>'
+								+'</div>'
+							+'</div>'
+						+'</div>';
+						document.getElementById('id_task_detail').innerHTML=task_detail_con;
+					}
+				});
+			}
+			$(document).ready(function(){
+				init_page();
+			});
+		</script>
+	</body>
+</html>

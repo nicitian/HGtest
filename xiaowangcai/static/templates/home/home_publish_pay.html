@@ -1,0 +1,215 @@
+{% extends "home/home_publish_.html" %}
+{% block css_more %}
+<style type="text/css">
+h2{
+  font-size: 13px;
+  font-weight: normal;
+  margin-top: 16px;
+  margin-left: 16px;
+  color: #090909;
+}
+table{
+	margin: 16px;
+	width: 763px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #666666;
+	text-align: center;
+	color: black;
+}
+th{
+	padding: 10px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #DCDCDC;
+}
+td{
+	padding: 10px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #fdfefe;
+}
+.heji{
+	margin-right: 20px;
+  	text-align: right;
+}
+.pay-radio-container{
+	margin: 16px;
+}
+.buttons{
+	margin: 60px 0;
+	text-align: center;
+}
+button{
+	margin: 0 50px;
+	width: 200px;
+	height: 40px;
+	background-color:#1C86EE;
+	font-size: 1.4em;
+	color: white;
+	-moz-border-radius: 5px;      
+    -webkit-border-radius: 5px;   
+    border-radius:5px; 
+    border-width: 0;
+}
+.text-margin{
+  margin-top: 16px;
+  margin-left: 16px;
+}
+</style>
+{% endblock %}
+{% block section_title %}发布任务{% endblock %}
+{% block section_more %}
+<input hidden='hidden' name='task_id' value='{{task.id}}'/>
+<section id='step-c3' class="act step-content" data-page='2'>
+    <h2>本次任务费用详情</h2>
+    <table border='1' class='fee-detail'>
+        <thead>
+            <tr>
+            	<th>分类</th>
+            	<th style='width:260px'>费用明细</th>
+            	<th>小计</th>
+            	<th>数量</th>
+            	<th style='width:220px'>合计</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<tr>
+        		<td rowspan="6">佣金</td>
+            	<td>基础佣金： <span class='striking'>{{commision_base}}</span> 元/单<br/>
+					<span style="color:red;font-weight:bold;">普通好评</span>：+ <span class='striking'>0</span> 元/单<br/>
+					加赏佣金：+ <span class='striking'>{{task.bonus}}</span>元/单<br/>
+                    符合条件旺旺：+<span class='striking'>{{commision_wangwang}}</span>元/单<br/>
+					平台返款服务费：+ <span class='striking'>{{servicefee_base}}</span> 元/单
+
+            	<td><span class='striking'>{{normal_order_price}}</span> 元</td>
+            	<td><span class='striking'>{{order_types.0.order_total}}</span> 单</td>
+            	<td><span class='striking'>{{normal_order_price}}</span> x <span class='striking'>{{order_types.0.order_total}}</span> = <span class='striking'>{{normal_price}}</span> 元</td>
+        	</tr>
+        	<tr>
+        		<td>基础佣金： <span class='striking'>{{commision_base}}</span> 元/单<br/>
+					<span style="color:red;font-weight:bold;">文字好评</span>：+ <span class='striking'>{{commision_keyword}}</span> 元/单<br/>
+					加赏佣金：+ <span class='striking'>{{task.bonus}}</span> 元/单<br/>
+                    符合条件旺旺：+<span class='striking'>{{commision_wangwang}}</span>元/单<br/>
+					平台返款服务费：+ <span class='striking'>{{servicefee_base}}</span> 元/单
+				</td>
+            	<td><span class='striking'>{{keyword_order_price}}</span> 元</td>
+            	<td><span class='striking'>{{order_types.1.order_total}}</span> 单</td>
+            	<td><span class='striking'>{{keyword_order_price}}</span> x <span class='striking'>{{order_types.1.order_total}}</span> = <span class='striking'>{{keyword_price}}</span> 元</td>
+        	</tr>
+        	<tr>
+        		<td>基础佣金： <span class='striking'>{{commision_base}}</span> 元/单<br/>
+					<span style="color:red;font-weight:bold;">图文好评</span>：+ <span class='striking'>{{commision_image}}</span> 元/单<br/>
+					加赏佣金：+ <span class='striking'>{{task.bonus}}</span> 元/单<br/>
+                    符合条件旺旺：+<span class='striking'>{{commision_wangwang}}</span>元/单<br/>
+					平台返款服务费：+ <span class='striking'>{{servicefee_base}}</span> 元/单
+				</td>
+            	<td><span class='striking'>{{image_order_price}}</span> 元</td>
+            	<td><span class='striking'>{{order_types.2.order_total}}</span> 单</td>
+            	<td><span class='striking'>{{image_order_price}}</span> x <span class='striking'>{{order_types.2.order_total}}</span> = <span class='striking'>{{image_price}}</span> 元</td>
+        	</tr>
+        	<tr>
+        		<td>基础佣金： <span class='striking'>{{commision_base}}</span> 元/单<br/>
+					<span style="color:red;font-weight:bold;">浏览收藏加购物车，N天后购买</span>x：+ <span class='striking'>{{commision_delaybuy}}</span> 元/单<br/>
+					加赏佣金：+ <span class='striking'>{{task.bonus}}</span> 元/单<br/>
+                    符合条件旺旺：+<span class='striking'>{{commision_wangwang}}</span>元/单<br/>
+					平台返款服务费：+ <span class='striking'>{{servicefee_base}}</span> 元/单
+				</td>
+            	<td><span class='striking'>{{delaybuy_order_price}}</span> 元</td>
+            	<td><span class='striking'>
+                    {% if task.is_qian == 0 %}
+                        {{order_types.6.order_total}}
+            	    {% else %} 0
+            	    {% endif %}</span> 单</td>
+            	<td><span class='striking'>{{delaybuy_order_price}}</span> x <span class='striking'>{% if task.is_qian == 0 %}
+                    {{order_types.6.order_total}}
+            	{% else %} 0
+            	{% endif %}</span> = <span class='striking'>{{delaybuy_price}}</span> 元</td>
+        	</tr>
+            <tr>
+        		<td>基础佣金： <span class='striking'>{{commision_base}}</span> 元/单<br/>
+					<span style="color:red;font-weight:bold;">第一天浏览，千人千面刷单</span>x：+ <span class='striking'>{{commision_qian}}</span> 元/单<br/>
+					加赏佣金：+ <span class='striking'>{{task.bonus}}</span> 元/单<br/>
+                    符合条件旺旺：+<span class='striking'>{{commision_wangwang}}</span>元/单<br/>
+					平台返款服务费：+ <span class='striking'>{{servicefee_base}}</span> 元/单
+				</td>
+            	<td><span class='striking'>{{qian_order_price}}</span> 元</td>
+            	<td><span class='striking'>
+                    {% if task.is_qian == 1 %}
+                        {{order_types.6.order_total}}
+            	    {% else %} 0
+            	    {% endif %}</span> 单</td>
+                </span> 单</td>
+            	<td><span class='striking'>{{qian_order_price}}</span> x <span class='striking'>{% if task.is_qian == 1 %}
+            	{{order_types.6.order_total}}
+                    {% else %} 0
+            	{% endif %}</span> = <span class='striking'>{{qian_price}}</span> 元</td>
+        	</tr>
+        	<tr>
+        		<td colspan="4">多商品费用：<span class='striking'>0</span>元(暂时不加)</td>
+        	</tr>
+        	<tr>
+        		<td colspan="5">流量费： 人肉流量<span class='striking'>{{flow_orders}}</span>X<span class='striking'>{{payment_flow}}</span>元/个+ 收藏、加购物车<span class='striking'>{{collect_orders}}</span>X<span class='striking'>{{payment_collect}}</span>元/个=结果<span class='striking'>{{flow_total}}</span> 元</td>
+        	</tr>
+    </tbody>
+    </table>
+    <p class='heji'>合计：单数&nbsp<span class='striking'>{{order_total}}</span>&nbsp单&nbsp&nbsp&nbsp&nbsp佣金&nbsp<span class='striking'>{{commision_total}}</span>&nbsp元</p>
+    <table border='1' class='fee-detail'>
+        <thead>
+            <tr>
+            	<th>分类</th>
+            	<th>费用明细</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<tr>
+            	<td>返款押金</td>
+            	<td><span class='striking'>{{order_total}}</span> 单 x <span class='striking'>{{dianzi}}</span> 元/单= <span class='striking'>{{dianzi_total}}</span> 元</td>
+            </tr>
+        </tbody>
+     </table>
+    <p class='heji'>总计：佣金&nbsp<span class='striking'>{{commision_total}}</span>&nbsp元&nbsp+&nbsp返款押金&nbsp<span class='striking'>{{dianzi_total}}</span>&nbsp元&nbsp=&nbsp<span class='striking'>{{all_total}}</span>&nbsp元</p>
+    <h2>选择支付方式</h2>
+    <div class='pay-radio-container'>
+    <input type="radio" checked="checked" /><span>使用账户余额支付（可用余额<span class='fc-red'>{{user.principal}}</span>元{% if not can_afford %}，<span class='fc-red'>余额不足</span>，马上充值，充值成功后刷新本页面{% endif %}）</span>支付<span class='striking'>{{all_total}}</span>元
+    </div>
+    <div class='buttons'>
+    	<button id='btn-prev'>上一步</button>
+    	<button id='btn-pay' {% if can_afford %}data-can='1' {% else  %} data-can='0' {% endif %}>支付</button>
+    </div>
+    </section>
+<section id='step-c4' class="step-content sel-wrap" data-page='3'>
+	<h1 class='text-margin'>任务发布成功</h1>
+    {% if user.free_verify %}
+    <p class='text-margin fc-red'>您是免审用户，任务正在进行中...</p>
+    {% else %}
+    <p class='text-margin fc-red'>您的任务需要被审核后才能进行...</p>
+    {% endif %}
+    <p class='text-margin'>任务详细情况可在任务管理页面中查看</p>
+</section>
+{% endblock %}
+{% block js_more %}
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#btn-pay').bind('click',function(){
+		if($(this).data('can')==0){
+			alert('余额不足');
+		}else{
+			var tid=$('input[name=task_id]').val();
+			$.post('/rest_web/tasks/task/pay/'+tid,function(res){
+				if(res.code==0){
+					go_sec(3);
+				}
+			});
+		}
+	});
+	$('#btn-prev').bind('click',function(){
+		location.href='/home/publish/post?task_id='+$('input[name=task_id]').val();
+	});
+	
+});
+go_sec(2);
+</script>
+{% endblock %}

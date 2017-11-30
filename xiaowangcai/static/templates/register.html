@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+{% block css %}
+<style type="text/css">
+.title {
+  width: 5em;
+  padding-top: 4px;
+  margin: 0 auto;
+  margin-top: 100px;
+  font-size: 22px;
+  color: #197db5;
+  margin-bottom: 52px;
+}
+.ipt-wrap {
+  margin-bottom: 19px !important;
+}
+.w-350 {
+  width: 350px;
+  margin: 0 auto;
+}
+.lr-ipt {
+  padding-left: 42px;
+  padding-right: 7px;
+  width: 300px;
+  font-size: 15px;
+  padding-top: 13px;
+  padding-bottom: 12px;
+  border: 1px solid #ececed;
+  color: #666;
+}
+.mtag {
+  top: 6px;
+  position: absolute;
+  left: 12px;
+}
+.ctag {
+  top: 13px;
+}
+.tag {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+}
+.tag_pic {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.code {
+  width: 140px;
+}
+.getcode {
+  position: absolute;
+  top: 18px;
+  right: 60px;
+}
+.error {
+  margin-top: 15px;
+  position: absolute;
+  top: 0px;
+  left: 360px;
+}
+.border-div{
+  margin: 14px 0px;
+  border: 1px solid #e5e5e5;
+  height: 765px;
+  width: 100%;
+  background-color: #fdfefe;
+}
+.btn-reg {
+  display: block;
+  margin: 0 auto;
+  margin-top: 60px;
+  margin-bottom: 9px;
+  width: 165px;
+  height: 42px;
+  border: none;
+  background: url(/static/image/web/index/btn_reg.png) center center no-repeat;
+  cursor: pointer;
+}
+.w-140 {
+  width: 140px;
+  margin: 0 auto;
+}
+.lr-ipt:focus
+{
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: thin dotted \9;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+</style>
+{% endblock %}
+{% block title %}注册{% endblock %}
+{% block header %}
+  {% include 'component/login_bar.html' %}
+{% endblock %}
+{% block main %}
+<div class='border-div'>
+   <p class='title' id="p_title">商家注册</p> 
+   <form class="p-r" id="form1" name="form1"> 
+    <div class="ipt-wrap w-350 p-r"> 
+     <input class="lr-ipt mobile" type="text" id="mobile" name="mobile" tabindex="1" placeholder="手机号" /> 
+     <img class="tag mtag" src="/static/image/web/index/mobile.png" /> 
+     <div class="error w-350" id="error_mobile">
+      *&nbsp;&nbsp;必填
+     </div> 
+    </div> 
+    <div class="ipt-wrap w-350 p-r"> 
+     <input class="lr-ipt mobile" type="text" id="confirm_code" name="confirm_code" tabindex="2" placeholder="验证码" /> 
+     <img class="tag ctag" src="/static/image/web/index/pic_code.png" /> 
+     <a onclick="refreshRandCode()">
+     <img class="tag_pic ctag" id="confirm_code_pic" src="/static/image/web/confirm_code/confirm_code_1.png" />
+     </a>
+     <div class="error w-350" id="error_mobile">
+      *&nbsp;&nbsp;必填
+     </div> 
+    </div> 
+    <div class="ipt-wrap w-350 p-r"> 
+     <input class="lr-ipt code" type="text" id="verifcode" name="verifcode" tabindex="2" placeholder="验证码" /> 
+     <img class="tag ctag" src="/static/image/web/index/code.png" /> 
+     <a class="striking getcode" id="send-sms">获取验证码</a> 
+     <div class="error w-350" id="error_verifcode" style="margin-top: 16px;"></div> 
+    </div> 
+    <div class="p-r ipt-wrap w-350"> 
+     <input class="lr-ipt pwd" type="password" id="password" name="password" tabindex="2" onblur="checkpassword()" placeholder="密码" /> 
+     <img class="tag" src="/static/image/web/index/lock.png" /> 
+     <div class="error w-350" id="error_password">
+     	*&nbsp;&nbsp;必填
+     </div> 
+    </div> 
+    <div class="ipt-wrap w-350 p-r"> 
+     <input class="lr-ipt spwd" type="password" id="surepassword" name="surepassword" tabindex="2" onblur="checksurepassword()" placeholder="确认密码" /> 
+     <img class="tag" src="/static/image/web/index/lock.png" /> 
+     <div class="error w-350" id="error_surepassword">
+      *&nbsp;&nbsp;必填
+     </div> 
+    </div> 
+    <div class="ipt-wrap w-350 p-r"> 
+     <input class="lr-ipt id" type="text" id="inviteid" name="inviteid" tabindex="2" placeholder="邀请人ID" /> 
+     <img class="tag ctag" src="/static/image/web/index/write.png" /> 
+     <span class="hint"></span> 
+    </div> 
+    <div class="ipt-wrap w-350 p-r"> 
+     <input class="lr-ipt mobile" type="text" id="qq" name="qq" tabindex="2" placeholder="QQ" /> 
+     <img class="tag mtag" src="/static/image/web/index/qq.png" /> 
+     <div class="error w-350" id="error_mobile">
+      *&nbsp;&nbsp;必填
+     </div> 
+    </div> 
+    <div class="w-350" align="center" id="error_sub" style="color: red;"></div> 
+    <div class="wrap-btn w-350"> 
+     <input class="submit btn-reg" type="button" id="submit" name="submit" tabindex="4" value="" /> 
+    </div> 
+    <div class="w-140"> 
+     <input class="gree" id="agree" name="agree" type="checkbox" tabindex="3" style="position: relative;top: 2px;" /> 我同意
+     <a class="striking" tabindex="2" target="_blank" onclick="show_protocol()">手赚协议</a>
+    </div> 
+   </form> 
+  </div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src='/static/js/lib/md5.js'></script>
+<script type="text/javascript" src='/static/js/lib/layer/layer.js'></script>
+<script type="text/javascript">
+function show_protocol(){
+	//iframe层
+	layer.open({
+    type: 2,
+    title: '用户协议',
+    shadeClose: true,
+    shade: 0.8,
+    area: ['960px', '90%'],
+    content: '/protocol' //iframe的url
+}); 
+}
+var rand_pic	= 0;
+function refreshRandCode() {
+    // 验证码图片放在服务器端
+    $.ajax({
+        type : 'get',
+        url : '/rest_web/users/refresh/randcode',
+        success: function(data){
+            $("#confirm_code_pic").attr("src", "data:image/gif;base64," + data.data.img);
+        }
+    });
+}
+
+var smsenable = true;
+var submitenable = true;
+$(document).ready(function() {
+	//rand_pic	= parseInt(Math.random()*10);
+	//document.getElementById("confirm_code_pic").src='/static/image/web/confirm_code/confirm_code_'+rand_pic+'.png';
+    $.ajax({
+        type : 'get',
+        url : '/rest_web/users/refresh/randcode',
+        success: function(data){
+            $("#confirm_code_pic").attr("src", "data:image/gif;base64," + data.data.img);
+        }
+    });
+    var searchObj=laifu.parse_search();
+    searchObj.inviterid&&parseInt(searchObj.inviterid)&&($('#inviteid').val(parseInt(searchObj.inviterid)));
+    $('#send-sms').bind('click',
+    function() {
+        if (smsenable) {
+            var errors = null;
+            var phone = $('#mobile').val();
+            (/^\d{11}$/.test(phone)) || (errors = '请输入正确手机号码');
+            if (errors) {
+                layer.msg(errors);
+                return;
+            }
+            var rand_code = $('#confirm_code').val();
+            if(rand_code == ''){
+            	layer.msg('请输入验证码');
+                return;
+            }
+            smsenable = false;
+            $.ajax({
+                type:'post',
+                url:'/rest_web/users/smscaptcha/request/' + phone,
+                dataType:'json',
+                data:{
+                    rand_code:rand_code
+                },
+                success:function(res){
+                    smsenable = true;
+                    if (res.code == 0) {
+                        layer.msg('发送成功');
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+{#            $.post('/rest_web/users/smscaptcha/request/' + phone,#}
+{#            function(res) {#}
+{#                smsenable = true;#}
+{#                if (res.code == 0) {#}
+{#                    layer.msg('发送成功');#}
+{#                }#}
+{#            });#}
+        }
+    });
+    $('#submit').bind('click',
+    function() {
+        if (submitenable) {
+            var errors = null;
+            var phone = $('#mobile').val();
+            (/^\d{11}$/.test(phone))|| (errors = '请输入正确手机号码');
+            if (errors) {
+                layer.tips(errors, '#mobile');
+                $("html,body").animate({scrollTop:$("#p_title").offset().top},10);
+                return;
+            }
+            var verifcode = $('#verifcode').val();
+            (/^\d{6}$/.test(verifcode))|| (errors = '验证码错误');
+            if(verifcode =="")
+            {
+            	layer.tips('验证码不能为空', '#verifcode');
+            	$("html,body").animate({scrollTop:$("#p_title").offset().top},10);
+                return;
+            }
+            if (errors) {
+                layer.tips(errors, '#verifcode');
+                $("html,body").animate({scrollTop:$("#p_title").offset().top},10);
+                return;
+            }
+            var password = $('#password').val();
+            (/^.{6,}$/.test(password))|| (errors = '密码至少为6位');
+            if (errors) {
+                layer.tips(errors, '#password');
+                $("html,body").animate({scrollTop:$("#p_title").offset().top},10);
+                return;
+            }
+            var surepassword = $('#surepassword').val();
+            if(surepassword == "")
+            {
+            	layer.tips('请确认密码', '#surepassword');
+            	$("html,body").animate({scrollTop:$("#p_title").offset().top},10);
+            	return;
+            }
+            
+            password == surepassword || (errors = '两次输入密码不一致');
+            if (errors) {
+                layer.msg(errors);
+                return;
+            }
+            
+            var qq = $('#qq').val();
+            if(qq == "")
+            {
+            	layer.tips('请填写QQ号', '#qq');
+            	$("html,body").animate({scrollTop:$("#p_title").offset().top},10);
+            	return;
+            }
+            
+            var inviteid = $('#inviteid').val();
+            $('#agree')[0].checked || (errors = '请同意手赚协议');
+            if (errors) {
+                layer.msg(errors);
+                return;
+            }
+            if(inviteid){
+            	/^[0-9]+$/.test(inviteid) || (errors = '请输入正确邀请人ID');
+            }
+            if (errors) {
+                layer.tips(errors, '#inviteid');
+                $("html,body").animate({scrollTop:$("#p_title").offset().top},10);
+                return;
+            }
+            $.post('/rest_web/users/user/create',{
+            	'phone':phone,
+            	'captcha':verifcode,
+            	'password':$.md5(password),
+            	'inviter':inviteid,
+            	'qq':qq,
+            },
+            function(res) {
+                smsenable = true;
+                
+                if (res.code == 0) {
+                    layer.msg('注册成功');
+                    location.href='/login';
+                }
+                else if(res.code == -103){
+                	layer.msg('用户已存在,请直接点击右上角 商家登录  进行登陆 ！');
+                }
+                else if(res.code == -104){
+                	//layer.msg('验证码错误');
+                	layer.tips('验证码错误', '#verifcode');
+                	$("html,body").animate({scrollTop:$("#p_title").offset().top},10);
+                }
+                else{
+                  layer.msg('注册失败');
+                }
+            });
+        }
+
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "home/home_.html" %}
+{% block section_css %}
+<style type="text/css">
+.title {
+    margin: 40px 28px 24px 28px;
+    padding-bottom: 40px;
+    border-bottom: 3px solid #dee1e2;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+    color: #171717;
+}
+.notice-ct {
+    line-height: 3.0em;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 172px;
+}
+.pge {
+    margin-bottom: 35px;
+}
+.title .r_time {
+    position: absolute;
+    bottom: 5px;
+    right: 6px;
+    font-size: 13px;
+    font-weight: normal;
+    color: #9d9c9a;
+}
+</style>
+{% endblock %}
+{% block section_title %}公告详情{% endblock %}
+{% block section %}
+  <div class="title p-r">
+    {{notice.title}} 
+   <span class="r_time">发布时间：{{notice.create_date}} </span> 
+  </div> 
+  <div class="notice-ct"> 
+   <div class="pge" id="ndetail" data-content="{{notice.content}}"> 
+   </div> 
+  </div>
+{% endblock %}
+{% block section_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#ndetail').html($('#ndetail').data('content'));
+  });
+</script>>
+{% endblock %}

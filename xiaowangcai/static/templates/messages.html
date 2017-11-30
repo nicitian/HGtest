@@ -1,0 +1,49 @@
+{% extends "default_header_.html" %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/message.css" />
+{% endblock %}
+{% block main%}
+  <div class="w-1k panel"> 
+   <h2 class="mesctt">消息中心</h2> 
+   <div class="ut-wrap f-cb"> 
+    <div class="f-fl upanel"> 
+     <div class="utop">
+      最近联系人
+      <span class="add-new" id="bt-addnew">新增</span>
+      <a style="display:none" id="contact_to_buyer" data-buyer-id="{{ target_id }}"></a>
+     </div> 
+     <ul class="ulist" id="userlist"> 
+     </ul> 
+    </div> 
+    <div class="f-fl dpanel f-pr"> 
+     <div id="loadmsgbuffer"> 
+      <img src="images/load.gif" /> 
+     </div> 
+     <div class="dtop" id="dtop">
+      当前没有聊天人
+     </div> 
+     <ul class="chartct bubble" id="chartct"></ul> 
+     <div class="bar"></div> 
+     <div class="uipt f-pr"> 
+      <div id="sendbuffer">
+       <img src="images/load.gif" />
+      </div> 
+      <textarea id="ipt"></textarea> 
+     </div> 
+     <div class="btopt f-cb"> 
+      <input class="f-fr" id="send" type="button" /> 
+     </div> 
+    </div> 
+   </div> 
+  </div>
+  <div class="center-box" id="add-new-dialog">
+    <h1 class='add-h1'>请输入对方手赚ID</h1>
+    <div class='div-add-laifu'><input id='add-laifu-id' type="text" /></div>
+    <div class='div-btns'><button class='btn-add' id='btn-add-submit'>确定</button><button class='btn-add' id='btn-add-cancel'>取消</button></div>
+  </div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/static/js/messages.js"></script>
+<script type="text/javascript">
+</script>
+{% endblock %}

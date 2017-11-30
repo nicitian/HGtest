@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+		<title>用户信息</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" href="css/datepicker.css">
+		<link rel="stylesheet" href="css/select2.css">
+		<link rel="stylesheet" href="css/unicorn.main.css">
+		<link rel="stylesheet" href="css/self-define.css">
+		<link rel="stylesheet" href="css/unicorn.red.css" class="skin-color" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+	<body>
+		
+		
+		<div id="header">
+			<h1><a href="./index.html">任务管理</a></h1>		
+		</div>
+		
+		<div id="search">
+			<input type="text" placeholder="搜索..."><button type="submit" class="tip-right" data-original-title="Search"><i class="icon-search icon-white"></i></button>
+		</div>
+		<div id="user-nav" class="navbar navbar-inverse">
+			<ul class="nav btn-group" style="width: auto; margin: 0px;">
+				<li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text">用户</span></a></li>
+				<li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">设置</span></a></li>
+				<li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
+			</ul>
+		</div>
+						
+		<div id="sidebar">
+			<a href="#" class="visible-phone"><i class="icon icon-home"></i> 首页</a>
+			<ul>
+				<li><a href="index.html"><i class="icon icon-home"></i> <span>首页</span></a></li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-pencil"></i> <span>资金管理</span> <span class="label">4</span></a>
+					<ul>
+						<li><a href="acc_manage.html">账户管理</a></li>
+						<li><a href="rebate_manage.html">返款管理</a></li>
+						<li><a href="fund_detail.html">资金明细</a></li>
+						<li><a href="recharge_manage.html">充值管理</a></li>
+					</ul>
+				</li>
+				<li class="active"><a href="user_info.html"><i class="icon icon-user"></i> <span>用户审核</span></a></li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-file"></i> <span>账号审核</span> <span class="label">5</span></a>
+					<ul>
+						<li><a href="user_level.html">用户等级</a></li>
+						<li><a href="identity_info.html">身份信息</a></li>
+						<li><a href="credit_card.html">银行卡信息</a></li>
+						<li><a href="taobao_acc.html">淘宝账号</a></li>
+						<li><a href="store_info.html">店铺信息</a></li>
+					</ul>
+				</li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-tasks"></i> <span>任务中心</span> <span class="label">3</span></a>
+					<ul>
+						<li><a href="task_manage.html">任务管理</a></li>
+						<li><a href="order_manage.html">订单管理</a></li>
+						<li><a href="problem_orders.html">问题订单</a></li>
+					</ul>
+				</li>
+				<li><a href="notice_manage.html"><i class="icon icon-bullhorn"></i> <span>公告管理</span></a></li>
+				<li><a href="appeal_center.html"><i class="icon icon-comment"></i> <span>申述中心</span></a></li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-wrench"></i> <span>平台账号</span> <span class="label">2</span></a>
+					<ul>
+						<li><a href="pl_acc_manage.html">账号管理</a></li>
+						<li><a href="authority_manage.html">权限管理</a></li>
+					</ul>
+				</li>
+                 <li class="submenu">
+                    <a href="#"><i class="icon icon-book"></i> <span>其他</span> <span class="label">2</span></a>
+                    <ul>
+                        <li><a href="tk_manage.html">淘宝客管理</a></li>
+                        <li><a href="tk_ad_manage.html">淘宝客广告管理</a></li>
+                    </ul>
+                </li>
+			</ul>
+		</div>
+		
+		<div id="style-switcher">
+			<i class="icon-arrow-left icon-white"></i>
+			<span>Style:</span>
+			<a href="#grey" style="background-color: #555555;border-color: #aaaaaa;"></a>
+			<a href="#blue" style="background-color: #2D2F57;"></a>
+			<a href="#red" style="background-color: #673232;"></a>
+		</div>
+		
+		<div id="content">
+			<div id="content-header">
+				<h1>用户信息</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="index.html" class="tip-bottom" data-original-title="返回首页"><i class="icon-home"></i> 首页</a>
+				<a href="#" class="tip-bottom" data-original-title="">任务中心</a>
+				<a href="#" class="current">用户信息</a>
+			</div>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="widget-box">
+							<div class="widget-title">
+								<span class="icon"><i class="icon-file"></i></span>
+								<h5>用户信息</h5>
+							</div>
+							<div class="widget-content nopadding">
+								<div class="invoice-content">
+									<form class="form-inline">
+										<div class="control-group">
+											<div class="controls control-s-p">
+												<label class="control-label">手赚ID</label>
+												<input type="text" class="input-small" id="ipt_laifu_id">
+												<label class="control-label label-s-p">QQ</label>
+												<input type="text" class="input-small" id="ipt_qq_num">
+												<label class="control-label label-s-p">手机</label>
+												<input type="text" class="input-small" id="ipt_mobile_num">
+												<label class="control-label label-s-p">注册时间</label>
+												<input type="text" data-date="2015-01-01" data-date-format="yyyy-mm-dd" class="datepicker input-small" id="ipt_reg_time">
+												<label class="control-label label-s-p">用户等级</label>
+												<select id="slt_user_level">
+													<option value='0'/>选择
+													<option value='1'/>LV1
+													<option value='2'/>LV2
+													<option value='3'/>LV3
+													<option value='4'/>LV4
+													<option value='5'/>LV5
+													<option value='6'/>LV6
+												</select>
+												<input type="botton" class="btn btn-primary f-ml-20" style="width:30px" onclick="search_user_info()" value="搜索">
+											</div>
+											<!--div class="controls control-noborder">
+												<label class="control-label">用户等级</label>
+												<select id="slt_user_level">
+													<option value='0'/>选择
+													<option value='1'/>LV1
+													<option value='2'/>LV2
+													<option value='3'/>LV3
+													<option value='4'/>LV4
+													<option value='5'/>LV5
+													<option value='6'/>LV6
+												</select>
+												<label class="control-label label-s-p">身份状态</label>
+												<select id="slt_idc_status">
+													<option value='0'/>请选择
+													<option value='1'/>未审核
+													<option value='2'/>已通过
+													<option value='3'/>未通过
+												</select id="slt_card_status">
+												<label class="control-label label-s-p">银行卡状态</label>
+												<select id>
+													<option value='0'/>请选择
+													<option value='1'/>未审核
+													<option value='2'/>已通过
+													<option value='3'/>未通过
+												</select>
+												<label class="control-label label-s-p">淘宝状态</label>
+												<select id="slt_taobao_status">
+													<option value='0'/>请选择
+													<option value='1'/>未审核
+													<option value='2'/>已通过
+													<option value='3'/>未通过
+												</select>
+												<label class="control-label label-s-p">店铺状态</label>
+												<select id="slt_store_status">
+													<option value='0'/>请选择
+													<option value='1'/>未审核
+													<option value='2'/>已通过
+													<option value='3'/>未通过
+												</select>
+												
+												<input type="botton" class="btn btn-primary f-ml-20" style="width:30px" onclick="search_user_info()" value="搜索">
+											</div-->
+										</div>
+									</form>
+									<div id="user_info_list">
+										<!--div class="widget-box">
+											<div class="widget-title">
+												<span class="icon"><i class="icon-user"></i></span>
+												<h5>王小二</h5>
+											</div>
+											<div class="widget-content nopadding">
+												<div class="control-group">
+													<div class="controls">
+														<ul class="recent-posts clearfix">
+															<li>
+																<a href="#user_pic" data-toggle="modal" width="80" height="80" class="thumbnail f-fl">
+																	<img width="80" height="80" src="http://7xkvel.com1.z0.glb.clouddn.com/FmBkTbKUKVokvfyYtOef3K8f2d7L">
+																</a>
+																<div class="f-fl f-ml notify-ui">
+																	<ul id="gritter-notify">
+																		<li style="text-align: left;"><span class="label label-info">姓名&nbsp&nbsp&nbsp</span>：黄天南</li>
+																		<li style="text-align: left;"><span class="label label-info">手赚ID</span>：64123</li>
+																		<li style="display:none;"></li>
+																	</ul>
+																</div>
+																<div class="f-fl f-ml notify-ui">
+																	<ul id="gritter-notify">
+																		<li style="text-align: left;"><span class="label label-info">QQ&nbsp&nbsp&nbsp</span>：334057340</li>
+																		<li style="text-align: left;"><span class="label label-info">手机</span>：18688653936</li>
+																		<li style="display:none;"></li>
+																	</ul>
+																</div>
+																<div class="f-fl f-ml notify-ui">
+																	<ul id="gritter-notify">
+																		<li style="text-align: left;"><span class="label label-info">用户等级</span>：LV1&nbsp&nbsp&nbsp<a href="#level_modify" data-toggle="modal">修改</a></li>
+																		<li style="text-align: left;"><span class="label label-info">注册时间</span>：2015-10-07 16:41:32</li>
+																		<li style="display:none;"></li>
+																	</ul>
+																</div>
+																<div class="f-fr opt-c">
+																	<ul class="stats-plain">
+																		<li style="border-bottom: 0px;">
+																			<a href="">
+																			<h4>320</h4>
+																			<span>本金账户</span>
+																			</a>
+																		</li>
+																		<li>
+																			<a href="">
+																			<h4>159</h4>
+																			<span>佣金账户</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</li>
+														</ul>
+														<table class="table s-table-bordered" id="taobao_table">
+															<thead>
+																<tr>
+																	<th>淘宝账号</th>
+																	<th>姓名</th>
+																	<th>手机</th>
+																	<th>收货地址</th>
+																	<th>信誉等级实名认证图</th>
+																	<th>审核状态</th>
+																	<th></th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr id="taobao_list">
+																	<td id="taobao_acc">java12893</td>
+																	<td id="user_name">曾惠君</td>
+																	<td id="user_phone">13165516950</td>
+																	<td id="user_addr">江西省赣州市赣县梅林镇梅林大街55号</td>
+																	<td id="credit_pic"><a href="#taobao_pic1" data-toggle="modal">查看详情</a></td>
+																	<td id="verify_status" style="width: 34px;"><span class="label label-important">审核不过</span></td>
+																	<td id="pass_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="通过" onclick=""><i class="icon-ok"></i></a></td>
+																	<td id="refuse_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="驳回" onclick=""><i class="icon-remove"></i></a></td>
+																</tr>
+																<tr id="taobao_list">
+																	<td id="taobao_acc">java12893</td>
+																	<td id="user_name">曾惠君</td>
+																	<td id="user_phone">13165516950</td>
+																	<td id="user_addr">江西省赣州市赣县梅林镇梅林大街55号</td>
+																	<td id="credit_pic"><a href="#taobao_pic2" data-toggle="modal">查看详情</a></td>
+																	<td id="verify_status" style="width: 34px;"><span class="label">未审核&nbsp&nbsp&nbsp&nbsp</span></td>
+																	<td id="pass_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="通过" onclick=""><i class="icon-ok"></i></a></td>
+																	<td id="refuse_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="驳回" onclick=""><i class="icon-remove"></i></a></td>
+																</tr>
+															</tbody>
+														</table>
+														<table class="table s-table-bordered" id="credit_table">
+															<thead>
+																<tr>
+																	<th>姓名</th>
+																	<th>银行名称</th>
+																	<th>银行账号</th>
+																	<th>开户行信息</th>
+																	<th>归属地</th>
+																	<th>审核状态</th>
+																	<th></th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr id="credit_list">
+																	<td id="user_name">潘伟鹏</td>
+																	<td id="bank_name">中国农业银行</td>
+																	<td id="bank_acc">6228480688023661970</td>
+																	<td id="card_bank">罗东支行</td>
+																	<td id="card_region">福建省泉州市南安市</td>
+																	<td id="verify_status" style="width: 34px;"><span class="label">未审核&nbsp&nbsp&nbsp&nbsp</span></td>
+																	<td id="pass_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="通过" onclick=""><i class="icon-ok"></i></a></td>
+																	<td id="refuse_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="驳回" onclick=""><i class="icon-remove"></i></a></td>
+																</tr>
+																<tr id="credit_list">
+																	<td id="user_name">潘伟鹏</td>
+																	<td id="bank_name">中国农业银行</td>
+																	<td id="bank_acc">6228480688023661970</td>
+																	<td id="card_bank">罗东支行</td>
+																	<td id="card_region">福建省泉州市南安市</td>
+																	<td id="verify_status" style="width: 34px;"><span class="label">未审核&nbsp&nbsp&nbsp&nbsp</span></td>
+																	<td id="pass_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="通过" onclick=""><i class="icon-ok"></i></a></td>
+																	<td id="refuse_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="驳回" onclick=""><i class="icon-remove"></i></a></td>
+																</tr>
+															</tbody>
+														</table>
+														<table class="table s-table-bordered" id="store_table">
+															<thead>
+																<tr>
+																	<th>店铺名称</th>
+																	<th>店铺旺旺</th>
+																	<th>发货地址</th>
+																	<th>店铺网址</th>
+																	<th>审核状态</th>
+																	<th></th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr id="store_list">
+																	<td id="store_name">糖果家族 定制女装</td>
+																	<td id="store_ww">小糖糖LOVE</td>
+																	<td id="send_addr">山东-青岛-即墨</td>
+																	<td id="store_addr"><a href="http://miaomiaoren.taobao.com" target="_blank">http://miaomiaoren.taobao.com</a></td>
+																	<td id="verify_status" style="width: 34px;"><span class="label label-success">审核通过</span></td>
+																	<td id="pass_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="通过" onclick=""><i class="icon-ok"></i></a></td>
+																	<td id="refuse_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="驳回" onclick=""><i class="icon-remove"></i></a></td>
+																</tr>
+																<tr id="store_list">
+																	<td id="store_name">糖果家族 定制女装</td>
+																	<td id="store_ww">小糖糖LOVE</td>
+																	<td id="send_addr">山东-青岛-即墨</td>
+																	<td id="store_addr"><a href="http://miaomiaoren.taobao.com" target="_blank">http://miaomiaoren.taobao.com</a></td>
+																	<td id="verify_status" style="width: 34px;"><span class="label label-success">审核通过</span></td>
+																	<td id="pass_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="通过" onclick=""><i class="icon-ok"></i></a></td>
+																	<td id="refuse_oper" style="width: 34px;"><a href="" class="tip-top" data-original-title="驳回" onclick=""><i class="icon-remove"></i></a></td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div-->
+									</div>
+									<div id="id_page_count" class="pagination alternate" style="width: 800px;margin: 20px auto;">
+									<!--ul>
+										<li><a href="#">上一页</a></li>
+										<li class="active">
+											<a href="#">1</a>
+										</li>
+										<li><a href="#">2</a></li>
+										<li><a href="#">3</a></li>
+										<li><a href="#">4</a></li>
+										<li><a href="#">5</a></li>
+										<li><a href="#">下一页</a></li>
+									</ul-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						2015 © 版权所有 杭州手赚科技有限公司 <a href="http://120.26.214.214/">(ShouZhuan)</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="user_level_mod">
+			<input type="hidden" id="user_id4lv">
+			<div id="level_modify" class="modal hide in" aria-hidden="false" style="display: none;">
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">×</button>
+					<h3>用户等级修改</h3>
+				</div>
+				<div class="modal-body">
+					<div style="float: left; margin-top: 5px;">调整等级至：</div>
+					<div class="pagination alternate" style="margin-top: 0px;" id="id_level_li">
+						<ul>
+							<li id="lv1"><a onclick="modify_level(1)">LV1</a></li>
+							<li id="lv2"><a onclick="modify_level(2)">LV2</a></li>
+							<li id="lv3"><a onclick="modify_level(3)">LV3</a></li>
+							<li id="lv4"><a onclick="modify_level(4)">LV4</a></li>
+							<li id="lv5"><a onclick="modify_level(5)">LV5</a></li>
+							<li id="lv6"><a onclick="modify_level(6)">LV6</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="user_acc_mod">
+			<div id="acc_detail" class="modal hide in" aria-hidden="false" style="display: none;">
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">×</button>
+					<h3>用户等级修改</h3>
+				</div>
+				<div class="modal-body">
+					<table class="table s-table-bordered" id="fund_table">
+						<thead>
+							<tr>
+								<th>时间</th>
+								<th>收/支</th>
+								<th>内容</th>
+								<th>金额(金)</th>
+								<th>余额(金)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!--tr id="fund_list" style="">
+								<td id="id_time">2015-10-11 15:12:45</td>
+								<td id="fund_type">1</td>
+								<td id="id_content">签到奖励</td>
+								<td id="id_fund">0.25</td>
+								<td id="id_balance">78.44</td>
+							</tr-->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="user_idc_pic">
+			<!--div id="user_pic" class="modal hide in" aria-hidden="false" style="display: none;">
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">×</button>
+					<h3>身份证及照片信息</h3>
+				</div>
+				<div class="modal-body">
+					<ul class="recent-posts" id="evidence_detail">
+						<li><img width="100%" src="http://7xkvel.com1.z0.glb.clouddn.com/Fi7yvmGCXKSf7yl0SdmYvD_UgyWo"></li>
+						<li><img width="100%" src="http://7xkvel.com1.z0.glb.clouddn.com/FmBkTbKUKVokvfyYtOef3K8f2d7L"></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<a data-dismiss="modal" class="btn btn-primary" href="#">通过</a>
+					<a data-dismiss="modal" class="btn" href="#">取消</a>
+				</div>
+			</div-->
+		</div>
+		<div id="store_idc_pic">
+			<!--div id="taobao_pic1" class="modal hide in" aria-hidden="false" style="display: none;">
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">×</button>
+					<h3>信誉等级实名认证图</h3>
+				</div>
+				<div class="modal-body">
+					<ul class="recent-posts" id="evidence_detail">
+						<li><img width="100%" src="http://7xkvel.com1.z0.glb.clouddn.com/FkW8P_FkBn3bV0Dd8qnrDenHReyG"></li>
+						<li><img width="100%" src="http://7xkvel.com1.z0.glb.clouddn.com/Fqthb1oOBfeCji2h0l1muCskG_aB"></li>
+					</ul>
+				</div>
+			</div>
+			<div id="taobao_pic2" class="modal hide in" aria-hidden="false" style="display: none;">
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">×</button>
+					<h3>信誉等级实名认证图</h3>
+				</div>
+				<div class="modal-body">
+					<ul class="recent-posts" id="evidence_detail">
+						<li><img width="100%" src="http://7xkvel.com1.z0.glb.clouddn.com/FkW8P_FkBn3bV0Dd8qnrDenHReyG"></li>
+						<li><img width="100%" src="http://7xkvel.com1.z0.glb.clouddn.com/Fqthb1oOBfeCji2h0l1muCskG_aB"></li>
+					</ul>
+				</div>
+			</div-->
+		</div>
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.ui.custom.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/bootstrap-colorpicker.js"></script>
+		<script src="js/bootstrap-datepicker.js"></script>
+		<script src="js/jquery.uniform.js"></script>
+		<script src="js/select2.min.js"></script>
+		<script src="js/unicorn.js"></script>
+		<script src="js/unicorn.form_common.js"></script>
+
+        <script type="text/javascript">
+        $(".admin_lahei").hover(function(){
+            this.background=f2f2f2;
+        },function(){
+            this.background=red;
+        });
+        function func_normalize_user(e,user_id){
+            $.ajax({
+					type: "post",
+					async:false,
+					dataType: "json",
+					url: "/rest_web/users/user/2normal/"+user_id,
+					data: "",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+                            e.outerHTML="<span class='label label-important admin_lahei' onclick=func_admin_lahei(this,"+user_id+")>冻结</span>";
+                            alert("解冻成功！");
+                            return true;
+                        }
+                        else{
+                            alert("冻结失败！");
+                            return false;
+                        }
+					}
+				});
+                return true;
+        }
+        function func_admin_lahei(e,user_id){
+            $.ajax({
+					type: "post",
+					async:false,
+					dataType: "json",
+					url: "/rest_web/users/user/adminlahei/"+user_id,
+					data: "",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+                            e.outerHTML="<span class='label label-important normalize_user' onclick=func_normalize_user(this,"+ user_id+")>已冻结</span>";
+                            alert("冻结成功！");
+                            return true;
+                        }
+                        else{
+                            alert("冻结失败！");
+                            return false;
+                        }
+					}
+				});
+                return true;
+        }
+        function func_reset_imei(user_id){
+                $.ajax({
+					type: "post",
+					async:false,
+					dataType: "json",
+					url: "/rest_web/users/user/resetimei/"+user_id,
+					data: "",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+                            alert("设备信息重置成功！");
+                            return true;
+                        }
+                        else{
+                            alert("设备信息重置失败！");
+                            return false;
+                        }
+					}
+				});
+                return true;
+            }
+        </script>
+		<script type="text/javascript">
+			var step_size	= 10;	//步长
+			var current_page	= 1;	//当前页
+			var total_page;	//总页数
+			var current_url	= "";	//当前url
+			var page_step	=9;	//显示页码数
+			var left_page;
+			var rigth_page;
+			var user_id_list	= new Array();
+			Date.prototype.format = function(format){ 
+				var o = { 
+					"M+" : this.getMonth()+1, //month 
+					"d+" : this.getDate(), //day 
+					"h+" : this.getHours(), //hour 
+					"m+" : this.getMinutes(), //minute 
+					"s+" : this.getSeconds(), //second 
+					"q+" : Math.floor((this.getMonth()+3)/3), //quarter 
+					"S" : this.getMilliseconds() //millisecond 
+				}
+				
+				if(/(y+)/.test(format)) { 
+					format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+				} 
+				
+				for(var k in o) { 
+					if(new RegExp("("+ k +")").test(format)) { 
+						format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length)); 
+					} 
+				} 
+				return format; 
+			}
+			function idc_confirm_pass(id){
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/users/user/verify/"+id,
+					data: "verify_status=1",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+							go_page(current_page);
+						}
+					}
+				});
+			}
+			function idc_refuse_pass(id){
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/users/user/verify/"+id,
+					data: "verify_status=2",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+							go_page(current_page);
+						}
+					}
+				});
+			}
+			function tba_confirm_pass(id){
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/users/tbaccount/verify/"+id,
+					data: "verify_status=1",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+							go_page(current_page);
+						}
+					}
+				});
+			}
+			function tba_refuse_pass(id){
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/users/tbaccount/verify/"+id,
+					data: "verify_status=2",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+							go_page(current_page);
+						}
+					}
+				});
+			}
+			function crd_confirm_pass(id){
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/users/bankcard/verify/"+id,
+					data: "verify_status=1",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+							go_page(current_page);
+						}
+					}
+				});
+			}
+			function crd_refuse_pass(id){
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/users/bankcard/verify/"+id,
+					data: "verify_status=2",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+							go_page(current_page);
+						}
+					}
+				});
+			}
+			function sto_confirm_pass(id){
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/tasks/store/verify/"+id,
+					data: "verify_status=1&istm=0",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+							go_page(current_page);
+						}
+					}
+				});
+			}
+			function sto_refuse_pass(id){
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/tasks/store/verify/"+id,
+					data: "verify_status=2&istm=0",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+							go_page(current_page);
+						}
+					}
+				});
+			}
+			function modify_level(lv){
+				$("#id_level_li ul li").removeClass();
+				document.getElementById("lv"+lv).className="active";
+				
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/users/user/setbuyerlevel/"+document.getElementById("user_id4lv").value,
+					data: "level="+lv,
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						if(msg.code==0){
+							go_page(current_page);
+						}
+					}
+				});
+			}
+			function modify_user_level(id,buyer_level){
+				$("#id_level_li ul li").removeClass();
+				document.getElementById("lv"+buyer_level).className="active";
+				document.getElementById("user_id4lv").value	= id;
+			}
+			function get_acc_detail(id){
+				var tb_row	='<tr id="fund_list"><td id="id_time"></td><td id="fund_type"></td><td id="id_content"></td><td id="id_fund"></td><td id="id_balance"></td><td id="rebate_bottom"></td></tr>';
+				$("#fund_table tbody").empty();
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/users/record/list?user_id="+id,
+					data: "",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						//获取数据
+						var data = msg.data.records;
+						$.each(data, function(i, n){
+							var row = $(tb_row);
+							var create_time=new Date(n.create_time);
+							row.find("#id_time").text(create_time.format("yyyy-MM-dd hh:mm:ss"));
+							row.find("#fund_type").text(n.type);
+							row.find("#id_content").text(n.description);
+							row.find("#id_fund").text(n.amount);
+							row.find("#id_balance").text(n.balance);
+							row.appendTo("#fund_table");
+						});
+					}
+				});
+			}
+			function get_user_taobao(){
+				var taobao_pic_list	= "";
+				for(var i=0;i<user_id_list.length;i++){
+					var tb_row	='<tr id="taobao_list"><td id="taobao_acc"></td><td id="user_name"></td><td id="user_phone"></td><td id="user_addr"></td><td id="credit_pic"></td><td id="verify_status" style="width: 34px;"></td><td id="pass_oper" style="width: 34px;"></td><td id="refuse_oper" style="width: 34px;"></td></tr>';
+					$.ajax({
+						type: "get",
+						async:false,
+						dataType: "json",
+						url: "/rest_web/management/user/listtbaccount/"+user_id_list[i],
+						data: "",
+						complete :function(){$("#load").hide();},
+						success: function(msg){
+							//获取数据
+							var data = msg.data;
+							$.each(data, function(i, n){
+								var row = $(tb_row);
+								
+								row.find("#taobao_acc").text(n.wangwang);
+								row.find("#user_name").text(n.name);
+								row.find("#user_phone").text(n.phone);
+								row.find("#user_addr").text(n.address);
+								row.find("#credit_pic").html('<a href="#taobao_pic_'+user_id_list[i]+'_'+n.id+'" data-toggle="modal">查看详情</a>');
+								if(n.status == 0){
+									row.find("#verify_status").html('<span class="label">未审核&nbsp&nbsp&nbsp&nbsp</span>');
+								}else if(n.status == 1){
+									row.find("#verify_status").html('<span class="label label-success">审核通过</span>');
+								}else if(n.status == 2){
+									row.find("#verify_status").html('<span class="label label-important">审核不过</span>');
+								}
+								row.find("#pass_oper").html('<a href="" class="tip-top" data-original-title="通过" onclick="tba_confirm_pass('+n.id+')"><i class="icon-ok"></i></a>');
+								row.find("#refuse_oper").html('<a href="" class="tip-top" data-original-title="驳回" onclick="tba_refuse_pass('+n.id+')"><i class="icon-remove"></i></a>');
+								
+								row.appendTo("#taobao_table_"+n.user_id);
+								
+								var taobao_pic_arr	= new Array();
+								if(n.pic_paths == ""){
+									taobao_pic_arr[0]	= "";
+									taobao_pic_arr[1]	= "";
+								}else{
+									taobao_pic_arr	= eval('('+n.pic_paths+')');
+								}
+								
+								taobao_pic_list	+= '<div id="taobao_pic_'+user_id_list[i]+'_'+n.id+'" class="modal hide in" aria-hidden="false" style="display: none;">'
+									+'<div class="modal-header">'
+										+'<button data-dismiss="modal" class="close" type="button">×</button>'
+										+'<h3>信誉等级实名认证图</h3>'
+									+'</div>'
+									+'<div class="modal-body">'
+										+'<ul class="recent-posts" id="evidence_detail">'
+											+'<li><img width="100%" src="'+taobao_pic_arr[0]+'"></li>'
+											+'<li><img width="100%" src="'+taobao_pic_arr[1]+'"></li>'
+										+'</ul>'
+									+'</div>'
+								+'</div>';
+							});
+						}
+					});
+				}
+				document.getElementById('store_idc_pic').innerHTML=taobao_pic_list;
+				$('.tip-top').tooltip({ placement: 'top' });
+			}
+			function get_user_card(){
+				for(var i=0;i<user_id_list.length;i++){
+					var tb_row	='<tr id="credit_list"><td id="user_name"></td><td id="bank_name"></td><td id="bank_acc"></td><td id="card_bank"></td><td id="card_region"></td><td id="verify_status" style="width: 34px;"></td><td id="pass_oper" style="width: 34px;"></td><td id="refuse_oper" style="width: 34px;"></td></tr>';
+					$.ajax({
+						type: "get",
+						async:false,
+						dataType: "json",
+						url: "/rest_web/management/user/listbankcard/"+user_id_list[i],
+						data: "",
+						complete :function(){$("#load").hide();},
+						success: function(msg){
+							//获取数据
+							var data = msg.data;
+							$.each(data, function(i, n){
+								var row = $(tb_row);
+								
+								row.find("#user_name").text(n.owner_name);
+								row.find("#bank_name").text(n.bank_name);
+								row.find("#bank_acc").text(n.account_id);
+								row.find("#card_bank").text(n.account_name);
+								row.find("#card_region").text(n.bank_city);
+								if(n.verify_status == 0){
+									row.find("#verify_status").html('<span class="label">未审核&nbsp&nbsp&nbsp&nbsp</span>');
+								}else if(n.verify_status == 1){
+									row.find("#verify_status").html('<span class="label label-success">审核通过</span>');
+								}else if(n.verify_status == 2){
+									row.find("#verify_status").html('<span class="label label-important">审核不过</span>');
+								}
+								row.find("#pass_oper").html('<a href="" class="tip-top" data-original-title="通过" onclick="crd_confirm_pass('+n.id+')"><i class="icon-ok"></i></a>');
+								row.find("#refuse_oper").html('<a href="" class="tip-top" data-original-title="驳回" onclick="crd_refuse_pass('+n.id+')"><i class="icon-remove"></i></a>');
+								
+								row.appendTo("#credit_table_"+n.user_id);
+							});
+						}
+					});
+				}
+				$('.tip-top').tooltip({ placement: 'top' });
+			}
+			function get_user_store(){
+				for(var i=0;i<user_id_list.length;i++){
+					var tb_row	='<tr id="store_list"><td id="store_name"></td><td id="store_ww"></td><td id="send_addr"></td><td id="store_addr" style="width: 300px;"></td><td id="verify_status" style="width: 34px;"></td><td id="pass_oper" style="width: 34px;"></td><td id="refuse_oper" style="width: 34px;"></td></tr>';
+					$.ajax({
+						type: "get",
+						async:false,
+						dataType: "json",
+						url: "/rest_web/management/user/storeinfo/"+user_id_list[i],
+						data: "",
+						complete :function(){$("#load").hide();},
+						success: function(msg){
+							//获取数据
+							var data = msg.data;
+							$.each(data, function(i, n){
+								var row = $(tb_row);
+								
+								row.find("#store_name").text(n.name);
+								row.find("#store_ww").text(n.wangwang);
+								row.find("#send_addr").text(n.address);
+								row.find("#store_addr").html('<a href="'+n.url+'" target="_blank">'+n.url+'</a>');
+								if(n.verify_status == 0){
+									row.find("#verify_status").html('<span class="label">未审核&nbsp&nbsp&nbsp&nbsp</span>');
+								}else if(n.verify_status == 1){
+									row.find("#verify_status").html('<span class="label label-success">审核通过</span>');
+								}else if(n.verify_status == 2){
+									row.find("#verify_status").html('<span class="label label-important">审核不过</span>');
+								}
+								row.find("#pass_oper").html('<a href="" class="tip-top" data-original-title="通过" onclick="sto_confirm_pass('+n.id+')"><i class="icon-ok"></i></a>');
+								row.find("#refuse_oper").html('<a href="" class="tip-top" data-original-title="驳回" onclick="sto_refuse_pass('+n.id+')"><i class="icon-remove"></i></a>');
+								
+								row.appendTo("#store_table_"+n.user_id);
+							});
+						}
+					});
+				}
+				$('.tip-top').tooltip({ placement: 'top' });
+			}
+			function go2page(){
+				go_page(document.getElementById('ipt_page_num').value);
+			}
+			function init_page(){
+				//设置当前url
+				if(current_url == ""){
+					current_url	="/rest_web/users/user/list?start=0&num="+step_size;
+				}
+				if(document.getElementById('ipt_laifu_id').value != ""){
+					current_url	+= "&user_id=" + document.getElementById('ipt_laifu_id').value + "&";
+				}
+				$.ajax({
+					type: "post",
+					async:false,
+					dataType: "json",
+					url: current_url,
+					data: "",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						//计算页面
+						total_page	= parseInt((msg.data.total + (step_size - 1))/step_size);
+						var page_count	= "<ul><li><a>共"+total_page+"页</a></li><li><a onclick='go_page(current_page-1)'>上一页</a></li>";
+						left_page	= 1;
+						if(total_page >= page_step){
+							right_page	= left_page + (page_step - 1);
+						}else{
+							right_page	= total_page;
+						}
+						for(i=left_page;i<=right_page;i++){
+							page_count	+= "<li id='id_page_"+i+"'><a onclick='go_page("+i+")'>"+i+"</a></li>";
+						}
+						page_count	+= "<li><a onclick='go_page(current_page+1)'>下一页</a></li><li>转到<input type='text' id='ipt_page_num' style='width: 50px;height: 16px;'/>页<button class='btn btn-mini' onclick='go2page()' style='height: 26px;margin-top: -10px;'>确定</button></li></ul>";
+						document.getElementById('id_page_count').innerHTML=page_count;
+						document.getElementById("id_page_1").className="active";
+						
+						//获取数据
+						var user_info_list	= "";
+						var idc_pic_list	= "";
+						user_id_list	= [];
+						var data = msg.data.users;
+						$.each(data, function(i, n){
+							user_id_list[i]	= n.id;
+							var reg_time=new Date(n.register_time);
+							var user_photo1	= "";
+							var user_photo2	= "";
+							var user_status	= "";
+							
+							if(n.idc_photo1 == null){
+								user_photo1	= "./img/user_head.png";
+							}else {
+								user_photo1	= n.idc_photo1;
+							}
+							
+							if(n.idc_photo2 == null){
+								user_photo2	= "./img/user_head.png";
+							}else {
+								user_photo2	= n.idc_photo2;
+							}
+
+                            reset_imei = '<span class="label label-important" onclick=func_reset_imei('+ n.id+')>重置硬件绑定</span>';
+                            if(n.flags.f_1==1){
+                                admin_lahei = '<span class="label label-important normalize_user" onclick=func_normalize_user(this,'+ n.id+')>已冻结</span>';
+                            }
+                            else{
+                                admin_lahei = '<span class="label label-important admin_lahei" onclick=func_admin_lahei(this,'+ n.id+')>冻结</span>';
+                            }
+
+							if(n.verify_status == 0){
+								user_status	= '<span class="label">未审核&nbsp&nbsp&nbsp&nbsp</span>';
+							}else if(n.verify_status == 1){
+								user_status	= '<span class="label label-success">审核通过</span>';
+							}else if(n.verify_status == 2){
+								user_status	= '<span class="label label-important">审核不过</span>';
+							}
+							
+							user_info_list	+= '<div class="widget-box">'
+								+'<div class="widget-title">'
+									+'<span class="icon"><i class="icon-user"></i></span>'
+									+'<h5>'+n.user_name+'</h5>'
+									+admin_lahei+ reset_imei + user_status
+								+'</div>'
+								+'<div class="widget-content nopadding">'
+									+'<div class="control-group">'
+										+'<div class="controls">'
+											+'<ul class="recent-posts clearfix">'
+												+'<li>'
+													+'<a href="#user_pic_'+n.id+'" data-toggle="modal" width="80" height="80" class="thumbnail f-fl">'
+														+'<img width="80" height="80" src="'+user_photo2+'">'
+													+'</a>'
+													+'<div class="f-fl f-ml notify-ui">'
+														+'<ul id="gritter-notify">'
+															+'<li style="text-align: left;"><span class="label label-info">姓名&nbsp&nbsp&nbsp</span>：'+n.user_name+'</li>'
+															+'<li style="text-align: left;"><span class="label label-info">手赚ID</span>：'+n.id+'</li>'
+															+'<li style="display:none;"></li>'
+														+'</ul>'
+													+'</div>'
+													+'<div class="f-fl f-ml notify-ui">'
+														+'<ul id="gritter-notify">'
+															+'<li style="text-align: left;"><span class="label label-info">QQ&nbsp&nbsp&nbsp</span>：'+n.qq+'</li>'
+															+'<li style="text-align: left;"><span class="label label-info">手机</span>：'+n.phone+'</li>'
+															+'<li style="display:none;"></li>'
+														+'</ul>'
+													+'</div>'
+													+'<div class="f-fl f-ml notify-ui">'
+														+'<ul id="gritter-notify">'
+															+'<li style="text-align: left;"><span class="label label-info">用户等级</span>：LV'+n.buyer_level+'&nbsp&nbsp&nbsp<a href="#level_modify" data-toggle="modal" onclick="modify_user_level('+n.id+','+n.buyer_level+')">修改</a></li>'
+															+'<li style="text-align: left;"><span class="label label-info">注册时间</span>：'+reg_time.format("yyyy-MM-dd hh:mm:ss")+'</li>'
+															+'<li style="display:none;"></li>'
+														+'</ul>'
+													+'</div>'
+													+'<div class="f-fr opt-c">'
+														+'<ul class="stats-plain">'
+															+'<li style="border-bottom: 0px;">'
+																+'<a href="#acc_detail" data-toggle="modal" onclick="get_acc_detail('+n.id+')">'
+																+'<h4>'+n.principal+'</h4>'
+																+'<span>本金账户</span>'
+																+'</a>'
+															+'</li>'
+															+'<li>'
+																+'<a href="#acc_detail" data-toggle="modal" onclick="get_acc_detail('+n.id+')">'
+																+'<h4>'+n.commission+'</h4>'
+																+'<span>佣金账户</span>'
+																+'</a>'
+															+'</li>'
+														+'</ul>'
+													+'</div>'
+												+'</li>'
+											+'</ul>'
+											+'<table class="table s-table-bordered" id="taobao_table_'+n.id+'">'
+												+'<thead>'
+													+'<tr>'
+														+'<th>淘宝账号</th>'
+														+'<th>姓名</th>'
+														+'<th>手机</th>'
+														+'<th>收货地址</th>'
+														+'<th>信誉等级实名认证图</th>'
+														+'<th>审核状态</th>'
+														+'<th></th>'
+														+'<th></th>'
+													+'</tr>'
+												+'</thead>'
+												+'<tbody>'
+												+'</tbody>'
+											+'</table>'
+											+'<table class="table s-table-bordered" id="credit_table_'+n.id+'">'
+												+'<thead>'
+													+'<tr>'
+														+'<th>姓名</th>'
+														+'<th>银行名称</th>'
+														+'<th>银行账号</th>'
+														+'<th>开户行信息</th>'
+														+'<th>归属地</th>'
+														+'<th>审核状态</th>'
+														+'<th></th>'
+														+'<th></th>'
+													+'</tr>'
+												+'</thead>'
+												+'<tbody>'
+												+'</tbody>'
+											+'</table>'
+											+'<table class="table" style="word-break: break-all;  word-wrap: break-word;" id="store_table_'+n.id+'">'
+												+'<thead>'
+													+'<tr>'
+														+'<th>店铺名称</th>'
+														+'<th>店铺旺旺</th>'
+														+'<th>发货地址</th>'
+														+'<th>店铺网址</th>'
+														+'<th>审核状态</th>'
+														+'<th></th>'
+														+'<th></th>'
+													+'</tr>'
+												+'</thead>'
+												+'<tbody>'
+												+'</tbody>'
+											+'</table>'
+										+'</div>'
+									+'</div>'
+								+'</div>'
+							+'</div>';
+							
+							idc_pic_list += '<div id="user_pic_'+n.id+'" class="modal hide in" aria-hidden="false" style="display: none;">'
+								+'<div class="modal-header">'
+									+'<button data-dismiss="modal" class="close" type="button">×</button>'
+									+'<h3>身份证及照片信息</h3>'
+								+'</div>'
+								+'<div class="modal-body">'
+									+'<ul class="recent-posts" id="evidence_detail">'
+										+'<li><img width="100%" src="'+user_photo1+'"></li>'
+										+'<li><img width="100%" src="'+user_photo2+'"></li>'
+									+'</ul>'
+								+'</div>'
+								+'<div class="modal-footer">'
+									+'<a data-dismiss="modal" class="btn btn-primary" onclick="idc_confirm_pass('+n.id+')">通过</a>'
+									+'<a data-dismiss="modal" class="btn" onclick="idc_refuse_pass('+n.id+')">驳回</a>'
+								+'</div>'
+							+'</div>';
+						});
+						document.getElementById('user_info_list').innerHTML=user_info_list;
+						document.getElementById('user_idc_pic').innerHTML=idc_pic_list;
+					}
+				});
+				get_user_taobao();
+				get_user_card();
+				get_user_store();
+			}
+
+
+
+			function get_user_list(){
+				
+				current_url	= "/rest_web/users/user/list?";
+				if(document.getElementById('ipt_laifu_id').value != ""){
+					current_url	+= "user_id=" + document.getElementById('ipt_laifu_id').value + "&";
+				}
+				if(document.getElementById('ipt_qq_num').value != ""){
+					current_url	+= "qq=" + document.getElementById('ipt_qq_num').value  + "&";
+				}
+				if(document.getElementById('ipt_mobile_num').value != ""){
+					current_url	+= "phone=" + document.getElementById('ipt_mobile_num').value  + "&";
+				}
+				if(document.getElementById('ipt_reg_time').value != ""){
+					current_url	+= "register_start_time=" + document.getElementById('ipt_reg_time').value  + "&";
+				}
+				if(document.getElementById('slt_user_level').value != 0){
+					current_url	+= "buyer_level=" + document.getElementById('slt_user_level').value  + "&";
+				}
+				current_url	+= "start=0&num="+step_size;
+				
+				$.ajax({
+					type: "post",
+					async:false,
+					dataType: "json",
+					url: current_url,
+					data: "",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						//计算页面
+						total_page	= parseInt((msg.data.total + (step_size - 1))/step_size);
+						var page_count	= "<ul><li><a>共"+total_page+"页</a></li><li><a onclick='go_page(current_page-1)'>上一页</a></li>";
+						left_page	= 1;
+						if(total_page >= page_step){
+							right_page	= left_page + (page_step - 1);
+						}else{
+							right_page	= total_page;
+						}
+						for(i=left_page;i<=right_page;i++){
+							page_count	+= "<li id='id_page_"+i+"'><a onclick='go_page("+i+")'>"+i+"</a></li>";
+						}
+						page_count	+= "<li><a onclick='go_page(current_page+1)'>下一页</a></li><li>转到<input type='text' id='ipt_page_num' style='width: 50px;height: 16px;'/>页<button class='btn btn-mini' onclick='go2page()' style='height: 26px;margin-top: -10px;'>确定</button></li></ul>";
+						document.getElementById('id_page_count').innerHTML=page_count;
+						document.getElementById("id_page_1").className="active";
+						
+						//获取数据
+						var user_info_list	= "";
+						var idc_pic_list	= "";
+						user_id_list	= [];
+						var data = msg.data.users;
+						$.each(data, function(i, n){
+							user_id_list[i]	= n.id;
+							var reg_time=new Date(n.register_time);
+							var user_photo1	= "";
+							var user_photo2	= "";
+							var user_status	= "";
+							
+							if(n.idc_photo1 == null){
+								user_photo1	= "./img/user_head.png";
+							}else {
+								user_photo1	= n.idc_photo1;
+							}
+							
+							if(n.idc_photo2 == null){
+								user_photo2	= "./img/user_head.png";
+							}else {
+								user_photo2	= n.idc_photo2;
+							}
+
+                            reset_imei = '<span class="label label-important" onclick=func_reset_imei('+ n.id+')>重置硬件绑定</span>';
+                            if(n.flags.f_1==1){
+                                admin_lahei = '<span class="label label-important normalize_user" onclick=func_normalize_user(this,'+ n.id+')>已冻结</span>';
+                            }
+                            else{
+                                admin_lahei = '<span class="label label-important admin_lahei" onclick=func_admin_lahei(this,'+ n.id+')>冻结</span>';
+                            }
+							if(n.verify_status == 0){
+								user_status	= '<span class="label">未审核&nbsp&nbsp&nbsp&nbsp</span>';
+							}else if(n.verify_status == 1){
+								user_status	= '<span class="label label-success">审核通过</span>';
+							}else if(n.verify_status == 2){
+								user_status	= '<span class="label label-important">审核不过</span>';
+							}
+							
+							user_info_list	+= '<div class="widget-box">'
+								+'<div class="widget-title">'
+									+'<span class="icon"><i class="icon-user"></i></span>'
+									+'<h5>'+n.user_name+'</h5>'
+									+admin_lahei+reset_imei+user_status
+								+'</div>'
+								+'<div class="widget-content nopadding">'
+									+'<div class="control-group">'
+										+'<div class="controls">'
+											+'<ul class="recent-posts clearfix">'
+												+'<li>'
+													+'<a href="#user_pic_'+n.id+'" data-toggle="modal" width="80" height="80" class="thumbnail f-fl">'
+														+'<img width="80" height="80" src="'+user_photo2+'">'
+													+'</a>'
+													+'<div class="f-fl f-ml notify-ui">'
+														+'<ul id="gritter-notify">'
+															+'<li style="text-align: left;"><span class="label label-info">姓名&nbsp&nbsp&nbsp</span>：'+n.user_name+'</li>'
+															+'<li style="text-align: left;"><span class="label label-info">手赚ID</span>：'+n.id+'</li>'
+															+'<li style="display:none;"></li>'
+														+'</ul>'
+													+'</div>'
+													+'<div class="f-fl f-ml notify-ui">'
+														+'<ul id="gritter-notify">'
+															+'<li style="text-align: left;"><span class="label label-info">QQ&nbsp&nbsp&nbsp</span>：'+n.qq+'</li>'
+															+'<li style="text-align: left;"><span class="label label-info">手机</span>：'+n.phone+'</li>'
+															+'<li style="display:none;"></li>'
+														+'</ul>'
+													+'</div>'
+													+'<div class="f-fl f-ml notify-ui">'
+														+'<ul id="gritter-notify">'
+															+'<li style="text-align: left;"><span class="label label-info">用户等级</span>：LV'+n.buyer_level+'&nbsp&nbsp&nbsp<a href="#level_modify" data-toggle="modal" onclick="modify_user_level('+n.id+','+n.buyer_level+')">修改</a></li>'
+															+'<li style="text-align: left;"><span class="label label-info">注册时间</span>：'+reg_time.format("yyyy-MM-dd hh:mm:ss")+'</li>'
+															+'<li style="display:none;"></li>'
+														+'</ul>'
+													+'</div>'
+													+'<div class="f-fr opt-c">'
+														+'<ul class="stats-plain">'
+															+'<li style="border-bottom: 0px;">'
+																+'<a href="#acc_detail" data-toggle="modal" onclick="get_acc_detail('+n.id+')">'
+																+'<h4>'+n.principal+'</h4>'
+																+'<span>本金账户</span>'
+																+'</a>'
+															+'</li>'
+															+'<li>'
+																+'<a href="#acc_detail" data-toggle="modal" onclick="get_acc_detail('+n.id+')">'
+																+'<h4>'+n.commission+'</h4>'
+																+'<span>佣金账户</span>'
+																+'</a>'
+															+'</li>'
+														+'</ul>'
+													+'</div>'
+												+'</li>'
+											+'</ul>'
+											+'<table class="table s-table-bordered" id="taobao_table_'+n.id+'">'
+												+'<thead>'
+													+'<tr>'
+														+'<th>淘宝账号</th>'
+														+'<th>姓名</th>'
+														+'<th>手机</th>'
+														+'<th>收货地址</th>'
+														+'<th>信誉等级实名认证图</th>'
+														+'<th>审核状态</th>'
+														+'<th></th>'
+														+'<th></th>'
+													+'</tr>'
+												+'</thead>'
+												+'<tbody>'
+												+'</tbody>'
+											+'</table>'
+											+'<table class="table s-table-bordered" id="credit_table_'+n.id+'">'
+												+'<thead>'
+													+'<tr>'
+														+'<th>姓名</th>'
+														+'<th>银行名称</th>'
+														+'<th>银行账号</th>'
+														+'<th>开户行信息</th>'
+														+'<th>归属地</th>'
+														+'<th>审核状态</th>'
+														+'<th></th>'
+														+'<th></th>'
+													+'</tr>'
+												+'</thead>'
+												+'<tbody>'
+												+'</tbody>'
+											+'</table>'
+											+'<table class="table" style="word-break: break-all;  word-wrap: break-word;" id="store_table_'+n.id+'">'
+												+'<thead>'
+													+'<tr>'
+														+'<th>店铺名称</th>'
+														+'<th>店铺旺旺</th>'
+														+'<th>发货地址</th>'
+														+'<th>店铺网址</th>'
+														+'<th>审核状态</th>'
+														+'<th></th>'
+														+'<th></th>'
+													+'</tr>'
+												+'</thead>'
+												+'<tbody>'
+												+'</tbody>'
+											+'</table>'
+										+'</div>'
+									+'</div>'
+								+'</div>'
+							+'</div>';
+							
+							idc_pic_list += '<div id="user_pic_'+n.id+'" class="modal hide in" aria-hidden="false" style="display: none;">'
+								+'<div class="modal-header">'
+									+'<button data-dismiss="modal" class="close" type="button">×</button>'
+									+'<h3>身份证及照片信息</h3>'
+								+'</div>'
+								+'<div class="modal-body">'
+									+'<ul class="recent-posts" id="evidence_detail">'
+										+'<li><img width="100%" src="'+user_photo1+'"></li>'
+										+'<li><img width="100%" src="'+user_photo2+'"></li>'
+									+'</ul>'
+								+'</div>'
+								+'<div class="modal-footer">'
+									+'<a data-dismiss="modal" class="btn btn-primary" onclick="idc_confirm_pass('+n.id+')">通过</a>'
+									+'<a data-dismiss="modal" class="btn" onclick="idc_refuse_pass('+n.id+')">驳回</a>'
+								+'</div>'
+							+'</div>';
+						});
+						document.getElementById('user_info_list').innerHTML=user_info_list;
+						document.getElementById('user_idc_pic').innerHTML=idc_pic_list;
+					}
+				});
+				get_user_taobao();
+				get_user_card();
+				get_user_store();
+			}
+			function go_page(a){
+				a	= parseInt(a);
+				
+				if(a < 1){
+					return false;
+				}
+				else if(a > total_page){
+					return false;
+				}
+				
+				//document.getElementById("id_page_"+current_page).className="";
+				$("#id_page_count ul li").removeClass();
+				//重新生成页码
+				if(total_page > page_step){
+					if(a == 1){//左边界页时
+						$("#id_page_count").empty();
+						var page_count	= "<ul><li><a>共"+total_page+"页</a></li><li><a onclick='go_page(current_page-1)'>上一页</a></li>";
+						left_page	= 1;
+						right_page	= left_page + (page_step - 1);
+						for(i=left_page;i<=right_page;i++){
+							page_count	+= "<li id='id_page_"+i+"'><a onclick='go_page("+i+")'>"+i+"</a></li>";
+						}
+						page_count	+= "<li><a onclick='go_page(current_page+1)'>下一页</a></li><li>转到<input type='text' id='ipt_page_num' style='width: 50px;height: 16px;'/>页<button class='btn btn-mini' onclick='go2page()' style='height: 26px;margin-top: -10px;'>确定</button></li></ul>";
+						document.getElementById('id_page_count').innerHTML=page_count;
+					}
+					else if(a == total_page){//右边界页时
+						$("#id_page_count").empty();
+						var page_count	= "<ul><li><a>共"+total_page+"页</a></li><li><a onclick='go_page(current_page-1)'>上一页</a></li>";
+						left_page	= (a-(page_step-1));
+						right_page	= left_page + (page_step - 1);
+						for(i=left_page;i<=right_page;i++){
+							page_count	+= "<li id='id_page_"+i+"'><a onclick='go_page("+i+")'>"+i+"</a></li>";
+						}
+						page_count	+= "<li><a onclick='go_page(current_page+1)'>下一页</a></li><li>转到<input type='text' id='ipt_page_num' style='width: 50px;height: 16px;'/>页<button class='btn btn-mini' onclick='go2page()' style='height: 26px;margin-top: -10px;'>确定</button></li></ul>";
+						document.getElementById('id_page_count').innerHTML=page_count;
+					}
+					else if(a <= left_page)
+					{
+						$("#id_page_count").empty();
+						var page_count	= "<ul><li><a>共"+total_page+"页</a></li><li><a onclick='go_page(current_page-1)'>上一页</a></li>";
+						left_page	= (a-1);
+						right_page	= left_page + (page_step - 1);
+						for(i=left_page;i<=right_page;i++){
+							page_count	+= "<li id='id_page_"+i+"'><a onclick='go_page("+i+")'>"+i+"</a></li>";
+						}
+						page_count	+= "<li><a onclick='go_page(current_page+1)'>下一页</a></li><li>转到<input type='text' id='ipt_page_num' style='width: 50px;height: 16px;'/>页<button class='btn btn-mini' onclick='go2page()' style='height: 26px;margin-top: -10px;'>确定</button></li></ul>";
+						document.getElementById('id_page_count').innerHTML=page_count;
+					}
+					else if(a >= right_page)
+					{
+						$("#id_page_count").empty();
+						var page_count	= "<ul><li><a>共"+total_page+"页</a></li><li><a onclick='go_page(current_page-1)'>上一页</a></li>";
+						left_page	= (a-(page_step-2));
+						right_page	= left_page + (page_step - 1);
+						for(i=left_page;i<=right_page;i++){
+							page_count	+= "<li id='id_page_"+i+"'><a onclick='go_page("+i+")'>"+i+"</a></li>";
+						}
+						page_count	+= "<li><a onclick='go_page(current_page+1)'>下一页</a></li><li>转到<input type='text' id='ipt_page_num' style='width: 50px;height: 16px;'/>页<button class='btn btn-mini' onclick='go2page()' style='height: 26px;margin-top: -10px;'>确定</button></li></ul>";
+						document.getElementById('id_page_count').innerHTML=page_count;
+					}
+				}
+				
+				document.getElementById("id_page_"+a).className="active";
+				current_page	= a;
+				
+				//设置当前url
+				current_url	= "/rest_web/users/user/list?";
+				if(document.getElementById('ipt_laifu_id').value != ""){
+					current_url	+= "user_id=" + document.getElementById('ipt_laifu_id').value + "&";
+				}
+				if(document.getElementById('ipt_qq_num').value != ""){
+					current_url	+= "qq=" + document.getElementById('ipt_qq_num').value  + "&";
+				}
+				if(document.getElementById('ipt_mobile_num').value != ""){
+					current_url	+= "phone=" + document.getElementById('ipt_mobile_num').value  + "&";
+				}
+				if(document.getElementById('ipt_reg_time').value != ""){
+					current_url	+= "register_start_time=" + document.getElementById('ipt_reg_time').value  + "&";
+				}
+				if(document.getElementById('slt_user_level').value != 0){
+					current_url	+= "buyer_level=" + document.getElementById('slt_user_level').value  + "&";
+				}
+				current_url	+= "start="+((a-1)*step_size)+"&num="+step_size;
+				
+				$.ajax({
+					type: "post",
+					async:false,
+					dataType: "json",
+					url: current_url,
+					data: "",
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						//获取数据
+						var user_info_list	= "";
+						var idc_pic_list	= "";
+						user_id_list	= [];
+						var data = msg.data.users;
+						$.each(data, function(i, n){
+							user_id_list[i]	= n.id;
+							var reg_time=new Date(n.register_time);
+							var user_photo1	= "";
+							var user_photo2	= "";
+							var user_status	= "";
+							
+							if(n.idc_photo1 == null){
+								user_photo1	= "./img/user_head.png";
+							}else {
+								user_photo1	= n.idc_photo1;
+							}
+							
+							if(n.idc_photo2 == null){
+								user_photo2	= "./img/user_head.png";
+							}else {
+								user_photo2	= n.idc_photo2;
+							}
+							
+							if(n.verify_status == 0){
+								user_status	= '<span class="label">未审核&nbsp&nbsp&nbsp&nbsp</span>';
+							}else if(n.verify_status == 1){
+								user_status	= '<span class="label label-success">审核通过</span>';
+							}else if(n.verify_status == 2){
+								user_status	= '<span class="label label-important">审核不过</span>';
+							}
+
+                            reset_imei = '<span class="label label-important" onclick=func_reset_imei('+ n.id+')>重置硬件绑定</span>';
+                            if(n.flags.f_1==1){
+                                admin_lahei = '<span class="label label-important normalize_user" onclick=func_normalize_user(this,'+ n.id+')>已冻结</span>';
+                            }
+                            else{
+                                admin_lahei = '<span class="label label-important admin_lahei" onclick=func_admin_lahei(this,'+ n.id+')>冻结</span>';
+                            }
+
+							user_info_list	+= '<div class="widget-box">'
+								+'<div class="widget-title">'
+									+'<span class="icon"><i class="icon-user"></i></span>'
+									+'<h5>'+n.user_name+'</h5>'
+									+admin_lahei+reset_imei+user_status
+								+'</div>'
+								+'<div class="widget-content nopadding">'
+									+'<div class="control-group">'
+										+'<div class="controls">'
+											+'<ul class="recent-posts clearfix">'
+												+'<li>'
+													+'<a href="#user_pic_'+n.id+'" data-toggle="modal" width="80" height="80" class="thumbnail f-fl">'
+														+'<img width="80" height="80" src="'+user_photo2+'">'
+													+'</a>'
+													+'<div class="f-fl f-ml notify-ui">'
+														+'<ul id="gritter-notify">'
+															+'<li style="text-align: left;"><span class="label label-info">姓名&nbsp&nbsp&nbsp</span>：'+n.user_name+'</li>'
+															+'<li style="text-align: left;"><span class="label label-info">手赚ID</span>：'+n.id+'</li>'
+															+'<li style="display:none;"></li>'
+														+'</ul>'
+													+'</div>'
+													+'<div class="f-fl f-ml notify-ui">'
+														+'<ul id="gritter-notify">'
+															+'<li style="text-align: left;"><span class="label label-info">QQ&nbsp&nbsp&nbsp</span>：'+n.qq+'</li>'
+															+'<li style="text-align: left;"><span class="label label-info">手机</span>：'+n.phone+'</li>'
+															+'<li style="display:none;"></li>'
+														+'</ul>'
+													+'</div>'
+													+'<div class="f-fl f-ml notify-ui">'
+														+'<ul id="gritter-notify">'
+															+'<li style="text-align: left;"><span class="label label-info">用户等级</span>：LV'+n.buyer_level+'&nbsp&nbsp&nbsp<a href="#level_modify" data-toggle="modal" onclick="modify_user_level('+n.id+','+n.buyer_level+')">修改</a></li>'
+															+'<li style="text-align: left;"><span class="label label-info">注册时间</span>：'+reg_time.format("yyyy-MM-dd hh:mm:ss")+'</li>'
+															+'<li style="display:none;"></li>'
+														+'</ul>'
+													+'</div>'
+													+'<div class="f-fr opt-c">'
+														+'<ul class="stats-plain">'
+															+'<li style="border-bottom: 0px;">'
+																+'<a href="#acc_detail" data-toggle="modal" onclick="get_acc_detail('+n.id+')">'
+																+'<h4>'+n.principal+'</h4>'
+																+'<span>本金账户</span>'
+																+'</a>'
+															+'</li>'
+															+'<li>'
+																+'<a href="#acc_detail" data-toggle="modal" onclick="get_acc_detail('+n.id+')">'
+																+'<h4>'+n.commission+'</h4>'
+																+'<span>佣金账户</span>'
+																+'</a>'
+															+'</li>'
+														+'</ul>'
+													+'</div>'
+												+'</li>'
+											+'</ul>'
+											+'<table class="table s-table-bordered" id="taobao_table_'+n.id+'">'
+												+'<thead>'
+													+'<tr>'
+														+'<th>淘宝账号</th>'
+														+'<th>姓名</th>'
+														+'<th>手机</th>'
+														+'<th>收货地址</th>'
+														+'<th>信誉等级实名认证图</th>'
+														+'<th>审核状态</th>'
+														+'<th></th>'
+														+'<th></th>'
+													+'</tr>'
+												+'</thead>'
+												+'<tbody>'
+												+'</tbody>'
+											+'</table>'
+											+'<table class="table s-table-bordered" id="credit_table_'+n.id+'">'
+												+'<thead>'
+													+'<tr>'
+														+'<th>姓名</th>'
+														+'<th>银行名称</th>'
+														+'<th>银行账号</th>'
+														+'<th>开户行信息</th>'
+														+'<th>归属地</th>'
+														+'<th>审核状态</th>'
+														+'<th></th>'
+														+'<th></th>'
+													+'</tr>'
+												+'</thead>'
+												+'<tbody>'
+												+'</tbody>'
+											+'</table>'
+											+'<table class="table" style="word-break: break-all;  word-wrap: break-word;" id="store_table_'+n.id+'">'
+												+'<thead>'
+													+'<tr>'
+														+'<th>店铺名称</th>'
+														+'<th>店铺旺旺</th>'
+														+'<th>发货地址</th>'
+														+'<th>店铺网址</th>'
+														+'<th>审核状态</th>'
+														+'<th></th>'
+														+'<th></th>'
+													+'</tr>'
+												+'</thead>'
+												+'<tbody>'
+												+'</tbody>'
+											+'</table>'
+										+'</div>'
+									+'</div>'
+								+'</div>'
+							+'</div>';
+							
+							idc_pic_list += '<div id="user_pic_'+n.id+'" class="modal hide in" aria-hidden="false" style="display: none;">'
+								+'<div class="modal-header">'
+									+'<button data-dismiss="modal" class="close" type="button">×</button>'
+									+'<h3>身份证及照片信息</h3>'
+								+'</div>'
+								+'<div class="modal-body">'
+									+'<ul class="recent-posts" id="evidence_detail">'
+										+'<li><img width="100%" src="'+user_photo1+'"></li>'
+										+'<li><img width="100%" src="'+user_photo2+'"></li>'
+									+'</ul>'
+								+'</div>'
+								+'<div class="modal-footer">'
+									+'<a data-dismiss="modal" class="btn btn-primary" onclick="idc_confirm_pass('+n.id+')">通过</a>'
+									+'<a data-dismiss="modal" class="btn" onclick="idc_refuse_pass('+n.id+')">驳回</a>'
+								+'</div>'
+							+'</div>';
+						});
+						document.getElementById('user_info_list').innerHTML=user_info_list;
+						document.getElementById('user_idc_pic').innerHTML=idc_pic_list;
+					}
+				});
+				get_user_taobao();
+				get_user_card();
+				get_user_store();
+			}
+			function search_user_info(){
+				get_user_list();
+				return false;
+			}
+            function GetQueryString(name)
+            {
+                 var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                 var r = window.location.search.substr(1).match(reg);
+                 if(r!=null)return  unescape(r[2]); return null;
+            }
+			$(document).ready(function(){
+				// 获取URL参数
+                var user_id = GetQueryString("user_id");
+                if(user_id !=null && user_id.toString().length>1)
+                {
+                   $("#ipt_laifu_id").val(user_id);
+                }
+                init_page();
+			});
+		</script>
+	</body>
+</html>

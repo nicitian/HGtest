@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>首页</title>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+		<link rel="stylesheet" href="css/datepicker.css" />
+		<link rel="stylesheet" href="css/unicorn.main.css" />
+		<link rel="stylesheet" href="css/self-define.css" />
+		<link rel="stylesheet" href="css/unicorn.red.css" class="skin-color" />	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+	<body>
+		
+		
+		<div id="header">
+			<h1><a href="./admin_index.html">首页</a></h1>
+		</div>
+		
+		<div id="search">
+			<input type="text" placeholder="搜索..." /><button type="submit" class="tip-right" title="Search"><i class="icon-search icon-white"></i></button>
+		</div>
+		<div id="user-nav" class="navbar navbar-inverse">
+			<ul class="nav btn-group">
+				<li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text">用户</span></a></li>
+				<li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">设置</span></a></li>
+				<li class="btn btn-inverse"><a title="" href="index.html"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
+			</ul>
+		</div>
+		
+		<div id="sidebar">
+			<a href="#" class="visible-phone"><i class="icon icon-home"></i> 首页</a>
+			<ul>
+				<li class="active"><a href="admin_index.html"><i class="icon icon-home"></i> <span>首页</span></a></li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-pencil"></i> <span>资金管理</span> <span class="label">4</span></a>
+					<ul>
+						<li><a href="acc_manage.html">账户管理</a></li>
+						<li><a href="rebate_manage.html">返款管理</a></li>
+						<li><a href="fund_detail.html">资金明细</a></li>
+						<li><a href="recharge_manage.html">充值管理</a></li>
+					</ul>
+				</li>
+				<li><a href="user_info.html"><i class="icon icon-user"></i> <span>用户审核</span></a></li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-file"></i> <span>账号审核</span> <span class="label">5</span></a>
+					<ul>
+						<li><a href="user_level.html">用户等级</a></li>
+						<li><a href="identity_info.html">身份信息</a></li>
+						<li><a href="credit_card.html">银行卡信息</a></li>
+						<li><a href="taobao_acc.html">淘宝账号</a></li>
+						<li><a href="store_info.html">店铺信息</a></li>
+					</ul>
+				</li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-tasks"></i> <span>任务中心</span> <span class="label">3</span></a>
+					<ul>
+						<li><a href="task_manage.html">任务管理</a></li>
+						<li><a href="order_manage.html">订单管理</a></li>
+						<li><a href="problem_orders.html">问题订单</a></li>
+					</ul>
+				</li>
+				<li><a href="notice_manage.html"><i class="icon icon-bullhorn"></i> <span>公告管理</span></a></li>
+				<li><a href="appeal_center.html"><i class="icon icon-comment"></i> <span>申述中心</span></a></li>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-wrench"></i> <span>平台账号</span> <span class="label">2</span></a>
+					<ul>
+						<li><a href="pl_acc_manage.html">账号管理</a></li>
+						<li><a href="authority_manage.html">权限管理</a></li>
+					</ul>
+				</li>
+                 <li class="submenu">
+                    <a href="#"><i class="icon icon-book"></i> <span>其他</span> <span class="label">2</span></a>
+                    <ul>
+                        <li><a href="tk_manage.html">淘宝客管理</a></li>
+                        <li><a href="tk_ad_manage.html">淘宝客广告管理</a></li>
+                    </ul>
+                </li>
+			</ul>
+		</div>
+		
+		<div id="style-switcher">
+			<i class="icon-arrow-left icon-white"></i>
+			<span>Style:</span>
+			<a href="#grey" style="background-color: #555555;border-color: #aaaaaa;"></a>
+			<a href="#blue" style="background-color: #2D2F57;"></a>
+			<a href="#red" style="background-color: #673232;"></a>
+		</div>
+		
+		<div id="content">
+			<div id="content-header">
+				<h1>首页</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="admin_index.html" title="返回首页" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+				<a href="#" class="tip-bottom">首页</a>
+			</div>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="widget-box widget-plain">
+							<div class="widget-content center">
+								<form class="form-inline">
+									<div class="control-group">
+										<div class="controls control-s-s">
+											<label class="control-label">从</label>
+											<input type="text" data-date="2015-01-01" data-date-format="yyyy-mm-dd" value="2015-09-01" class="datepicker input-small" id="ipt_start_time"/>
+											<label class="control-label">到</label>
+											<input type="text" data-date="2015-01-01" data-date-format="yyyy-mm-dd" value="2015-09-05" class="datepicker input-small" id="ipt_end_time"/>
+											<input type="botton" class="btn btn-primary f-ml-20" style="width:30px" onclick="search_data_info()" value="搜索"/>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="widget-box widget-plain">
+							<div class="widget-content center">
+								<ul class="stats-plain">
+									<li>
+										<h4 id="charge_amount"></h4>
+										<span>充值金额(金)</span>
+									</li>
+									<li>
+										<h4 id="task_amount"></h4>
+										<span>放单总金额(金)</span>
+									</li>
+									<li>
+										<h4 id="gross_profit"></h4>
+										<span>毛利润(金)</span>
+									</li>	
+								</ul>
+							</div>
+						</div>
+						<div class="widget-box widget-plain">
+							<div class="widget-content center">
+								<ul class="stats-plain">
+									<li>
+										<h4 id="finish_amount"></h4>
+										<span>完成任务总金额(金)</span>
+									</li>
+									<li>
+										<h4 id="bacc_withdraw"></h4>
+										<span>本金账户提现(金)</span>
+									</li>
+									<li>
+										<h4 id="yacc_withdraw"></h4>
+										<span>佣金账户提现(金)</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="widget-box widget-plain">
+							<div class="widget-content center">
+								<ul class="stats-plain">
+									<li>
+										<h4 id="sign_amount"></h4>
+										<span>签到佣金总额(金)</span>
+									</li>
+									<li>
+										<h4 id="spread_amount"></h4>
+										<span>推广佣金总额(金)</span>
+									</li>
+									<li>
+										<h4 id="total_task"></h4>
+										<span>总放单笔数(单)</span>
+									</li>
+									<li>
+										<h4 id="finish_task"></h4>
+										<span>完成任务数(单)</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						2015 &copy; 版权所有 杭州手赚科技有限公司 <a href="http://120.26.214.214/">(ShouZhuan)</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.ui.custom.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/bootstrap-colorpicker.js"></script>
+		<script src="js/bootstrap-datepicker.js"></script>
+		<script src="js/jquery.uniform.js"></script>
+		<script src="js/select2.min.js"></script>
+		<script src="js/unicorn.js"></script>
+		<script src="js/unicorn.form_common.js"></script>
+		<script type="text/javascript">
+			function init_page(){
+				var cur_date	= new Date();
+				document.getElementById('ipt_end_time').value	= cur_date.getFullYear()+'-'+(cur_date.getMonth()+1)+'-'+cur_date.getDate();
+				var in_data	= 'start_date='+document.getElementById('ipt_start_time').value+'&end_date='+document.getElementById('ipt_end_time').value;
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/others/dailyreport/summary",
+					data: in_data,
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						var data = msg.data;
+						$.each(data, function(i, n){
+							switch(n.type)
+							{
+							case 1:
+								$("#total_task").text(n.value);
+								break;
+							case 2:
+								$("#task_amount").text(n.value);
+								break;
+							case 3:
+								$("#finish_task").text(n.value);
+								break;
+							case 4:
+								$("#finish_amount").text(n.value);
+								break;
+							case 5:
+								$("#sign_amount").text(n.value);
+								break;
+							case 6:
+								$("#spread_amount").text(n.value);
+								break;
+							case 7:
+								$("#charge_amount").text(n.value);
+								break;
+							case 8:
+								$("#bacc_withdraw").text(n.value);
+								break;
+							case 9:
+								$("#yacc_withdraw").text(n.value);
+								break;
+							case 10:
+								$("#gross_profit").text(n.value);
+								break;
+							default:
+								
+							}
+						});
+					}
+				});
+			}
+			function search_data_info(){
+				var in_data	= 'start_date='+document.getElementById('ipt_start_time').value+'&end_date='+document.getElementById('ipt_end_time').value;
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: "/rest_web/others/dailyreport/summary",
+					data: in_data,
+					complete :function(){$("#load").hide();},
+					success: function(msg){
+						var data = msg.data;
+						$.each(data, function(i, n){
+							switch(n.type)
+							{
+							case 1:
+								$("#total_task").text(n.value);
+								break;
+							case 2:
+								$("#task_amount").text(n.value);
+								break;
+							case 3:
+								$("#finish_task").text(n.value);
+								break;
+							case 4:
+								$("#finish_amount").text(n.value);
+								break;
+							case 5:
+								$("#sign_amount").text(n.value);
+								break;
+							case 6:
+								$("#spread_amount").text(n.value);
+								break;
+							case 7:
+								$("#charge_amount").text(n.value);
+								break;
+							case 8:
+								$("#bacc_withdraw").text(n.value);
+								break;
+							case 9:
+								$("#yacc_withdraw").text(n.value);
+								break;
+							case 10:
+								$("#gross_profit").text(n.value);
+								break;
+							default:
+								
+							}
+						});
+					}
+				});
+			}
+			$(document).ready(function(){
+				init_page();
+			});
+		</script>
+	</body>
+</html>

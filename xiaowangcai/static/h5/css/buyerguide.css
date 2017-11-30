@@ -1,0 +1,30 @@
+html{font-size: 10px;}
+
+body{min-width: 320px;max-width: 640px;margin: 0 auto;background-color: #f5f6f6;}
+
+.global{width: 92.4%;margin: 0 auto;}
+.hd{margin-top: 16px;padding-bottom: 16px;border-bottom: 1px dashed #afb0b0;}
+.hd .peo-wrap{overflow: hidden;}
+.hd .people{width: 98%;height: auto;text-align: center;}
+.hd .tt-wrap{width: 58%;overflow: hidden;}
+
+.prom{text-align: center;font-size: 1.3rem;color: #000;font-weight: 600;padding-top: 1em;}
+
+
+/*所有步骤*/
+.ct-wrap{width: 98%;margin: 0 auto;font-size: 1.5rem;margin-top: 2em;}
+/*标题和内容*/
+.step-wrap{margin-bottom: 2rem;}
+/*标题*/
+.step-tt{color: #717e8c;background-color: #d8dcdf;padding: 0.4em;position: relative;font-weight: 800;}
+.step-tt.act{color: #1776e0;}
+.step-tt .tag{position: absolute;right: 1rem;top: 1rem;display: inline-block;width: 1.4rem;height: 0.8rem;background: url(../images/arr_down.png) no-repeat;background-size: contain;}
+.step-tt.act .tag{background: url(../images/arr_top.png) no-repeat;background-size: contain;}
+/*内容列表*/
+.step-lst{text-align: left;color: #666;font-weight: 500;display: none;}
+.step-lst > li{border-bottom: 1px solid #b4b4b4;line-height: 4.0rem;padding-left: 0.5rem;}
+.step-lst > li a:focus{color: #1776e0;}
+.step-lst-display{text-align: left;color: #666;font-weight: 500;}
+.stepic-wrap{margin-bottom: 2rem;}
+.step_pic{width: 100%;height: auto;margin-top: 1.5rem;vertical-align: middle;}
+

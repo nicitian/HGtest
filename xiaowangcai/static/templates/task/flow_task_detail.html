@@ -1,0 +1,483 @@
+{% extends "default_header_.html" %}
+{% block css %}
+<style type="text/css">
+.ti {
+  margin: 0px 10px 17px 10px;
+  padding: 20px 7px 12px 7px;
+  border-bottom: 1px solid #edeeef;
+}
+.ti .tt {
+  font-size: 16px;
+  font-weight: 800;
+  color: #090909;
+}
+.ti .vbar {
+  padding-right: 12px;
+  margin-right: 12px;
+  border-right: 1px solid #ececed;
+}
+.ti li {
+  padding-top: 3px;
+  padding-bottom: 4px;
+}
+.ti .plat-logo {
+  position: relative;
+  top: 2px;
+  margin-right: 7px;
+}
+.main {
+  margin-top: 15px;
+  border: 1px solid #ececed;
+  background-color: #fdfefe;
+  margin-bottom: 16px;
+}
+.step-wrap {
+  margin-left: 18px;
+  margin-top: 18px;
+}
+.step-wrap .step {
+  width: 228px;
+}
+.step-wrap .r-step {
+  width: 183px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #ecedef;
+  color: #919294;
+  margin-right: 14px;
+}
+.step-wrap .r-step span {
+  padding-left: 15px;
+}
+.step-wrap .tri-tag {
+  position: absolute;
+  top: 12px;
+  right: -15px;
+}
+.step-wrap .r-step.act {
+  background-color: #3cb3f6;
+  color: #fff;
+}
+.t-o {
+  margin: 18px 10px 28px 10px;
+  padding: 0 12px;
+  border-top: 1px solid #ececed;
+  border-bottom: 1px solid #ececed;
+}
+.t-o .hint {
+  padding-top: 33px;
+  padding-bottom: 36px;
+}
+.target-goods {
+  margin: 0 10px;
+  margin-bottom: 20px;
+}
+.target-goods > table {
+  width: 100%;
+  table-layout: fixed;
+}
+.target-goods > table th {
+  background-color: #fafbfb;
+  line-height: 3.0em;
+}
+.target-goods > table td {
+  padding: 12px 0px 12px 0px;
+}
+.bdl {
+  border-left: 1px solid #e5e5e5;
+}
+.bdb {
+  border-bottom: 1px solid #e5e5e5;
+}
+.bdt {
+  border-top: 1px solid #e5e5e5;
+}
+.bdr {
+  border-right: 1px solid #e5e5e5;
+}
+.target-goods > table tr.solidbar {
+  border-bottom: 1px solid #e5e5e5;
+}
+.target-goods .g-pic {
+  width: 62px;
+  height: 62px;
+  margin-left: 15px;
+}
+.target-goods .g-desc {
+  margin-top: 5px;
+  margin-left: 10px;
+  max-width: 440px;
+}
+.lim-w {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.target-goods .g-desc .link-wrap {
+  margin-top: 2em;
+}
+.detailinfo-wrap {
+  color: #000;
+  margin: 0 auto;
+  width: 98%;
+  border-bottom: 1px dashed #ccc;
+  padding-top: 1em;
+  padding-bottom: 0.5em;
+}
+.evalue-type-ask {
+  margin: 0 10px;
+  margin-bottom: 20px;
+  border: 1px solid #e5e5e5;
+  color: #737272;
+  padding-bottom: 1em;
+}
+.evalue-type-ask .subtt {
+  background-color: #fafbfb;
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  padding-left: 1.5em;
+  font-weight: normal;
+  border-bottom: 1px solid #e5e5e5;
+}
+.evalue-type-ask .task-type {
+  padding-left: 1.2em;
+  padding-top: 1.0em;
+  padding-bottom: 0.7em;
+  width: 96%;
+  margin: 0 auto;
+  border-bottom: 1px solid #e5e5e5;
+}
+.btn-task{
+  margin-left: 30px;
+}
+#div-speed{
+	display: none;
+	position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 400px;
+    height: 300px;
+    transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%); 	
+	-moz-transform:translate(-50%,-50%); 	
+	-webkit-transform:translate(-50%,-50%); 
+	-o-transform:translate(-50%,-50%); 
+	z-index: 1000;
+    background-color: white;
+    border: 5px solid red;
+    border-radius: 10px;	
+}
+.p-speed{
+	margin: 20px 40px;
+	font-size: 16px;
+	text-align: center;
+}
+.btn-speed{
+	width: 100px;
+    height: 30px;
+    margin: 0 20px;
+    background: #00F6FF;
+    border: none;
+    font-size: 16px;
+}
+</style>
+{% endblock %}
+{% block main%}
+   <div class="ti f-cb"> 
+    <div class="tt f-fl">
+    {% if not task.isMoblie %}
+    <img src="images/diannaodan.png" />
+    {% endif %}
+    </div> 
+    <div class="tt f-fl" style="margin-left:10px;">
+    {% if not task.isMoblie %}
+    电脑单
+    {% else %}
+    手机单
+    {% endif %}
+    任务详情
+    </div> 
+    <div class="f-fr"> 
+     <ul class="f-cb"> 
+      <li class="f-fl vbar"> <img class="plat-logo" src="/static/image/web/home/plat_logo.png" /> <span class="shopname"></span> </li> 
+      <li class="f-fl vbar">任务编号:{{task.id}}</li> 
+      <li class="f-fl">{{task.create_time_str}}</li> 
+     </ul> 
+    </div> 
+   </div> 
+   <ul class="f-cb step-wrap"> 
+    <li class="p-r f-fl r-step step {% ifequal status 0 %} act {% endifequal %}"><span>1.提交任务等待付款</span> <img class="tri-tag" {% ifequal status 0 %}src="/static/image/web/home/triangle_act.png"{% else %}src="/static/image/web/home/triangle_nor.png"{% endifequal %}/> </li> 
+    <li class="p-r f-fl r-step step {% ifequal status 1 %} act {% endifequal %}"><span>2.已付款，等候审核</span> <img class="tri-tag" {% ifequal status 1 %}src="/static/image/web/home/triangle_act.png"{% else %}src="/static/image/web/home/triangle_nor.png"{% endifequal %} /> </li> 
+    <li class="p-r f-fl r-step step {% ifequal status 2 %} act {% endifequal %}"><span>3.任务审核通过，进行中</span> <img class="tri-tag" {% ifequal status 2 %}src="/static/image/web/home/triangle_act.png" {% else %}src="/static/image/web/home/triangle_nor.png"{% endifequal %}/> </li> 
+    <li class="p-r f-fl r-step step r-step-4 {% ifequal status 3 %} act {% endifequal %}"><span>4.任务全部完成</span></li> 
+   </ul> 
+   <div class="t-o f-cb"> 
+    <div class="f-fl hint"> 
+     <span>任务生成订单总数：{{total_orders}}单</span> 
+     <!--span>　未放：0 单</span> 
+     <span>　已放：1 单</span--> 
+     <span>　已接：{{receive_orders}} 单</span>
+     {% ifequal task.status 0 %}
+     <a class="striking btn-task" id='btn-cancel-task' href="javascript:void(0)">取消任务</a>
+     <a class="striking btn-task" href="/home/publish/pay?task_id={{task.id}}" target="_refundmanage">任务支付</a>
+     {% endifequal%}
+     {% ifequal task.status 1 %}
+     <a class="striking btn-task" id='btn-cancel-task' href="javascript:void(0)">取消任务</a>
+     <a class="striking btn-task" id='btn-speed-task' href="javascript:void(0)">加速任务</a>
+     {% endifequal%}
+     <a class="striking btn-task" href="/task/flow/manage?task_id={{task.id}}" target="_ordermanage">查看任务接手详情</a>
+    </div> 
+    <div class="f-fr"> 
+    </div> 
+   </div> 
+   <div class="target-goods"> 
+    <p>任务商品</p> 
+    <table> 
+     <tbody>
+      <tr> 
+       <th width="10%" class="f-tac bdt bdb bdl">
+        <div>
+         任务商品信息
+        </div></th> 
+       <th width="45%" class="bdt bdb"></th> 
+       <th width="15%" class="f-tac bdt bdb">展示价(元)</th> 
+       <th width="15%" class="f-tac bdt bdb">成交价(元)</th> 
+       <th width="15%" class="f-tac bdt bdb bdr">每单拍下数量</th> 
+      </tr> 
+      {% for commodity in commodities %}
+      <tr class="solidbar"> 
+       <td colspan="2" class="bdl"> 
+        <div class="f-fl"> 
+         <img class="g-pic" src="{{commodity.pic_path}}" /> 
+        </div> 
+        <div class="f-fl lim-w g-desc"> 
+         <div>
+          {{commodity.name}}
+         </div> 
+         <div class="link-wrap">
+          <a href="{{commodity.url}}" style="color: #3cb3f6;" target="_blank">商品链接：{{commodity.url}}</a>
+         </div> 
+        </div> </td> 
+       <td class="f-tac">￥{{commodity.displayprice}}</td> 
+       <td class="f-tac">￥{{commodity.unitprice}}</td> 
+       <td class="f-tac bdr">{{commodity.num}}</td> 
+      </tr>
+      {% endfor %} 
+      <tr> 
+       <td colspan="5" class="bdl bdr"> 
+        <div class="detailinfo-wrap"> 
+         <span>任务类型：
+			{% ifequal task.task_type 0 %}
+				手机淘宝任务
+			{% endifequal %}
+			{% ifequal task.task_type 1 %}
+				电脑淘宝任务
+			{% endifequal %}
+			{% ifequal task.task_type 2 %}
+				浏览任务
+			{% endifequal %}
+			{% ifequal task.task_type 3 %}
+				特别任务
+			{% endifequal %}
+         </span> 
+         <span>　　　　　返款方式：
+         {% ifequal task.return_type 0%}
+         平台返款
+         {% else %}
+         商家手动返款
+         {% endifequal %}
+         </span> 
+         <span>　　　　　是否包邮：是</span> 
+         <span></span> 
+        </div> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="5" class="bdl bdr"> 
+        <div class="detailinfo-wrap"> 
+         <span>淘宝店铺名：{{store.name}}</span> 
+         <span>　　　旺旺名称：{{store.wangwang}}</span> 
+        </div> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="5" class="bdl bdr"> 
+        <div class="detailinfo-wrap lim-w" style="max-width: 100%;">
+          搜索关键词：
+          {% for sea in search_entries%}
+          {{sea.keyword}} 
+          {% endfor %}
+        </div> </td> 
+      </tr> 
+      <tr class="solidbar"> 
+       <td colspan="5" class="bdl bdr"> <span>　价格区间：{% if task.up_price > 0 %}{{task.low_price}} - {{task.up_price}}{% else %}0 - 0{%endif %}</span> <span>　　　　商品所在城市：{{task.commodity_address}}</span> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
+   <div class="evalue-type-ask"> 
+    <h2 class="subtt">评价类型及要求</h2>
+    {% if order_types.0.order_total > 0 %}
+    <div class="task-type">
+     普通好评：{{ order_types.0.order_total }} 单
+    </div>
+    {% endif %}
+    {% if order_types.1.order_total > 0 %}
+    <div class="task-type">
+     关键字好评：{{ order_types.1.order_total }} 单
+    </div>
+    {% endif %}
+    {% if order_types.2.order_total > 0 %}
+    <div class="task-type">
+     图文好评：{{ order_types.2.order_total }} 单
+    </div>
+    {% endif %}
+    {% if order_types.3.order_total > 0 %}
+    <div class="task-type">
+     流量：{{ order_types.3.order_total }} 单
+    </div>
+    {% endif %}
+    {% if order_types.4.order_total > 0 %}
+    <div class="task-type">
+     收藏、加购物车：{{ order_types.4.order_total }} 单
+    </div>
+    {% endif %}
+    {% if order_types.5.order_total > 0 %}
+    <div class="task-type">
+     直通车：{{ order_types.5.order_total }} 单
+    </div>
+    {% endif %}
+    {% if order_types.6.order_total > 0 %}
+    <div class="task-type">
+     延时购买任务：{{ order_types.6.order_total }} 单
+    </div>
+    {% endif %}
+   </div>
+   <div id='div-speed'>
+   	<p class='p-speed' style="margin-top:50px;">未接订单数 <span class='striking' id='speed_orders'></span> 单</p>
+   	<p class='p-speed'>每单加赏金额<input id='extra_bonus' type="number" style="width:40px;margin:0 20px;font-size:16px;"/> 金</p>
+   	<p class='p-speed'>需要支付金额 <span class='money' id='extra_total'>0</span> 金</p>
+   	<p class='p-speed'>当前本金 <span class='money'>{{user.principal}}</span> 金</p>
+   	<div class='p-speed'>
+   	<button class='btn-speed' id="s-submit">确定</button>
+   	<button class='btn-speed' id="s-cancel">取消</button>
+   	</div>
+   </div>
+   <!--div class="cost-detail"> 
+    <p>费用详情</p> 
+    <table> 
+     <tbody>
+      <tr> 
+       <th width="15%" class="bdt bdb bdl">分类</th> 
+       <th width="25%" class="bdt bdb ">费用明细</th> 
+       <th width="15%" class="bdt bdb ">小计(元)</th> 
+       <th width="15%" class="bdt bdb ">单数</th> 
+       <th width="30%" class="bdt bdb bdr">合计(元)</th> 
+      </tr> 
+      <tr> 
+       <td class=" bdl" rowspan="5"><p>佣金</p><p>(收费说明)</p></td> 
+       <td style="text-align: left;padding-left: 55px;"> <p>基础佣金：7元</p> <p>普通好评：0元</p> <p>加赏拥金：1元</p> <p>平台返款服务费：0元/单</p> </td> 
+       <td>8</td> 
+       <td>1单</td> 
+       <td class=" bdr">8 x 1 = 8元</td> 
+      </tr> 
+      <tr> 
+       <td style="text-align: left;padding-left: 55px;"> <p>基础佣金：7元</p> <p>文字好评：0元</p> <p>加赏拥金：1元</p> <p>平台返款服务费：0元/单</p> </td> 
+       <td>8</td> 
+       <td>0单</td> 
+       <td class=" bdr">8 x 0 = 0元</td> 
+      </tr> 
+      <tr> 
+       <td style="text-align: left;padding-left: 55px;"> <p>基础佣金：7元</p> <p>图文好评：0元</p> <p>加赏拥金：1元</p> <p>平台返款服务费：0元/单</p> </td> 
+       <td>8</td> 
+       <td>0单</td> 
+       <td class=" bdr">8 x 0 = 0元</td> 
+      </tr> 
+      <tr> 
+       <td colspan="3" style="text-align: left;padding-left: 55px;">多商品费用：1 单 x （0 元/商品 x 0 个商品/单） = 0 元</td> 
+       <td class=" bdr"></td> 
+      </tr> 
+      <tr> 
+       <td colspan="3" style="text-align: left;padding-left: 55px;">流量费：0 个访客流量 x 0 元/个 + 0 个收藏 x 0 元/个 = 0 元</td> 
+       <td class=" bdr"></td> 
+      </tr> 
+      <tr> 
+       <td colspan="5" class="last-tr bdl bdr">
+        <div class="total">
+          合计： 单数
+         <span class="striking">1</span>单　佣金
+         <span class="money">8</span>元 
+        </div></td> 
+      </tr> 
+     </tbody>
+    </table> 
+    <table> 
+     <tbody>
+      <tr> 
+       <th width="15%" class="bdt bdb bdl">分类</th> 
+       <th width="85%" class="bdt bdb bdr">费用明细</th> 
+      </tr> 
+      <tr> 
+       <td class=" bdl"><p>返款押金</p></td> 
+       <td class="last-tr bdl bdr" style="text-align: left;padding-left: 55px;"> --- </td> 
+      </tr> 
+      <tr> 
+       <td colspan="2" class="last-tr bdl bdr">
+        <div class="total">
+          总计： 佣金
+         <span class="striking">8</span>元 + 返款押金
+         <span class="striking">0</span>元 = 
+         <span class="money">8</span>元 
+        </div></td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div--> 
+{% endblock %}
+{% block js%}
+<script type="text/javascript">
+$(document).ready(function(){
+	var tid=laifu.get_task_id();
+	$('#btn-cancel-task').bind('click',function(){
+    	$.post('/rest_web/tasks/task/cancel/'+tid,function(res){
+     	if(res.code==0){
+        	alert('任务取消成功');
+      	}else{
+      		alert('订单已被接，无法取消');
+      	}
+    	});
+	});
+	$('#btn-speed-task').bind('click',function(){
+    	$.post('/rest_web/tasks/task/getremainbuyerorder/'+tid,function(res){
+     		if(res.code==0){
+     			$('#speed_orders').text(res.data.orders);
+        		$('#div-speed').show();
+      		}else{
+      			alert('系统错误');
+      		}
+    	});
+	});
+	$('#extra_bonus').bind('change',function(){
+		$('#extra_total').text(parseFloat($(this).val())*parseInt($('#speed_orders').text()));
+	});
+	$('#s-cancel').bind('click',function(){
+		$('#div-speed').hide();
+	});
+	$('#s-submit').bind('click',function(){
+		var eb=$('#extra_bonus').val();
+		if( !eb || (parseFloat(eb)<=0)){
+			alert("请输入正确的金额");
+			return;
+		}
+		$.post('/rest_web/tasks/task/speed/'+tid,{
+			extra_bonus:eb,
+		},function(res){
+     	if(res.code==0){
+        	alert('操作成功');
+        	$('#div-speed').hide();
+      	}else{
+      		alert('账户余额不足');
+      	}
+    	});
+	});
+});
+</script>
+{% endblock %}

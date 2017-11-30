@@ -1,0 +1,422 @@
+{% extends "home/home_.html" %}
+{% block section_css %}
+<style>
+.ap-de {
+    margin-left: 27px;
+    width: 742px;
+}
+.ap-de th {
+    background-color: #f6f6f7;
+    padding-top: 16px;
+    padding-bottom: 14px;
+    text-align: center;
+    border: 1px solid #ececed;
+}
+.ap-de td {
+    padding-top: 12px;
+    padding-bottom: 10px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-align: center;
+    border: 1px solid #ececed;
+}
+.searchappeal select {
+    width: 110px;
+}
+.select {
+    padding: 4px;
+    border: 1px solid #bebfbf;
+    width: 67px;
+    color: #555;
+}
+.btn-search {
+    width: 68px;
+    height: 32px;
+    border: 0;
+    background: url(/static/image/web/task/search_btn.png) center center no-repeat;
+    cursor: pointer;
+}
+.searchappeal {
+    margin: 0px 27px 25px 27px;
+    border-bottom: 1px solid #ececed;
+    padding-bottom: 0.8em;
+}
+#buyerconnection {
+    width: 740px;
+    height: 406px;
+    background-color: #f9f7f7;
+    border-radius: 4px;
+    display: none;
+}
+#buyerconnection .dialog-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+#buyerconnection .tt {
+    width: 645px;
+    margin: 0px auto;
+    margin-top: 47px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1a1a1a;
+    padding-left: 6px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e4e4e4;
+}
+#buyerconnection .cont-wrap {
+    width: 410px;
+    height: 145px;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-size: 14px;
+}
+#buyerconnection .cont-wrap ul {
+    margin-left: 15px;
+    margin-top: 8px;
+}
+#buyerconnection .cont-wrap ul li {
+    padding-left: 8px;
+}
+#buyerconnection .buyeruserid {
+    color: #de7505;
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #c1c2c2;
+    margin-bottom: 12px;
+}
+#buyerconnection .desc {
+    margin: 45px;
+    text-align: center;
+}
+#buyerconnection .qq {
+    margin-top: 1em;
+}
+#appealdialog {
+  display: none;
+    left: 50%;
+    top: 0;
+    transform:translate(-50%,0);
+    -ms-transform:translate(-50%,0);
+    -moz-transform:translate(-50%,0);
+    -webkit-transform:translate(-50%,0); 
+    -o-transform:translate(-50%,0); 
+    width: 798px;
+    height: 672px;
+    background-color: #f9f7f7;
+    border-radius: 6px;
+}
+#appealdialog .close {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    cursor: pointer;
+}
+#appealdialog .subtt {
+    text-align: center;
+    font-size: 16px;
+    padding-top: 0.8em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #ccc;
+}
+#appealdialog .contain {
+    width: 90%;
+    margin: 0 auto;
+}
+#appealdialog .wrap-content {
+    height: 360px;
+    overflow-y: auto;
+    margin-top: 27px;
+}
+#appealdialog .firstreason {
+    padding-bottom: 0.6em;
+    border-bottom: 1px solid #e4e4e4;
+    margin-bottom: 0.6em;
+}
+#appealdialog .time {
+    color: #c1c1c1;
+    padding-bottom: 0.3em;
+    font-size: 14px;
+}
+#appealdialog .firstrc {
+    color: #474646;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.4em;
+}
+#appealdialog .wrap-backct li {
+    padding-bottom: 0.8em;
+    border-bottom: 1px dashed #bcbdbf;
+    margin-bottom: 0.8em;
+}
+#appealdialog .backct {
+    color: #757474;
+    line-height: 1.4em;
+}
+#appealdialog .appealuser {
+    color: #3c9ddc;
+    font-weight: bold;
+}
+#appealdialog .wrap-doback {
+    padding-top: 2em;
+}
+.f-pr {
+    position: relative;
+}
+#appealdialog .backipt {
+    width: 96%;
+    padding: 0.8em;
+    color: #757474;
+    border: 1px solid #e6e9ec;
+    background-color: #fff;
+}
+#appealdialog .errortips {
+    color: red;
+    padding-top: 0.3em;
+    padding-left: 0.3em;
+}
+
+.ap-de .applycancelorder {
+	display: inline-block;
+	width: 110px;
+	padding: 6px 0;
+	border-radius: 6px;
+	background-color: #3cb3f6;
+	color: #fff;
+	text-align: center;
+}
+
+</style>
+{% endblock %}
+{% block section_title %}申诉中心{% endblock %}
+{% block section %}
+  <form class="searchappeal f-pr"  method="GET">
+    申诉范围：
+   <select class="select" name="scope"><option value="0" selected="">全部</option><option value="1">我发起的申诉</option><option value="2">我收到的申诉</option></select>　 申诉状态：
+   <select class="select" name="status"><option value="-1">全部</option><option value="1" selected="">处理中</option><option value="2">已完结</option></select>　 订单编号：
+   <input class="ipt" name="orderid" type="text" value="" />　 
+   <input class="btn-search" type="button" value="" /> 
+  </form> 
+  <table class="ap-de"> 
+   <tbody>
+    <tr> 
+     <th width="14%">时间</th> 
+     <th width="14%">单号&类型</th> 
+     <th width="14%">申诉进程</th> 
+     <th width="14%">图片</th> 
+     <th width="14%">买手信息</th>
+     <th width="16%">撤销订单</th> 
+     <th width="14%">状态操作</th> 
+    </tr> 
+    {% for a in appeals %}
+    <tr> 
+     <td>{{a.get_create_time_str}}</td> 
+     <td>{{a.appealtype.description}}<br><a href="/task/order/detail?order_id={{a.order_id}}" class="striking" target="_blank">{{a.order_id}}</a></td>
+     <td class="p-r"> 
+      <div class="p-r"> 
+       <div class="p-r wrap-see"> 
+        <a class="striking see-pro" href="javascript:appeal_progress({{a.id}})" >查看进程</a> 
+        <div class="redot"></div> 
+       </div> 
+      </div> </td> 
+     <td> 
+     {% for pic in a.get_pics %}
+     <a class="fancybox-effects-d"  href="{{pic}}" target="_blank"><img src="{{pic}}" width="52" height="52" /></a>
+     {% endfor %}
+     </td> 
+     <td> <a class="striking seebuyerinfo" href="javascript:void(0)" data-buyeruserid="{{a.order.tb.user.id}}" data-qq="{{a.order.tb.user.qq}}" data-mobile="{{a.order.tb.user.phone}}">查看</a> </td> 
+     <td>
+		{% ifequal a.status 1 %}
+			{% if a.order_cancel %}
+				{% if a.launch == a.order.tb.user.id %}
+					<a class=" applycancelorder" href="javascript:void(0)" onclick="order_cancel({{a.id}},false,true)">同意撤销买手任务</a>
+				{% elif a.launch == 0%}
+					<span style="color:#ff8040;">等待平台处理</span>
+				{% else %}
+					<span style="color:#ff8040;">等待买手同意</span>
+				{% endif %}
+			{% else %}
+				<a class=" applycancelorder" href="javascript:void(0)" onclick="order_cancel({{a.id}},true,false)">申请撤销买手任务</a>
+			{% endif %}
+		{% else %}
+			<span style="color:#0cef56;">已完结</span>
+		{% endifequal %}
+     </td>
+     <td>
+     {% ifequal a.status 1 %}
+       {% if a.finish %}
+         {% ifequal a.complainant_id a.order.tb.user.id %}
+           <p>处理中</p>
+         {% else %}
+           <p>处理中</p> <p><a href="javascript: void(0);" style="color: #3cb3f6;" onclick="appeal_finish({{a.id}},true)">同意完结</a></p>
+         {% endifequal %}
+       {% else %}
+         <p>处理中</p> <p><a href="javascript: void(0);" style="color: #3cb3f6;" onclick="appeal_finish({{a.id}},false)">完结申诉</a></p>
+       {% endif %}
+     <!--p>处理中</p> <p><a href="javascript: void(0);" style="color: #f6983c;" onclick="appeal_finish({{a.id}})">完结</a></p-->
+     {% else %}
+     <p>已完结</p>
+     {% endifequal %}
+      </td> 
+    </tr> 
+    {% endfor %}
+   </tbody>
+  </table>
+  <div class="ui-dialog" id="buyerconnection" style="left: 261.5px; top: 75.6px; display: none;"> 
+   <a class="dialog-close" href="javascript: void(0)"><img src="/static/image/web/home/dialog_close.png" /></a> 
+   <div class="tt">
+    查看买手联系方式
+   </div> 
+   <div class="cont-wrap f-cb"> 
+    <div class="f-fl">
+     <img class="infotypelogo" src="/static/image/web/home/buyerconnect.png" />
+    </div> 
+    <ul class="f-fl"> 
+     <li class="buyeruserid">买手ID：<span class="idnum"></span></li> 
+     <li class="mobile">手机号：<span class="mobilenum"></span>　</li> 
+     <li class="qq">QQ号：<span class="qqnum"></span></li> 
+    </ul> 
+   </div> 
+   <div class="desc">
+    如无法取得联系，申诉买手并说明原因，工作人员会处理
+   </div> 
+  </div>
+  <!-- 申述回复 -->
+  <div class="ui-dialog" id="appealdialog"> 
+   <img class="close" src="/static/image/web/home/dialog_close.png" /> 
+   <h2 class="subtt" id='appeal-title'></h2> 
+   <input hidden="hidden" id='appeal-id'/>
+   <div class="contain"> 
+    <div class="wrap-content" style="height: 360px;"> 
+     <ul class="wrap-backct">
+     </ul> 
+    </div> 
+    <div class="wrap-doback f-pr" style=""> 
+     <p class="tips-for-ilaunch" style="color: red;font-size: 14px;text-align: right;padding-right: 1em;display: none;">问题解决后请及时完结您的申诉</p> 
+     <textarea id='replycontent' class="backipt" placeholder="最多输入200字内容。。。"></textarea> 
+     <!--p class="errortips"></p> 
+     <a class="applycancel" href="javascript: void(0)" style="display: none;">申请撤销订单</a> 
+     <span class="cancelapplyed" style="display: inline;">已申请撤销订单</span> 
+     <a class="applyplat" href="javascript: void(0)" style="display: inline;">申请平台介入处理</a> 
+     <span class="platjoined" href="javascript: void(0)" style="display: none;">平台已介入处理</span--> 
+     <input id='btn-tjhf' type="button" value="提交回复" /> 
+     <a class="striking platinvolve" href="javascript:void(0)">申请平台介入</a>
+    </div> 
+    <div class="over-or-cancel" style="display: none;"></div> 
+   </div> 
+  </div>
+{% endblock %}
+{% block section_js %}
+<script>
+$(document).ready(function(){
+	$($('.nav-item')[6]).addClass('active');
+	$('.platinvolve').bind('click',function(){
+    $.post('/rest_web/tasks/appeal/platinvolve/'+$('#appeal-id').val(),function(res){
+      if(res.code==0){
+        alert('平台已介入');
+        history.go(0);
+      }else{
+        alert('系统错误');
+      }
+    });
+  });
+  $('.seebuyerinfo').bind('click',function(){
+		$('#buyerconnection .idnum').text($(this).data('buyeruserid'));
+		$('#buyerconnection .mobilenum').text($(this).data('mobile'));
+		$('#buyerconnection .qqnum').text($(this).data('qq'));
+		$('#buyerconnection').show();
+	});
+	$('.dialog-close').bind('click',function(){
+		$('#buyerconnection').hide();
+	});
+  $('img.close').bind('click',function(){
+    $('#appealdialog').hide();
+  });
+  appeal_progress=function(aid){
+    $('.wrap-backct').html('');
+    $('#appeal-id').val(aid);
+    $('#appealdialog').show();
+    $.getJSON('/rest_web/tasks/appeal/get/'+aid,function(res){
+      if(res.code==0){
+        with(res.data){
+          if (laifu.get_user_id()==complainant_id){
+            $('#appeal-title').text('我发出的申述');
+          }else{
+            $('#appeal-title').text('我收到的申述');
+          }
+          progress=JSON.parse(progress);
+          $.each(progress,function(i,e){
+            var content='<li><p class="time">';
+            content+=new Date(e.create_time).Format("yyyy-MM-dd hh:mm:ss");
+            content+='</p><p class="backct"><span class="beappealeduser">';
+            switch(e.source){
+              case 1:
+               content+='申诉人';
+              break;
+              case 2:
+              content+='被申诉人';
+              break;
+              case 3:
+              content+='平台';
+              break;
+            }
+            content+='：</span>';
+            content+=e.content;
+            content+='</p></li>';
+            $('.wrap-backct').append(content);
+          });
+        }
+      }
+    });
+  }
+  var btnreply=true;
+  $('#btn-tjhf').bind('click',function(){
+    if(!btnreply){
+      return;
+    }
+    var aid=$('#appeal-id').val();
+    var content=$('#replycontent').val();
+    if(!content){
+      return;
+    }
+    btnreply=false;
+    $.post('/rest_web/tasks/appeal/reply/'+aid,{'content':content},function(res){
+      if(res.code==0){
+        alert('回复成功');
+        var newr='<li><p class="time">';
+            newr+=new Date().Format("yyyy-MM-dd hh:mm:ss");
+            newr+='</p><p class="backct"><span class="beappealeduser">';
+            newr+='我';
+            newr+='：</span>';
+            newr+=content;
+            newr+='</p></li>';
+            $('.wrap-backct').append(newr);
+      }else{
+        alert('回复失败');
+      }
+      btnreply=true;
+    });
+  });
+  appeal_finish=function(aid,agree){
+    $.post('/rest_web/tasks/appeal/finish/'+aid,{'agree':agree},function(res){
+      if(res.code==0){
+        alert('申述完结成功');
+      }else{
+        alert('申述完结失败');
+      }
+    });
+  }
+  order_cancel=function(aid,cancel,agree){
+    $.post('/rest_web/tasks/appeal/order/'+aid,{'cancel':cancel,'agree':agree},function(res){
+      if(res.code==0){
+        alert('申述撤销成功');
+        history.go(0);
+      }else{
+        alert('申述撤销失败');
+      }
+    });
+  }
+});
+</script>
+{% endblock %}

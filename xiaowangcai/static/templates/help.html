@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+.top-lg {
+	background-color: #f2f3f5;
+	height: 310px;
+	width: 100%;
+}
+.question-lg {
+	display: block;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+.ct-wrap {
+	padding-top: 60px;
+	color: #7e8d9a;
+}
+.p-r {
+	position: relative;
+}
+.w-1k {
+	width: 1000px;
+	margin: 0 auto;
+}
+.f-cb, .f-cbli li {
+	zoom: 1;
+}
+.f-fl {
+	float: left;
+}
+.subct {
+	padding-bottom: 66px;
+	padding-right: 86px;
+}
+.subct.first {
+	padding-left: 75px;
+}
+.subct > h2 {
+	color: #060606;
+	font-size: 16px;
+	padding-bottom: 15px;
+}
+.subct ul {
+	width: 222px;
+}
+.subct li {
+	margin-bottom: 20px;
+}
+.subct li a {
+	color: #7e8d9a;
+}
+.subct li a:hover {
+	color: #3cb3f6;
+}
+</style>
+{% endblock %}
+{% block title %}常见问题{% endblock %}
+{% block header %}
+  {% include 'component/login_bar.html' %}
+{% endblock %}
+{% block main %}
+	<div class="top-lg">
+		<img class="question-lg" src="/static/image/question_logo.png">
+	</div>
+	<div class="w-1k p-r ct-wrap f-cb">
+		<div class="f-fl subct first">
+			<h2>新手教程</h2>
+			<ul>
+				<li><a href="/help_detail#a1">发布任务如何设置关键词，分类和价格区间？</a></li>
+				<li><a href="/help_detail#a2">如何开通任务免审核？</a></li>
+			</ul>
+		</div>
+		<div class="f-fl subct">
+			<h2>规则和要求</h2>
+			<ul>
+				<li><a href="/help_detail#b1">任务产品价格必须保留至任务结束方可变更</a></li>
+				<li><a href="/help_detail#b2">请商家在任务期间，关闭商品的淘宝客推广、京东联盟推广</a></li>
+				<li><a href="/help_detail#b3">请所有商家刷单时注意控制好店铺的转化率</a></li>
+				<li><a href="/help_detail#b4">可以引入流量的渠道有</a></li>
+				<li><a href="/help_detail#b5">关于买家疑似不经过搜索，直接秒拍任务商品的情况说明</a></li>
+			</ul>
+		</div>
+		<div class="f-fl subct">
+			<h2>常见问题</h2>
+			<ul>
+				<li><a href="/help_detail#a1">发布任务如何设置关键词，分类和价格区间?</a></li>
+				<li><a href="/help_detail#c2">什么是转账交易号？</a></li>
+				<li><a href="/help_detail#c3">如何查看转账交易号</a></li>
+				<li><a href="/help_detail#c4">关于买手使用淘宝客或者返利的解决对策？</a></li>
+				<li><a href="/help_detail#c5">淘大客等网站提示买家账号为危险账号怎么办？</a></li>
+				<li><a href="/help_detail#c6">淘宝虚假交易的申诉过程及个人经验？</a></li>
+				<li><a href="/help_detail#c7">什么情况下客服会撤回商家的任务？</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %} 
+{% block js%}
+
+{% endblock %}

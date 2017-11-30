@@ -1,0 +1,102 @@
+
+<style type="text/css">
+.ui-dialog {
+    position: fixed;
+    top: 100px;
+    left: 100px;
+    z-index: 1010;
+}
+#addblackdialog {
+    width: 740px;
+    height: 408px;
+    background-color: #f9f7f7;
+    border-radius: 4px;
+    display: none;
+}
+#addblackdialog .dct {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    letter-spacing: 0.12em;
+    font-size: 16px;
+}
+#addblackdialog .userid {
+    color: #3cb3f6;
+}
+#addblackdialog .reason-wrap {
+    margin-left: 72px;
+}
+#addblackdialog .reason {
+    width: 34em;
+    height: 8em;
+    padding: 0.8em;
+    font-size: 15px;
+    color: #737272;
+    border-radius: 4px;
+}
+#addblackdialog .smtopt {
+    width: 420px;
+    margin: 0 auto;
+    margin-top: 26px;
+}
+.btn-bs {
+    width: 136px;
+    height: 40px;
+    border: 0;
+    background: url(/static/image/web/component/bindstore_s.png) center center no-repeat;
+    cursor: pointer;
+    margin-right: 145px;
+}
+.btn-bc {
+    width: 136px;
+    height: 40px;
+    border: 0;
+    background: url(/static/image/web/component/bindstore_c.png) center center no-repeat;
+    cursor: pointer;
+}
+</style>
+<div class="ui-dialog" id="addblackdialog" style="left: 261.5px; top: 74.8px; display: none;"> 
+   <div class="tt">
+    添加黑名单
+   </div> 
+   <div class="dipt-wrap"> 
+    <div class="dct">
+     您是否要将用户 
+     <span class="userid" id='blackid'></span> 添加到黑名单？
+    </div> 
+    <div class="f-cb reason-wrap"> 
+     <div class="f-fl">
+      原因：
+     </div> 
+     <div class="f-fl"> 
+      <textarea class="reason" id='reason' placeholder="最多100字"></textarea> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="smtopt f-cb"> 
+    <input class="sure btn-bs f-fl" id='btn-submit' type="button" value="" /> 
+    <input class="cancel btn-bc f-fl" id='btn-cancel' type="button" value="" /> 
+   </div> 
+  </div>
+<script type="text/javascript">
+require(['jquery','laifu'],function($,laifu){
+  $('#addblackdialog #btn-cancel').bind('click',function(){
+    $('#addblackdialog').hide();
+  });
+  $('#addblackdialog #btn-submit').bind('click',function(){
+    $.post('/rest_web/users/user/lahei/'+laifu.get_user_id(),{
+      buyer_id:$('#addblackdialog #blackid').text(),
+      reason:$('#addblackdialog #reason').val(),
+    },function(res){
+      if(res.code==0){
+        alert('添加成功');
+        $('#addblackdialog').hide();
+      }
+    });
+  });
+  window.addblack=function(blackid){
+    $('#addblackdialog #blackid').text(blackid);
+    $('#addblackdialog').show();
+  }
+});
+</script>

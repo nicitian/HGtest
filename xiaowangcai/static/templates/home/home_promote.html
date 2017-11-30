@@ -1,0 +1,143 @@
+{% extends "home/home_.html" %}
+{% block section_css %}
+<style type="text/css">
+.list-wrap {
+    color: #737272;
+    margin: 0 26px;
+    margin-top: 7px;
+}
+.black-lst {
+    width: 100%;
+}
+.black-lst tr {
+    border-bottom: 1px solid #f6f7f7;
+}
+.black-lst td {
+    padding-top: 27px;
+    padding-bottom: 8px;
+}
+.btn-clip {
+  width: 108px;
+  height: 33px;
+  color: #fdfcfb;
+  background-color: #d30e2a;
+  border: 0;
+  cursor: pointer;
+}
+.f-fl {
+	float: left;
+}
+.mnc {
+	width: 795px;
+	min-height: 760px;
+	margin-top: 15px;
+	margin-left: 15px;
+	border: 1px solid #ececed;
+	background-color: #fdfefe;
+	margin-bottom: 16px;
+}
+.mnc .tt {
+	padding: 14px 0px 8px 0px;
+	margin: 0 27px;
+	margin-bottom: 4px;
+	font-size: 16px;
+	color: #090909;
+	border-bottom: 3px solid #dee1e2;
+}
+.mnc>.tt {
+	font-size: 16px;
+	margin-top: 16px;
+	margin-left: 16px;
+	color: #090909;
+}
+.ivtinfo {
+	width: 742px;
+	margin-bottom: 32px;
+	margin-top: 15px;
+}
+.mgc {
+	margin: 0 27px;
+}
+table {
+	table-layout: fixed;
+	border-collapse: collapse;
+	border-spacing: 0;
+	padding: 0;
+	display: table;
+	border-spacing: 2px;
+	border-color: grey;
+}
+tbody {
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit;
+}
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+td, th {
+	display: table-cell;
+	vertical-align: inherit;
+}
+.ivtinfo td {
+	padding-top: 13px;
+	padding-bottom: 13px;
+	text-align: center;
+	border: 1px solid #e5e5e5;
+}
+.method {
+	padding-top: 10px;
+}
+.method > p {
+	margin-bottom: 10px;
+}
+.clipboard {
+	height: 15px;
+	width: 320px;
+	padding: 8px;
+	border: 1px solid #e5e8eb;
+}
+.ivtinfo {
+	margin-top: 15px;
+}
+
+</style>{% endblock %}
+{% block section_title %}推广赚金(金币可用于发布任务){% endblock %}
+{% block section %}
+	<p style="margin-left: 20px;">功能筹建中...</p>
+	<!--img class="mgc" src="/static/image/web/home/ivt_top.jpg" />
+	<table class="mgc ivtinfo">
+		<tbody>
+		<tr>
+			<td>累计邀请 <span class='striking'> {{user.promote_num}} </span> 人</td>
+		</tr>
+		<tr>
+			<td>累计提成 <span class='money'> {{user.promote_award}} </span> 金</td>
+		</tr>
+		</tbody>
+	</table>
+	<h2 class="tt">做推广，赚分成</h2>
+	<div class="mgc method">
+		<p><strong>方式一：</strong>复制链接发送邀请给好友</p>
+		<div class="f-cb">
+			<input class="clipboard f-fl" type="text" id="linkinfo" readonly="readonly" value="http://120.26.214.214/register?inviterid={{user.id}}">
+			<input class="btn-clip f-fl" type="button" id="copylink" value="复制链接">
+	</div-->
+{% endblock %}
+{% block section_js %}
+<script type="text/javascript" src="/static/js/lib/jquery.zclip.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $($('.nav-item')[7]).addClass('active');
+ 	$('#copylink').zclip({
+        path:'/static/js/lib/ZeroClipboard.swf',
+        copy:$('#linkinfo').val(),
+        afterCopy:function(){
+			alert('复制成功');
+		},
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,242 @@
+{% extends "default_header_.html" %}
+{% block css %}
+<style type="text/css">
+.main {
+  margin-top: 15px;
+  border: 1px solid #ececed;
+  margin-bottom: 16px;
+}
+.refundsearch {
+  margin: 1.5em 22px;
+  padding-bottom: 1.2em;
+  border-bottom: 1px solid #ccc;
+}
+.refundsearch li {
+  margin-right: 1em;
+}
+.select {
+  padding: 4px;
+  border: 1px solid #bebfbf;
+  width: 67px;
+  color: #555;
+}
+.refundsearch .btn-search {
+  position: relative;
+  top: -5px;
+  left: 15px;
+}
+.btn-search {
+  width: 68px;
+  height: 32px;
+  border: 0;
+  background: url(/static/image/web/task/search_btn.png) center center no-repeat;
+  cursor: pointer;
+}
+.otdi {
+  margin: 0 10px;
+  margin-bottom: 30px;
+}
+.otdi .d-h {
+  margin-bottom: 4px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  border-bottom: 1px solid #ececed;
+  color: #090909;
+}
+.otdi .d-b {
+  margin-bottom: 4px;
+  border: 1px solid #ececed;
+}
+.otdi .d-b > ul {
+  padding: 14px;
+  background-color: #fafbfb;
+}
+.btn-return,.btn-freeze,.btn-platreturn {
+  width: 83px;
+  height: 25px;
+  border: 0;
+  background: url(/static/image/web/task/btn_mask.png) center center no-repeat;
+  cursor: pointer;
+}
+.pag {
+  padding: 10px 0 0 0;
+  margin-bottom: 20px;
+}
+.pag ul {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.pag li.ch {
+  text-align: center;
+  vertical-align: middle;
+  color: #0055a1;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  width: 25px;
+  height: 20px;
+  line-height: 20px;
+}
+.pag li {
+  list-style: none;
+  display: inline;
+}
+.pag a {
+  padding: 2px 6px 0 6px;
+  text-decoration: none;
+  color: #6f6f6f;
+  text-align: center;
+}
+
+</style>
+{% endblock %}
+{% block main%}
+   {% include 'component/task_manage_bar.html' %}
+   <form class="refundsearch" method="POST"> 
+    <ul class="f-cb"> 
+     <li class="f-fl"> 店铺： <select class="select" name="store_id" style="width: 120px;"> <option value="-1">全部</option>
+     {% for s in stores %}
+    <option value="{{s.id}}"> {{s.name}} </option>
+    {% endfor %} </select> </li> 
+     <li class="f-fl">买手买号：<input class="buyerww ipt" name="buyerww" value="" style="width: 100px;" /></li> 
+     <li class="f-fl">任务ID：<input class="taskid ipt" name="taskid" value="" style="width: 80px;" /></li> 
+     <li class="f-fl">
+         ID：<input class="orderid ipt" name="orderid" value="" style="width: 80px;" /></li>
+     <li class="f-fl">买手手赚ID：<input class="buyeruserid ipt" name="buyeruserid" value="" style="width: 80px;" /></li>
+     <li class="f-fl"><input class="btn-search" id="btn-search" type="button" /></li> 
+    </ul> 
+    <ul class="f-cb"> 
+     <li class="f-fl"> 返款状态： 
+     <select class="select " name="isrefund" style="width: 120px;"> 
+     <option value="-1" selected="selected">全部</option>
+     <option value="0">未返款</option>
+     <option value="1">已返款</option> 
+     </select>
+     </li> 
+    </ul> 
+   </form> 
+   <!-- 操作详情 --> 
+   <div class="otdi"> 
+    <ul class="d-h f-cb"> 
+     <li class="lst lst-1 f-fl" style="width: 190px;">订单信息</li> 
+     <li class="lst lst-2 f-fl" style="width: 180px;">买手信息</li> 
+     <li class="lst lst-4 f-fl" style="width: 160px;">付款时间与截图</li> 
+     <li class="lst lst-3 f-fl" style="width: 230px;">返款信息</li> 
+     <li class="lst lst-6 f-fl">操作</li> 
+    </ul>
+    {% for order in orders %}
+    <div class="d-b"> 
+     <ul class="f-cb"> 
+      <li class="f-fl lst lst-1" style="width: 190px;"> <p style="line-height:20px;">平台：{% ifequal order.task.platform 0 %}淘宝{% endifequal %}</p> <p style="line-height:20px;">类型：{% ifequal order.task.task_type 0 %}手机淘宝单{% endifequal %}</p> <p style="line-height:20px;">订单ID：<a class="striking" target="_blank" href="/task/order/detail?order_id={{order.id}}">{{order.id}}</a></p> <p style="line-height:20px;">任务ID：<a class="striking" target="_blank" href="/task/task/detail?task_id={{order.task.id}}">{{order.task.id}}</a></p> <p style="line-height:20px;">商家旺旺号：{{order.task.store.wangwang}}</p> </li> 
+      <li class="f-fl lst lst-2 lim-w" style="width: 160px;"> <p style="line-height:20px;">用户ID：{{order.tb.user.id}}</p> <p style="line-height:20px;">淘宝号：<span style="color:#46A3FF">{{order.tb.wangwang}}</span></p> <p style="line-height:20px;">QQ：{{order.tb.user.qq}} </p> <p style="line-height:20px;">手机：{{order.tb.phone}}</a></p> <p style="line-height:20px;"><a class="addblack" href="javascript: void(0)" style="color: #3cb3f6;" data-buyer-id="{{order.tb.user_id}}">加入黑名单</a></p> </li> 
+      <li class="f-fl lst lst-4 lim-w" style="width: 160px;"> <p style="line-height:20px;"><a class="striking" target="_blank" href="/task/order/detail?order_id={{order.id}}">查看订单详情 &gt;&gt;</a></p> <a class="fancybox-effects-d" data-fancybox-group="gallery" href="{{order.buy_pic1}}" target="_blank"><img class="pro_img" src="{{order.buy_pic1}}" width="60" height="70" /></a> <a class="fancybox-effects-d" data-fancybox-group="gallery" href="{{order.buy_pic2}}" target="_blank"><img class="pro_img" src="{{order.buy_pic2}}" width="60" height="70" /></a> <br />{{order.buy_time_str}} </li> 
+      <li class="f-fl lst lst-3 lim-w f-pr" style="width: 220px;"> <p style="line-height:20px;">返款模式：{% ifequal order.task.return_type 1 %}手动返款{% else %}平台返款{% endifequal %}</p> <p style="line-height:20px;">姓名：<span style="color:#46A3FF">{{order.bankcard.owner_name}}</span></p> <p style="line-height:20px;">银行：<span style="color:#46A3FF">{{order.bankcard.bank_name}}</span></p> <p style="line-height:20px;">归属地：<span style="color:#46A3FF">{{order.bankcard.bank_city}}</span></p> <p style="line-height:20px;">卡号：<span class="separate-num-pre-four" style="color:red;font-size:13px;">{{order.bankcard.account_id}}</span></p> <p style="line-height:20px;">支行：<span style="color:#46A3FF">{{order.bankcard.account_name}}</span></p> 
+       <div class="beyond24h"></div> </li> 
+      <li class="f-fl lst lst-6">
+      {% if order.status != 102 %}
+      <p class='striking' style="line-height:20px;">已返款</p>
+      <p style="line-height:20px;">确认时间</p><p>{{order.seller_commit_time}}</p>
+        <p style="line-height:20px;">商家确认：￥<span class='money'>{{order.get_seller_commit}}</span></p>
+      {% else %}
+        {% ifequal order.task.return_type 1 %}
+          <p style="line-height:20px;"><input class='seller-commit' type='number' /></p>
+          <p style="line-height:20px; float:left;"><input class="btn-return" type="button" data-order-id="{{order.id}}" value="确认提交" style="color:white; font-size: 14px;"/></p>
+          {% if order.frozen %}
+            <p style="line-height:20px; float:left;"><input class="btn-freeze" id="freeze_btn_{{order.id}}" type="button" data-order-id="{{order.id}}" value="冻结并申诉" disabled="disabled" style="color:white; font-size: 14px;"/></p>
+          {% else %}
+            <p style="line-height:20px; float:left;"><input class="btn-freeze" id="freeze_btn_{{order.id}}" type="button" data-order-id="{{order.id}}" value="冻结并申诉" style="color:white; font-size: 14px;"/></p>
+          {% endif %}
+        {% else %}
+          <p style="line-height:20px;"><input class='seller-commit' type='number' value='{{order.get_buyer_commit}}'/></p>
+          <p style="line-height:20px; float:left;"><input class="btn-platreturn" type="button" data-order-id="{{order.id}}" value="确认提交" style="color:white; font-size: 14px;"/></p>
+          {% if order.frozen %}
+            <p style="line-height:20px; float:left;"><input class="btn-freeze" id="freeze_btn_{{order.id}}" type="button" data-order-id="{{order.id}}" value="冻结并申诉" disabled="disabled" style="color:white; font-size: 14px;"/></p>
+          {% else %}
+            <p style="line-height:20px; float:left;"><input class="btn-freeze" id="freeze_btn_{{order.id}}" type="button" data-order-id="{{order.id}}" value="冻结并申诉" style="color:white; font-size: 14px;"/></p>
+          {% endif %}
+        {% endifequal %}
+      {% endif %}
+      <p style="line-height:20px;">商品总价：￥<span class='money'>{{order.dianzi}}</span></p> <p style="line-height:20px;">买手提交：￥<span class='money'>{{order.get_buyer_commit}}</span></p> <!--p style="line-height:30px;">返款金额：<input class="ipt backmoney f-tar" id="backmoney_16183386" value="99" maxlength="7" style="width:50px;" /></p--> <p style="line-height:50px;">
+      </p> </li> 
+     </ul> 
+    </div>
+    {% endfor %}
+   </div> 
+   {% include 'component/page_bar.html' %}
+   {% include 'component/add_black_dialog.html' %}
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/static/js/component/page_bar.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#btn-search').bind('click',function(){
+    var postdata={};
+    ($('select[name=store_id]').val()>0)&&(postdata.store_id=$('select[name=store_id]').val());
+    ($('input[name=buyerww]').val())&&(postdata.buyer_wangwang=$('input[name=buyerww]').val());
+    ($('select[name=isrefund]').val()>=0)&&(postdata.return_status=$('select[name=isrefund]').val());
+    ($('input[name=taskid]').val())&&(postdata.task_id=$('input[name=taskid]').val());
+    ($('input[name=orderid]').val())&&(postdata.order_id=$('input[name=orderid]').val());
+    ($('input[name=buyeruserid]').val())&&(postdata.buyer_id=$('input[name=buyeruserid]').val());
+    var search='?';
+    for(var i in postdata){
+      search+=i+'='+postdata[i]+'&';
+    }
+    location.search=search;
+  });
+  $('.btn-return').bind('click',function(){
+    var btn=$(this);
+    var oid=btn.data('order-id');
+    var seller_commit=btn.parent().prev().children().val();
+    if (!parseFloat(seller_commit)){
+      alert('请输入正确金额');
+      return;
+    }
+    $.post('/rest_web/tasks/order/returndeliver/'+oid,{'seller_commit':seller_commit},function(res){
+      if(res.code==0){
+        alert('返款成功');
+        btn.hide();
+        btn.parent().prev().children().hide();
+        $('#freeze_btn_'+oid).hide();
+      }else if(res.code==-120){
+      	alert('返款失败,余额不足');
+      }else if(res.code==-135){
+      	alert('返款失败,订单已冻结');
+      }else{
+        alert('返款失败');
+      }
+    });
+  });
+  $('.btn-platreturn').bind('click',function(){
+    var btn=$(this);
+    var oid=btn.data('order-id');
+    var seller_commit=btn.parent().prev().children().val();
+    if (!parseFloat(seller_commit)){
+      alert('请输入正确金额');
+      return;
+    }
+    $.post('/rest_web/tasks/order/returndeliver/'+oid,{'seller_commit':seller_commit},function(res){
+      if(res.code==0){
+        alert('确认成功');
+        btn.hide();
+        $('#freeze_btn_'+oid).hide();
+      }else if(res.code==-120){
+      	alert('确认失败,余额不足');
+      }else if(res.code==-135){
+      	alert('确认失败,订单已冻结');
+      }else{
+        alert('确认失败');
+      }
+    });
+  });
+	$('.btn-freeze').bind('click',function(){
+		var btn=$(this);
+		var oid=btn.data('order-id');
+		location.href	= "/task/order/appeal/"+oid;
+	});
+  $('.addblack').bind('click',function(){
+    addblack($(this).data('buyer-id'));
+  });
+});
+</script>
+{% endblock %}

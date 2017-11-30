@@ -1,0 +1,39 @@
+<style type="text/css">
+.pag {
+  padding: 10px 0px 0px 0px;
+  margin-bottom: 20px;
+}
+.pag ul {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.pag li {
+  list-style: none;
+  display: inline;
+}
+.pag a {
+  padding: 2px 6px 0px 6px;
+  text-decoration: none;
+  color: #6F6F6F;
+  text-align: center;
+}
+</style>
+
+  <div class="pag f-cb"> 
+   <ul class="pagebar" id="pagebar" data-url="{{pagebar.url}}" data-record-total="{{pagebar.record_total}}" data-record-per-page="{{pagebar.record_per_page}}" data-current-page="{{pagebar.current_page}}" data-page-total="{{pagebar.page_total}}">
+     共<span class='striking'>{{pagebar.record_total}}</span>条记录,每页<span class='striking'>{{pagebar.record_per_page}}</span>条,当前第<span class='striking'>{{pagebar.current_page}}</span>页 
+    <li> <a class="first" href="javascript:void(0)"> 首页 </a> </li> 
+    <li> <a class="prev" href="javascript:void(0)"> 上一页 </a> </li> 
+    <li> <a class="next" href="javascript:void(0)"> 下一页 </a> </li> 
+    <li> <a class="last" href="javascript:void(0)"> 末页 </a> </li> 
+    <li> 共<span class='striking'>{{pagebar.page_total}}</span>页，跳转至 </li> 
+    <li>
+      <select class="select">
+      {% for i in pagebar.page_total_list %}
+      <option>{{i}}</option>
+      {% endfor %}
+      </select>
+    </li> 
+   </ul> 
+  </div>

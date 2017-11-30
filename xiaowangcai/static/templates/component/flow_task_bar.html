@@ -1,0 +1,51 @@
+<style type="text/css">
+.tm-tab {
+  border-bottom: 3px solid #dee1e2;
+  margin: 16px;
+  color: #8c8c8c;
+  padding-left: 6px;
+}
+.tm-tab .mntab.act:hover {
+  background-color: #3fb7fb;
+  color: #fff;
+}
+.tm-tab .mntab:hover {
+  background-color: #fff;
+}
+.tm-tab .mntab.act {
+  background-color: #3fb7fb;
+  color: #fff;
+}
+.tm-tab .mntab {
+  width: 120px;
+  height: 30px;
+  border: 1px solid #dee1e2;
+  border-bottom: none;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  margin-right: 2px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #f3f4f4;
+}
+</style>
+  <div class="tm-tab f-pr"> 
+   <div class="f-cb"> 
+    <a class="f-fl mntab" href="/home/task/flow">浏览任务管理</a> 
+    <a class="f-fl mntab" href="/task/flow/manage">浏览任务订单管理</a> 
+   </div> 
+  </div>
+<script type="text/javascript" src='/static/js/lib/jquery-1.11.3.min.js'></script>
+<script type="text/javascript">
+(function(){
+  var tabs=document.getElementsByClassName('mntab');
+  for(var i=0;i<tabs.length;i++){
+    var tab=tabs[i];
+    if(tab.getAttribute('href')==location.pathname){
+      tab.setAttribute('href','javascript:void(0);');
+      tab.className+=' act';
+    }
+  }
+  
+})();
+</script>

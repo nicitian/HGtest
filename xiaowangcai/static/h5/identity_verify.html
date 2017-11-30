@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>身份信息审核</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="col-md-12">
+		<div id="id_bg" style="width: 100%; background-image: url(images/identity_verify.png); background-repeat: no-repeat;background-size: 100% auto; background-position: 50% 50%;">
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+function resizeDiv() {
+	// 获取 div 元素
+	var div = document.getElementById("id_bg");
+	// 兼容 style
+	var style = div.currentStyle || getComputedStyle(div, false);
+	// 从 url("/path/to/image.jpg") 中获取图像地址
+	var img_src = style.backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+	
+	// 创建新图像
+	var img = new Image();
+	// 图像加载
+	img.onload = function() {
+		// 获取宽高比
+		var ratio = img.width / img.height;
+		// 根据比例设置 div 高度
+		div.style.height = parseInt(div.offsetWidth / ratio) + "px";
+		img = null;
+	};
+	img.src = img_src;
+};
+　
+// 页面加载，设置 div 高度
+window.onload = function() {
+	resizeDiv();
+};
+　
+// 窗口变化，设置 div 高度
+window.onresize = function() {
+	resizeDiv();
+};
+</script>
+</html>

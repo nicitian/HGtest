@@ -1,0 +1,248 @@
+{% extends "default_header_.html" %}
+{% block css %}
+<style type="text/css">
+.main {
+	margin-top: 15px;
+	border: 1px solid #ececed;
+	background-color: #fdfefe;
+	margin-bottom: 16px;
+}
+.task-ti {
+	padding: 15px 6px 4px 6px;
+	margin: 0 15px;
+	margin-bottom: 23px;
+	border-bottom: 3px solid #dee1e2;
+}
+.task-ti .tt {
+	font-size: 16px;
+	color: #090909;
+	font-weight: 800;
+}
+.task-ti .vbar {
+	padding-right: 12px;
+	margin-right: 12px;
+	border-right: 1px solid #e6eded;
+}
+.buyer-info {
+	margin: 0 15px;
+}
+.buyer-info table {
+	width: 974px;
+	background-color: #fff;
+	margin-top: 12px;
+	margin-bottom: 30px;
+}
+.buyer-info th {
+	background-color: #fafbfb;
+	padding: 14px 0px;
+	text-align: center;
+}
+.bdl {
+	border-left: 1px solid #e5e5e5;
+}
+.bdt {
+	border-top: 1px solid #e5e5e5;
+}
+.bdr {
+	border-right: 1px solid #e5e5e5;
+}
+.bdb {
+	border-bottom: 1px solid #e5e5e5;
+}
+.buyer-info td {
+	padding: 28px 0px;
+	text-align: center;
+}
+.task-pro {
+	margin: 0 15px;
+}
+.task-pro .subtt {
+	padding-left: 8px;
+	color: #767575;
+	font-size: 15px;
+	font-weight: 600;
+}
+.task-pro > table {
+	margin-top: 15px;
+	width: 974px;
+	background-color: #fff;
+	margin-bottom: 50px;
+}
+.task-pro > table th {
+	background-color: #fafbfb;
+	padding: 14px 0px;
+}
+.task-pro > table td {
+	padding: 12px 0px;
+	text-align: center;
+}
+.pl-35 {
+	padding-left: 35px !important;
+}
+.bdd-b {
+	border-bottom: 1px dashed #e5e5e5;
+}
+.task-pro .ok {
+	position: relative;
+	top: 4px;
+	left: 16px;
+}
+.task-pro .pro_img {
+	margin-right: 13px;
+	cursor: pointer;
+}
+#div-appeal{
+	display: none;
+	position: fixed;
+	left: 50%;
+	top: 100px;
+	z-index: 1000;
+	width: 740px;
+	height: 408px;
+	background-color: #f9f7f7;
+	border-radius: 4px;
+	transform:translate(-50%,0);
+	-ms-transform:translate(-50%,0);
+	-moz-transform:translate(-50%,0);
+	-webkit-transform:translate(-50%,0); 
+	-o-transform:translate(-50%,0); 
+}
+.mar10px{
+  margin: 10px;
+}
+.appealinfo{margin-top: 58px;margin-left: 100px;width: 792px;margin-bottom: 70px;}
+.appealinfo td{padding-bottom: 20px;}
+.appealinfo .select{width: 120px;color: #666;}
+.appealinfo .tag{position: relative;top: -2px;left: -4px;}
+.a-desc{width: 650px;height: 200px;border: 1px solid #e5e5e5;padding: 10px;color: #666;}
+.upicwrap{margin-bottom: 8px;}
+.upicwrap img{margin-right: 17px;}
+.upbtnwrap > div{margin-right: 80px;}
+.upicwrap .prompt {bottom: 0px;right: 0px;}
+.appealinfo input[type=submit]{margin: 0 auto;display: block;margin-top: 50px;}
+.btn-qrtjbig{width:165px;height:42px;border:0;background:url(/static/image/web/task/btn_qrtj_big.png) center center no-repeat;cursor:pointer}
+.btn-qrtjbig{margin: 0 auto;display: block;margin-top: 50px;}
+.btn-upfile{position:relative;width:85px;height:26px;overflow:hidden;cursor:pointer;text-align:center}
+.btn-upfile .new-contentarea label{width:100%;height:100%;display:block;background:url(/static/image/web/home/upfile.png)}
+.btn-upfile .new-contentarea input[type=file]{width:188px;height:60px;background:#333;margin:0 auto;position:absolute;right:50%;margin-right:-94px;top:0;right:0\9;margin-right:0\9;width:188px;opacity:0;filter:alpha(opacity=0);z-index:2}
+.btn-upfile a.upload-img{width:165px;display:inline-block;margin-bottom:10px;height:57px;line-height:57px;font-size:20px;color:#fff;background-color:#f38e81;border-radius:3px;text-decoration:none;cursor:pointer}
+</style>
+{% endblock %}
+{% block main%}
+	<div class="f-cb task-ti"> 
+		<div class="tt f-fl">
+			发起申诉
+		</div> 
+		<div class="f-fr" style="margin-top:16px;"> 
+			<ul class="f-cb"> 
+				<li class="f-fl vbar">订单编号:<span id="appeal-order-id">{{order.id}}</span></li> 
+				<li class="f-fl">{{order.receive_time_str}}</li> 
+			</ul> 
+		</div> 
+	</div> 
+	<form class="appealinfo" id="form1">
+		<table>
+			<tbody><tr>
+				<td class="f-tar" width="15%"><img class="tag" src="/static/image/web/home/submust_input.png">选择投诉类型：</td>
+				<td><select class="select" name="appealtype" id="appeal-type">
+				<option value="0">--请选择--</option>
+				<option value="6">买手做任务问题</option>
+				<option value="7">买手确认收货好评问题</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td class="f-tar" valign="top"><img class="tag" src="/static/image/web/home/submust_input.png">填写投诉说明：</td>
+				<td>
+					<textarea class="a-desc" id="appeal-desc" name="appealreason" placeholder="最多200字"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td class="f-tar" valign="top">添加图片证据：</td>
+				<td>
+					<div class="f-cb upicwrap p-r">
+						<div class="f-fl">
+							<input type="hidden" id="token" name="token">
+							<input type="hidden" id="key" name="key">
+							<img class="apic" id="appeal-pic-img1" src="/static/image/web/home/default_upic.png" width="143" height="143">
+							<div id="delete_0" style="position:absolute;top:-4px;left:132px;display:none;">
+							<a href="javascript:void(0)" onclick="deletepic(0)"><img src="/static/image/web/home/error_tag.png"></a></div>
+							<img class="apic" id="appeal-pic-img2" src="/static/image/web/home/default_upic.png" width="143" height="143">
+							<div id="delete_1" style="position:absolute;top:-4px;left:296px;display:none;">
+							<a href="javascript:void(0)" onclick="deletepic(1)"><img src="/static/image/web/home/error_tag.png"></a></div>
+							<img class="apic" id="appeal-pic-img3" src="/static/image/web/home/default_upic.png" width="143" height="143">
+							<div id="delete_2" style="position:absolute;top:-4px;left:296px;display:none;">
+							<a href="javascript:void(0)" onclick="deletepic(2)"><img src="/static/image/web/home/error_tag.png"></a></div>
+						</div>
+						<div class="f-fl prompt p-r">最多可添加3张图片，单张图片大小在3M以内</div>
+					</div>
+					<div class="f-cb upbtnwrap">
+						<div class="f-fl">
+							<div class="btn-upfile f-fl">
+								<div class="new-contentarea">
+									<a href="javascript:void(0)" class="upload-img"><label></label></a>
+									<input type="file" class="mainpic" name="file" id="appeal-pic-input1" value="">
+								</div>
+							</div>
+						</div>
+						<div class="f-fl">
+							<div class="btn-upfile f-fl">
+								<div class="new-contentarea">
+									<a href="javascript:void(0)" class="upload-img"><label></label></a>
+									<input type="file" class="mainpic" name="file" id="appeal-pic-input2" value="">
+								</div>
+							</div>
+						</div>
+						<div class="f-fl">
+							<div class="btn-upfile f-fl">
+								<div class="new-contentarea">
+									<a href="javascript:void(0)" class="upload-img"><label></label></a>
+									<input type="file" class="mainpic" name="file" id="appeal-pic-input3" value="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</tbody></table>
+		<div class="error"></div>
+		<input class="btn-qrtjbig" type="button" id='appeal-submit' value="">
+	</form>
+{%endblock%}
+{% block js %}
+<script type="text/javascript">
+require(['jquery', 'lib/jquery.form'],
+function($, jform) {
+	laifu.pic_upload('appeal-pic-input1','appeal-pic-img1');
+	laifu.pic_upload('appeal-pic-input2','appeal-pic-img2');
+	laifu.pic_upload('appeal-pic-input3','appeal-pic-img3');
+	
+	var enable=true;
+	$('#appeal-submit').bind('click',function(){
+		if(!enable){
+			return;
+		}
+		enable=false;
+		var data={};
+		data.appealtype_id=$('#appeal-type').val();
+		if($('#appeal-desc').val()){
+			data.description=$('#appeal-desc').val();
+		}
+		for(var i=0;i<3;i++){
+			var src=$('#appeal-pic-img'+(i+1)).attr('src');
+			if(src&&src!='/static/image/web/home/default_upic.png'){
+				data['pic'+i]=src;
+			}
+		}
+		$.post('/rest_web/tasks/order/applyappeal/'+$('#appeal-order-id').text(),data,function(res){
+			if(res.code==0){
+				alert('申述成功');
+				location.href	= "/home/appeal";
+			}else{
+				enable=true;
+				alert('申述失败');
+			}
+		});
+	});
+});
+</script>
+{% endblock %}

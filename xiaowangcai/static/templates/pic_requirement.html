@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style type="text/css">
+	.w-1k {width: 1000px;margin: 0 auto;}
+	.striking {color: #3cb3f6;}
+	.f-cb, .f-cbli li {zoom: 1;}
+	.f-pr {position: relative;}
+	.f-fl {float: left;}
+	.wrap-12{margin-left: 12em;}
+	.wrap-22{margin-left: 12em;}
+	h1{font-size: 22px;text-align: center;padding-top: 2em;margin-bottom: 1.5em;border-top: 1px solid #ccc;}
+	h2{font-size: 16px;color: #fe0101;margin-bottom: 1.0em;text-align: center;}
+	.rightarr{position: absolute;top: 50%;right: -50%;}
+	.specialtask_14{margin-left: 5em;}
+	.specialtask_23{margin-left: 5em;}
+	.or{font-size: 20px;color: red;font-weight: bold;position: absolute;top: 50%;left: 49%;}
+	.specialtask_15{position: absolute;bottom: -5em;left: 41%;}
+	.wrap-2{margin-top: 6em;margin-bottom: 4em;}
+	</style>
+{% endblock %}
+{% block title %}特别上传图片示例{% endblock %}
+{% block header %}
+  {% include 'component/login_bar.html' %}
+{% endblock %}
+{% block main %}
+	<div class="w-1k ct-wrap">
+		<h1 class="striking">图片制作要求：按找到商品步骤截图，且做好每张图的入口标记</h1>
+		<div class="f-cb wrap-1">
+			<div class="f-fl f-pr wrap-11">
+				<h2>例如下方淘抢购需要两步找到商品</h2>
+				<img class="specialtask_11" src="/static/image/specialtask_11.jpg">
+				<img class="rightarr" src="/static/image/specialtask_12.jpg">
+				<img class="specialtask_15" src="/static/image/specialtask_15.jpg">
+			</div>
+			<div class="f-fl f-pr wrap-12">
+				<h2>图片只要将入口明确标出即可</h2>
+				<img class="specialtask_13" src="/static/image/specialtask_13.jpg">
+				<img class="specialtask_14" src="/static/image/specialtask_14.jpg">
+				<span class="or">或</span>
+			</div>
+		</div>
+		<div class="f-cb wrap-2">
+			<div class="f-fl f-pr wrap-21">
+				<img class="specialtask_21" src="/static/image/specialtask_21.jpg">
+				<img class="rightarr" src="/static/image/specialtask_12.jpg">
+			</div>
+			<div class="f-fl f-pr wrap-22">
+				<img class="specialtask_22" src="/static/image/specialtask_22.jpg">
+				<img class="specialtask_23" src="/static/image/specialtask_23.jpg">
+				<span class="or">或</span>
+			</div>
+		</div>
+	</div>
+{% endblock %} 
+{% block js%}
+
+{% endblock %}

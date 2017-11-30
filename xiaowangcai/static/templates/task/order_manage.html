@@ -1,0 +1,279 @@
+{% extends "default_header_.html" %}
+{% block css %}
+<style type="text/css">
+.main {
+  margin-top: 15px;
+  border: 1px solid #ececed;
+  margin-bottom: 16px;
+}
+.searchorder {
+    margin-left: 16px;
+    margin-right: 16px;
+    padding-top: 22px;
+    margin-bottom: 20px;
+}
+.searchorder table {
+    width: 100%;
+}
+.select {
+    padding: 4px;
+    border: 1px solid #bebfbf;
+    width: 67px;
+    color: #555;
+}
+.ipt {
+    padding: 4px;
+    border: 1px solid #bebfbf;
+    width: 67px;
+    color: #666;
+}
+.Wdate {
+    border: #999 1px solid;
+    height: 20px;
+    width: 90px;
+    background: #fff url(datePicker.gif) no-repeat right;
+}
+.btn-search {
+    width: 68px;
+    height: 32px;
+    border: 0;
+    background: url(/static/image/web/task/search_btn.png) center center no-repeat;
+    cursor: pointer;
+}
+.orderlist {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.orderlist .orderhd {
+    background-color: #fafbfb;
+}
+.orderlist ul {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border: 1px solid #ededee;
+    margin-bottom: 10px;
+}
+.orderlist .time {
+    padding-left: 18px;
+    width: 156px;
+}
+.orderlist .xwcid {
+    width: 110px;
+}
+.orderlist .wwname {
+    width: 135px;
+}
+.orderlist .ordertype {
+    width: 168px;
+}
+.orderlist .orderstatus {
+    width: 160px;
+}
+.orderlist .orderdetail {
+    color: #6b6b6b;
+    text-decoration: underline;
+    padding-right: 1em;
+}
+</style>
+{% endblock %}
+{% block main %}
+   {% include 'component/task_manage_bar.html' %}
+   <form class="searchorder" id="searchorder" method="POST"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td width="5%">店铺：</td> 
+       <td width="14%"> <select class="select" name="shopname" style="width: 120px;"> <option value="">全部</option>
+       {% for s in stores %}
+       <option value="{{s.id}}"> {{s.name}} </option>
+    {% endfor %} </select> </td> 
+       <td width="10%">买手旺旺名称：</td> 
+       <td width="15%"><input class="ipt" type="text" name="buyerww" style="width: 120px;" value="" /></td> 
+       <td width="6%">订单ID：</td> 
+       <td width="15%"><input class="ipt" type="text" name="orderid" style="width: 120px;" value="" /></td> 
+       <td width="8%">接单时间：</td> 
+       <td width="10%"><input type="text" value="" name="starttime" id="starttime" class="Wdate" onfocus="WdatePicker({isShowClear:true,readOnly:true})" /></td> 
+       <td width="4%" align="center">到</td> 
+       <td width="10%"><input type="text" value="" name="endtime" id="endtime" class="Wdate" onfocus="WdatePicker({isShowClear:true,readOnly:true})" /></td> 
+      </tr> 
+     </tbody>
+    </table> 
+    <table style="margin-top: 1em;"> 
+     <tbody>
+      <tr> 
+       <td width="8%">手赚ID：</td>
+       <td width="10%"><input class="ipt" type="text" name="buyeruserid" style="width: 80px;" value="" /></td> 
+       <td width="9%">　订单类型：</td> 
+       <td width="12%"> <select class="select" name="ordertype" style="width: 100px;"> <option value="-1" selected="">全部</option> <option value="0">普通好评单</option> <option value="1">关键字好评单</option> <option value="2" >图文好评单</option> <option value="3">流量单</option> <option value="4">收藏单</option> <option value="5">直通车单</option> <option value="6">延时购买任务</option> </select> </td> 
+       <td width="8%">订单状态：</td> 
+       <td width="12%"> <select class="select" name="orderstatus" style="width: 100px;"> <option value="-1">全部</option> <option value="1">待操作</option> <option value="2">待返款发货</option> <option value="3">待评价</option> <option value="4">待确认</option> <option value="5">已完成</option> <!--option value="6">已取消</option--> </select> </td> 
+       <!--td width="8%">申诉订单：</td> 
+       <td width="12%"> <select class="select" name="appeal" style="width: 100px"> <option value="-1">全部</option> <option value="1">申诉中</option> <option value="2">已完成</option> </select> </td--> 
+       <td width="10%" align="center"><input class="btn-search" id="btn-search" type="button" value="" /></td> 
+       <td width="10%" align="center"><input class="btn-search" id="btn-export" type="button" value="导出"  style="background:#DBDBDB;border-radius:5px;" /></td>
+       <!--td align="center"><input class="btn-export" id="exportdata" type="button" value="" /></td--> 
+      </tr> 
+     </tbody>
+    </table> 
+   </form> 
+   <div class="orderlist"> 
+    <ul class="f-cb orderhd"> 
+     <li class="f-fl time">接单时间</li> 
+     <li class="f-fl xwcid">手赚ID</li>
+     <li class="f-fl wwname">旺旺名称</li> 
+     <li class="f-fl ordertype">订单类别</li> 
+     <li class="f-fl orderstatus">订单状态</li> 
+     <li class="f-fl apply">申诉状态</li> 
+    </ul>
+    {% for o in orders %}
+    <ul class="f-cb orderct" data-order-id={{o.id}}> 
+     <li class="f-fl time">{% ifequal o.status 0 %}未接单{% else %}{{o.receive_time_str}}{% endifequal %}</li> 
+     <li class="f-fl xwcid">{% ifequal o.status 0 %}{% else %}
+     <a  href="/startprivate_chat/{{o.tb.user_id}}"  style="color: #3cb3f6;" title="ID: 130319" target="sixin" >{{o.tb.user_id}}</a>
+         {% if o.flags == 0 %}
+             <a class="addblack" href="javascript: void(0);" style="color: #3cb3f6;" data-buyer-id="{{o.tb.user_id}}">拉黑</a>
+         {% else %}
+             <a class="addblack_null" href="javascript: void(0);" style="color: red;" data-buyer-id="{{o.tb.user_id}}">已被拉黑</a>
+         {% endif %}
+     {% endifequal %}</li> 
+     <li class="f-fl wwname lim-w">{% ifequal o.status 0 %}{% else %}{{o.tb.wangwang}}{% endifequal %}</li> 
+     <li class="f-fl ordertype f-pr">
+     {% ifequal o.order_type 0 %}
+     普通好评单
+     {% endifequal %}
+     {% ifequal o.order_type 1 %}
+     关键字好评单
+     {% endifequal %}
+     {% ifequal o.order_type 2 %}
+     图文好评单
+     {% endifequal %}
+     {% ifequal o.order_type 3 %}
+     流量单
+     {% endifequal %}
+     {% ifequal o.order_type 4 %}
+     收藏单
+     {% endifequal %}
+     {% ifequal o.order_type 5 %}
+     直通车单
+     {% endifequal %}
+     {% ifequal o.order_type 6 %}
+         {% if o.task.is_qian == 1 %}
+             千人千面延时购买任务
+         {% else %}
+             普通延时购买任务
+         {% endif %}
+     {% endifequal %}
+     <!--img class="tips-1" src="images/liuliangdan.png" /--> </li> 
+     <li class="f-fl orderstatus">
+     {% ifequal o.status 0 %}未接单{% else %}
+       {% if o.is_buy_order %}
+           {% if o.status == 1 %}
+           待操作
+           {% elif o.status == 2 %}
+           已撤销
+           {% elif o.status == 3 %}
+           已撤销
+           {% elif o.status == 10 %}
+           已完成
+           {% elif o.status == 100 %}
+           已经货比三家
+           {% elif o.status == 102 %}
+           待返款
+           {% elif o.status == 103 %}
+           待发货
+           {% elif o.status == 104 %}
+           待好评
+           {% elif o.status == 105 %}
+           待确认 <a class="btn-affirm" href="javascript: void(0);" style="color: #3cb3f6;" data-order-id="{{o.id}}">确认</a>
+           {% elif o.status == 106 %}
+           已确认
+           {% elif o.status == 107 %}
+               高级任务已浏览
+           {% elif o.status == 108  %}
+                千人千面任务已浏览
+           {% else %}
+           完成情况请点击详情查看
+           {% endif %}
+       {% else %}
+           {% if o.status == 1 %}
+           待操作
+           {% elif o.status == 2 %}
+           已撤销
+           {% elif o.status == 3 %}
+           已撤销
+           {% elif o.status == 10 %}
+           已完成
+           {% elif o.status == 105 %}
+           待确认 <a class="btn-affirm" href="javascript: void(0);" style="color: #3cb3f6;" data-order-id="{{o.id}}">确认</a>
+           {% else %}
+           完成情况请点击详情查看
+           {% endif %}
+       {% endif %}
+       {% endifequal %}
+     </li> 
+     <li class="f-fl apply"> </li> 
+     <li class="f-fr"><a class="orderdetail" style="color:red;"href="/task/order/detail?order_id={{o.id}}" target="_blank" title="点击查看">订单详情</a></li>
+    </ul> 
+    {% endfor %}  
+   </div>
+   {% include 'component/page_bar.html' %}
+   {% include 'component/add_black_dialog.html' %}
+{%endblock%}
+{% block js %}
+<script type="text/javascript" src="/static/js/component/page_bar.js"></script>
+<script language="javascript" type="text/javascript" src="/static/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#btn-search').bind('click',function(){
+    var postdata={};
+    ($('select[name=shopname]').val()>0)&&(postdata.store_id=$('select[name=shopname]').val());
+    ($('input[name=buyerww]').val())&&(postdata.buyer_wangwang=$('input[name=buyerww]').val());
+    //($('select[name=isrefund]').val()>=0)&&(postdata.return_status=$('select[name=isrefund]').val());
+    ($('input[name=orderid]').val())&&(postdata.order_id=$('input[name=orderid]').val());
+    //($('input[name=orderid]').val())&&(postdata.order_id=$('input[name=orderid]').val());
+    ($('input[name=buyeruserid]').val())&&(postdata.buyer_id=$('input[name=buyeruserid]').val());
+    ($('select[name=ordertype]').val()>=0)&&(postdata.order_type=$('select[name=ordertype]').val());
+    ($('select[name=orderstatus]').val()>0)&&(postdata.order_status=$('select[name=orderstatus]').val());
+    ($('input[name=starttime]').val())&&(postdata.receive_start=$('input[name=starttime]').val());
+    ($('input[name=endtime]').val())&&(postdata.receive_end=$('input[name=endtime]').val());
+    var search='?';
+    for(var i in postdata){
+      search+=i+'='+postdata[i]+'&';
+    }
+    location.search=search;
+  });
+$('#btn-export').bind('click',function(){
+    var postdata={};
+    ($('select[name=shopname]').val()>0)&&(postdata.store_id=$('select[name=shopname]').val());
+    ($('input[name=buyerww]').val())&&(postdata.buyer_wangwang=$('input[name=buyerww]').val());
+    ($('input[name=orderid]').val())&&(postdata.order_id=$('input[name=orderid]').val());
+    ($('input[name=buyeruserid]').val())&&(postdata.buyer_id=$('input[name=buyeruserid]').val());
+    ($('select[name=ordertype]').val()>=0)&&(postdata.order_type=$('select[name=ordertype]').val());
+    ($('select[name=orderstatus]').val()>0)&&(postdata.order_status=$('select[name=orderstatus]').val());
+    ($('input[name=starttime]').val())&&(postdata.receive_start=$('input[name=starttime]').val());
+    ($('input[name=endtime]').val())&&(postdata.receive_end=$('input[name=endtime]').val());
+    var url='/rest_web/users/user/exportorders/'+laifu.get_user_id()+'?';
+    for(var i in postdata){
+      url+=i+'='+postdata[i]+'&';
+    }
+    url+='o_type=buy_order';
+    location.href=url;
+  });
+  $('.btn-affirm').bind('click',function(){
+    var btn=$(this);
+    var oid=btn.data('order-id');
+    $.post('/rest_web/tasks/order/affirm/'+oid,function(res){
+      if(res.code==0){
+        alert('订单确认成功');
+        btn.hide();
+      }else{
+        alert('订单确认失败');
+      }
+    });
+  });
+  $('.addblack').bind('click',function(){
+    addblack($(this).data('buyer-id'));
+  });
+});
+</script>
+{%endblock%}

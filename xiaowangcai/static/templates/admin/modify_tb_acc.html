@@ -1,0 +1,296 @@
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+    <title>Title</title>
+    <style type="text/css">
+	h2.tt {
+		text-align:center;
+		margin-top: 20px;
+		padding-bottom: 13px;
+		border-bottom: 1px solid #E4E4E4;
+		font-size: 24px;
+		font-weight: normal;
+	}
+	.mw {
+		margin: 0 auto;
+		margin-top: 20px;
+		width: 700px;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+	.mw table {
+	  margin-left: 20px;
+	  width: 640px;
+	}
+	.mw .sel-plat {
+	  width: 97px;
+	}
+	.mw .ipt, .mw .select {
+		margin-top: 8px;
+		margin-bottom: 8px;
+		width: 291px;
+		height:30px;
+	}
+	select {
+		margin-top: 8px;
+		padding: 4px;
+		border: 1px solid #bebfbf;
+		color: #555;
+	}
+	.btn-bs {
+	  width: 136px;
+	  height: 40px;
+	  border: none;
+	  background: url(/static/image/web/home/bindstore_s.png) center center no-repeat;
+	  cursor: pointer;
+	  margin-right: 145px;
+	}
+	.btn-bc {
+	  width: 136px;
+	  height: 40px;
+	  border: none;
+	  background: url(/static/image/web/home/bindstore_c.png) center center no-repeat;
+	  cursor: pointer;
+	}
+	.mw .smtopt {
+	  width: 420px;
+	  margin: 0 auto;
+	  margin-top: 20px;
+	}
+	.prompt-add-store {
+		font-size:12px;
+		color: #a3a3a2;
+	}
+    .btn-a{
+        width: 80px;
+        height: 30px;
+        border: 1px solid #bebfbf;
+        background: #fff;
+        cursor: pointer;
+        color: #08c;
+        margin: 5px;
+        border-radius: 5px;
+    }
+	</style>
+</head>
+<body>
+    <h2 class="tt">修改旺旺号</h2>
+    <form class="mw">
+        <table style="border-bottom: 1px solid #E4E4E4;">
+            <tbody>
+                <tr>
+                    <td width="20%" class="f-tar">旺旺号冻结期限：</td>
+                    <td width="80%">
+                        <p style="margin-top: 2px" >
+                            {{ frozen_datetime }}
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">旺旺号冻结时间：</td>
+                    <td width="80%">
+                        <select class="select" id="frozen_days" name="frozen_days">
+                            <option value="0">未选择</option>
+                            <option value="3">3天</option>
+                            <option value="5">5天</option>
+                            <option value="10">10天</option>
+                            <option value="15">15天</option>
+                            <option value="30">30天</option>
+                            <option value="45">45天</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+                <tr>
+                    <td width="20%" class="f-tar">接单金额限制：</td>
+                    <td width="80%">
+                        <select class="select sel-plat" id="order_money_limit" name="order_money_limit">
+                            <option value="" selected>不限</option>
+                            <option value="50" {% if tb_acc.user.order_money_limit == 50 %}selected{% endif %}>50</option>
+                            <option value="100" {% if tb_acc.user.order_money_limit == 100 %}selected{% endif %}>100</option>
+                            <option value="200" {% if tb_acc.user.order_money_limit == 200 %}selected{% endif %}>200</option>
+                            <option value="300" {% if tb_acc.user.order_money_limit == 300 %}selected{% endif %}>300</option>
+                            <option value="500" {% if tb_acc.user.order_money_limit == 500 %}selected{% endif %}>500</option>
+                            <option value="1000" {% if tb_acc.user.order_money_limit == 1000 %}selected{% endif %}>1000</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">手机号：</td>
+                    <td width="80%">
+                        <input class="ipt" type="text" name="phone" id="phone" value="{{ tb_acc.phone }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">QQ：</td>
+                    <td width="80%">
+                        <input class="ipt" type="text" name="qq" id="qq" value="{{ tb_acc.user.qq }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">省份(旧的)：</td>
+                    <td width="80%">
+                        {{ tb_acc.city }}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">省份：</td>
+                    <td width="80%">
+                        <select id="place" value="{{ tb_acc.place }}">
+                            <option value="北京">北京</option>
+                            <option value="天津">天津</option>
+                            <option value="河北">河北</option>
+                            <option value="山西">山西</option>
+                            <option value="内蒙古">内蒙古</option>
+                            <option value="辽宁">辽宁</option>
+                            <option value="吉林">吉林</option>
+                            <option value="黑龙江">黑龙江</option>
+                            <option value="上海">上海</option>
+                            <option value="江苏">江苏</option>
+                            <option value="浙江">浙江</option>
+                            <option value="福建">福建</option>
+                            <option value="安徽">安徽</option>
+                            <option value="山东">山东</option>
+                            <option value="河南">河南</option>
+                            <option value="湖北">湖北</option>
+                            <option value="湖南">湖南</option>
+                            <option value="江西">江西</option>
+                            <option value="广东">广东</option>
+                            <option value="海南">海南</option>
+                            <option value="广西">广西</option>
+                            <option value="重庆">重庆</option>
+                            <option value="四川">四川</option>
+                            <option value="云南">云南</option>
+                            <option value="贵州">贵州</option>
+                            <option value="西藏自治区">西藏自治区</option>
+                            <option value="陕西">陕西</option>
+                            <option value="甘肃">甘肃</option>
+                            <option value="青海">青海</option>
+                            <option value="宁夏回族自治区">宁夏回族自治区</option>
+                            <option value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">收货地址：</td>
+                    <td width="80%">
+                        <input class="ipt" type="text" name="address" id="address" value="{{ tb_acc.address }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">注册时间：</td>
+                    <td width="80%">
+                        <select class="select sel-plat" id="register_time" name="register_time">
+                            <option value="2012" {% if tb_acc.register_time == 2012 %}selected{% endif %}>2012年及以前</option>
+                            <option value="2013" {% if tb_acc.register_time == 2013 %}selected{% endif %}>2013年</option>
+                            <option value="2014" {% if tb_acc.register_time == 2014 %}selected{% endif %}>2014年</option>
+                            <option value="2015" {% if tb_acc.register_time == 2015 %}selected{% endif %}>2015年</option>
+                            <option value="2016" {% if tb_acc.register_time == 2016 %}selected{% endif %}>2016年</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">性别：</td>
+                    <td width="80%">
+                        <select class="select sel-plat" id="gender" name="gender">
+                            <option value="0" {% if tb_acc.gender == 0 %}selected{% endif %}>女</option>
+                            <option value="1" {% if tb_acc.gender == 1 %}selected{% endif %}>男</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">年龄：</td>
+                    <td width="80%">
+                        <select class="select sel-plat" id="age" name="age">
+                            <option value="1" {% if tb_acc.age == 1 %}selected{% endif %}>18-25</option>
+                            <option value="2" {% if tb_acc.age == 2 %}selected{% endif %}>26-30</option>
+                            <option value="3" {% if tb_acc.age == 3 %}selected{% endif %}>31-35</option>
+                            <option value="4" {% if tb_acc.age == 4 %}selected{% endif %}>36-40</option>
+                            <option value="5" {% if tb_acc.age == 5 %}selected{% endif %}>41-50</option>
+                            <option value="6" {% if tb_acc.age == 6 %}selected{% endif %}>51岁以上</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">旺旺等级：</td>
+                    <td width="80%">
+                        <select class="select sel-plat" id="wangwang_level" name="wangwang_level">
+                            <option value="1" {% if tb_acc.wangwang_level == 1 %}selected{% endif %}>三星及以下</option>
+                            <option value="2" {% if tb_acc.wangwang_level == 2 %}selected{% endif %}>四星--五星</option>
+                            <option value="3" {% if tb_acc.wangwang_level == 3 %}selected{% endif %}>一钻</option>
+                            <option value="4" {% if tb_acc.wangwang_level == 4 %}selected{% endif %}>两钻</option>
+                            <option value="5" {% if tb_acc.wangwang_level == 5 %}selected{% endif %}>三钻</option>
+                            <option value="6" {% if tb_acc.wangwang_level == 6 %}selected{% endif %}>四钻及以上</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">信用卡：</td>
+                    <td width="80%">
+                        <select class="select sel-plat" id="is_credit_card_open" name="is_credit_card_open">
+                            <option value="0" {% if tb_acc.is_credit_card_open == 0 %}selected{% endif %}>未开通</option>
+                            <option value="1" {% if tb_acc.is_credit_card_open == 1 %}selected{% endif %}>已开通</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">花呗：</td>
+                    <td width="80%">
+                        <select class="select sel-plat" id="is_huabei_open" name="is_huabei_open">
+                            <option value="0" {% if tb_acc.is_huabei_open == 0 %}selected{% endif %}>未开通</option>
+                            <option value="1" {% if tb_acc.is_huabei_open == 1 %}selected{% endif %}>已开通</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input id="tb_id" value="{{ tb_acc.id }}" hidden>
+        <div class="smtopt f-cb">
+			<input class="sure btn-bs f-fl" id='btnsubmit' type="button">
+			<input class="cancel btn-bc f-fl" type="button" onclick="close_frame()">
+		</div>
+    </form>
+
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        function close_frame () {
+            window.parent.close_frame();
+        }
+        $("#btnsubmit").bind("click", function(){
+            var postdata={};
+            postdata.phone = $("#phone").val();
+            postdata.place = $("#place").val();
+            postdata.address = $("#address").val();
+            postdata.register_time = $("#register_time").val();
+            postdata.gender = $("#gender").val();
+            postdata.age = $("#age").val();
+            postdata.wangwang_level = $("#wangwang_level").val();
+            postdata.tb_id = $("#tb_id").val();
+            postdata.qq = $("#qq").val();
+            postdata.is_credit_card_open = $("#is_credit_card_open").val();
+            postdata.is_huabei_open = $("#is_huabei_open").val();
+            postdata.order_money_limit = $("#order_money_limit").val();
+
+            postdata.frozen_days = $("#frozen_days").val();
+            $.post('/rest_web/users/tb/modify',postdata,function(res){
+                if(res.code==0){
+                    window.alert('修改成功')
+                }
+            });
+        })
+
+        $("#place").val("{{ tb_acc.place }}")
+    </script>
+</body>
+</html>

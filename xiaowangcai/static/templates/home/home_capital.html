@@ -1,0 +1,131 @@
+{% extends "home/home_.html" %}
+{% block section_css %}
+<style>
+.aci {
+    margin-left: 27px;
+    margin-bottom: 32px;
+}
+.aci1 {
+	margin-top:10px;
+    margin-bottom: 32px;
+}
+.btn-search {
+    width: 68px;
+    height: 32px;
+    border: 0;
+    background: url(/static/image/web/task/search_btn.png) center center no-repeat;
+    cursor: pointer;
+}
+.detail {
+    margin-left: 27px;
+    width: 745px;
+    table-layout: fixed;
+    margin-bottom: 22px;
+}
+.detail th {
+    background-color: #f6f6f7;
+    line-height: 3.0em;
+    text-align: center;
+    border: 1px solid #ececed;
+}
+.detail td {
+    text-align: center;
+    border: 1px solid #ececed;
+    padding: 10px 0px;
+}
+.btn-export,.btn-search {
+  width: 83px;
+  height: 25px;
+  border: 0;
+  background: url(/static/image/web/task/btn_mask.png) center center no-repeat;
+  cursor: pointer;
+}
+.Wdate {
+  border: #999 1px solid;
+  height: 20px;
+  background: #fff url(datePicker.gif) no-repeat right;
+}
+.Wdate {
+  width: 90px;
+}
+</style>
+{% endblock %}
+{% block section_title %}资金明细{% endblock %}
+{% block section %}
+  <div class="aci">
+    本金账户：
+   <span class="money ye"><a href="/home/capital?type=0">{{user.principal}}</a></span> 金　
+   <a class="striking" href="/home/capital?type=0">明细</a>　　<!--冻结账户：
+   <span class="money"><a href="/account!moneydetail.htm?type=1">0</a></span> 金　
+   <a class="striking" href="/account!moneydetail.htm?type=1">明细</a-->　　佣金账户：
+   <span class="money"><a href="/home/capital?type=1">{{user.commission}}</a></span> 金　
+   <a class="striking" href="/home/capital?type=1">明细</a>
+  <div class="aci1"> 
+  	收支类型： 
+  	<select class="select" name="capital_type" style="width: 120px;"> 
+  		<option value="-1" selected=""> 全部 </option> 
+  		<option value="0"> 支出 </option> 
+  		<option value="1"> 收入 </option> 
+  	</select>
+  	<span style="margin-left:46px;">发生时间：从 </span>
+  	<input class="Wdate" name="start_time" type="text" value="" onfocus="WdatePicker({isShowClear:true,readOnly:true})" /> 
+  	到 
+  	<input class="Wdate" type="text" name="end_time" onfocus="WdatePicker({isShowClear:true,readOnly:true})" value="" />
+  	<!--input class="btn-search" id="btn_search" type="button" value="搜索" style="color:white; font-size: 14px;margin-left: 38px;"/-->
+    <input class="btn-search" id="btn_search" type="button" value="搜索" data-user-id="{{user.id}}" style="color:white; font-size: 14px;margin-left: 1px;"/>
+    <input class="btn-export" id="btn_export" type="button" value="导出" data-user-id="{{user.id}}" style="color:white; font-size: 14px;margin-left: 1px;"/>
+  </div>
+  </div> 
+  <table class="detail"> 
+   <tbody>
+    <tr> 
+     <th width="20%">时间</th> 
+     <th width="10%">收/支</th> 
+     <th width="40%">内容</th> 
+     <th width="15%">金额</th> 
+     <th width="15%">账户余额</th> 
+    </tr>
+    {% for record in records %}
+    <tr> 
+     <td>{{ record.create_time_str }}</td> 
+     <td><span class="pay"><span class="striking">{% if record.is_income %}收{% else %}支{% endif %}</span></span></td> 
+     <td>{{ record.description }}</td> 
+     <td><span class="pay"><span class="money">{{ record.amount }} </span>金</span></td> 
+     <td>{{ record.balance }} 金</td> 
+    </tr> 
+    {% endfor %}
+   </tbody>
+  </table>
+  {% include 'component/page_bar.html' %}
+{% endblock %}
+{% block section_js %}
+<script type="text/javascript" src="/static/js/component/page_bar.js"></script>
+<script type="text/javascript" src="/static/My97DatePicker/WdatePicker.js"></script>
+<script>
+$($('.nav-item')[4]).addClass('active');
+$('.btn-search').bind('click',function(){
+	var postdata={};
+	($('select[name=capital_type]').val()>=0)&&(postdata.capital_type=$('select[name=capital_type]').val());
+	($('input[name=start_time]').val())&&(postdata.create_time_start=$('input[name=start_time]').val());
+	($('input[name=end_time]').val())&&(postdata.create_time_end=$('input[name=end_time]').val());
+	var search='?';
+	for(var i in postdata){
+		search+=i+'='+postdata[i]+'&';
+	}
+	location.search=search;
+});
+$('.btn-export').bind('click',function(){
+	var btn=$(this);
+	var uid=btn.data('user-id');
+	var export_cond='?';
+	if($('select[name=capital_type]').val() != -1){
+		export_cond+='capital_type='+$('select[name=capital_type]').val()+'&';
+	}
+	if($('input[name=start_time]').val() != '' && $('input[name=end_time]').val() != ''){
+		export_cond+='create_time_start='+$('input[name=start_time]').val()+'&create_time_end='+$('input[name=end_time]').val();
+	}
+	console.log('/rest_web/users/user/capitalrecordexport/'+uid+export_cond);
+	location.href	= '/rest_web/users/user/capitalrecordexport/'+uid+export_cond;
+});
+</script>
+{% endblock %}

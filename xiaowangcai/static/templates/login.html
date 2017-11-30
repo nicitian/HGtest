@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+.panel{
+  margin: 14px 0px;
+  border: 1px solid #e5e5e5;
+  height: 765px;
+  width: 100%;
+  background-color: #fdfefe;
+}
+.panel > p{
+  width: 5em;
+  padding-top: 4px;
+  margin: 0 auto;
+  margin-top: 100px;
+  font-size: 22px;
+  color: #197db5;
+  margin-bottom: 52px;
+}
+.panel .ipt-wrap {
+  width: 350px;
+  margin: 0 auto;
+}
+.lr-ipt {
+  margin-bottom: 20px;
+  padding-left: 42px;
+  padding-right: 7px;
+  width: 300px;
+  font-size: 15px;
+  padding-top: 13px;
+  padding-bottom: 12px;
+  border: 1px solid #ececed;
+  color: #666;
+}
+.user,.lock{
+  position: absolute;
+  top: 10px;
+  left: 12px;
+}
+.panel .pwd {
+  margin-bottom: 20px;
+}
+.sel {
+  width: 350px;
+  margin: 0 auto;
+  margin-bottom: 35px;
+}
+.f-cb, .f-cbli li {
+  zoom: 1;
+}
+.forgetcode {
+  margin-right: 12px;
+}
+.forgetcode a {
+  color: #737272;
+}
+.wrap-btn {
+  width: 165px;
+  margin: 0 auto;
+}
+.btn-login {
+  width: 165px;
+  height: 42px;
+  border: none;
+  background: url(/static/image/web/index/btn_login.png) center center no-repeat;
+  cursor: pointer;
+}
+.bar {
+  width: 94%;
+  margin: 0 auto;
+  margin-top: 100px;
+  border-bottom: 1px solid #d8ebf9;
+}
+.wrap-tag .tag {
+  margin-top: 85px;
+}
+.iphone-tag , .android-tag{
+  margin-left: 85px;
+}
+.downloadcode {
+  margin-left: 69px;
+  position: relative;
+  top: -21px;
+}
+.lr-ipt:focus
+{
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: thin dotted \9;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+</style>
+{% endblock %}
+{% block title %}登陆{% endblock %}
+{% block header %}
+  {% include 'component/login_bar.html' %}
+{% endblock %}
+{% block main %}
+<div class='panel'>
+   <p>商家登录</p> 
+   <form class="p-r" action="#"> 
+    <div class="p-r ipt-wrap"> 
+     <input class="lr-ipt uname" type="text" name="username" id="username" value="" placeholder="手机号码" /> 
+     <img class="user" src="/static/image/web/index/user.png" /> 
+    </div> 
+    <div class="p-r ipt-wrap"> 
+     <input class="lr-ipt pwd" type="password" name="password" id="password" placeholder="密码" /> 
+     <img class="lock" src="/static/image/web/index/lock.png" /> 
+    </div> 
+    <div class="f-cb sel"> 
+     <div class="f-fl remember">
+      <input type="checkbox" id="remember" name="remember" style="position: relative;top: 2px;" value="" /> 记住我
+     </div> 
+     <div class="f-fr forgetcode">
+      <a href="javascript:void(0)" onclick="tans_phone()">忘记密码？</a>
+     </div> 
+    </div> 
+    <div class="wrap-btn"> 
+     <input class="submit btn-login" type="button" value="" id="submit" name="submit" onclick="login()" /> 
+    </div> 
+   </form> 
+   <div class="bar"></div> 
+   <div class="wrap-tag"> 
+    <div class="w-1k f-cb" style="display: inline-flex">
+        <a href="/download/down.html" target="_blank">
+            <img class="tag f-fl android-tag" src="/static/image/web/index/android.png" width="200" height="90"/>
+        </a>
+        <a href="https://itunes.apple.com/us/app/shou-zhuan/id1131483155?mt=8" target="_blank">
+            <img class="tag f-fl iphone-tag" src="/static/image/web/index/iphone.png"  width="200" height="90"/>
+        </a>
+         <div class="p-r downloadcode">
+          <img class="tag downloadcode-tag" src="/static/image/web/index/android_dl.png" width="139" height="139" />
+          <span style="color: #0f0f0f;font-weight: 600;position: absolute;bottom: -20px;right: 26px;">
+              <a href="/download/down.html" target="_blank">安卓客户端下载</a>
+              </span>
+         </div>
+        <div class="p-r downloadcode">
+            <img class="tag downloadcode-tag" src="/static/image/web/index/ios_dl.png" width="139" height="139" />
+            <span style="color: #0f0f0f;font-weight: 600;position: absolute;bottom: -20px;right: 26px;">
+                <a href="https://itunes.apple.com/us/app/shou-zhuan/id1131483155?mt=8" target="_blank">iOS客户端下载</a>
+            </span>
+        </div>
+    </div> 
+   </div>
+</div>
+{% endblock %} 
+{% block js%}
+<script type="text/javascript" src='/static/js/lib/md5.js'></script>
+<script type="text/javascript" src='/static/js/lib/layer/layer.js'></script>
+<script type="text/javascript">
+function tans_phone(){
+	document.location.href="reset_pwd?mobile="+$('#username').val();
+}
+function login(){
+	var formdata={};
+	formdata.username=$('#username').val();
+	formdata.password=$.md5($('#password').val());
+	formdata.persistent=$('#remember').prop('checked')?1:0;
+	if($('#username').val() == "")
+	{
+		layer.msg('请输入手机号码');
+		return;
+	}
+	
+	if($('#password').val() == "")
+	{
+		layer.msg('请填写密码');
+		return;
+	}
+	$.post("/rest_web/users/user/login",formdata,
+    function(result){
+      if(result.code==0){
+      	location.href='/home/notice'
+      }else{
+      	layer.msg('用户名或密码错误');
+      }
+    })
+}
+</script>
+{% endblock %}

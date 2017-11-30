@@ -1,0 +1,88 @@
+/* self define */
+/* add by simon */
+.label-s-p{
+	margin-left: 50px;
+}
+.control-s-p{
+	margin-top: 10px;
+	border-bottom: 1px solid #DDDDDD;
+	padding-bottom: 10px;
+}
+.control-noborder{
+	margin-top: 10px;
+	padding-bottom: 10px;
+}
+.control-s-s{
+	margin-top: auto;
+	margin-left: auto;
+	width: 750px;
+}
+.plat-logo {
+	margin-right: 5px;
+	position: relative;
+	top: 2px;
+}
+.opt-c {
+	margin-top: 0px;
+}
+.opt-c .vbar {
+	border-right: 1px dashed #cfcecd;
+	border-bottom: 0px;
+}
+.opt-c .count {
+	display: block;
+	padding: 9px 10px 7px 10px;
+	color: #737272;
+	text-align: center;
+}
+.opt-c .o-tag {
+	margin-top: 11px;
+}
+.f-fl{
+	float: left;
+}
+.f-fr{
+	float: right;
+}
+.f-ml{
+	margin-left:10px;
+}
+.f-ml-20{
+	margin-left:20px;
+}
+.g-desc {
+	margin-top: 10px;
+	width: 20em;
+	height: 2em;
+	white-space: normal;
+}
+.mainkw {
+	width: 20em;
+	white-space: normal;
+	height: 2em;
+	padding-top: 0.2em;
+}
+.lim-w {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.r-time {
+	bottom: 0px;
+	left: 90px;
+	color: #9d9c9a;
+}
+.s-table-bordered{
+	border-bottom: 1px solid #ddd;
+}
+.table th, .table td {
+	text-align: center;
+}
+.no-point{
+	list-style: none outside none;
+}
+.table_word_fix{
+	table-layout:fixed; 
+	word-break: break-all; 
+	word-wrap: break-word;
+}

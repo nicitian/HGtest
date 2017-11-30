@@ -1,0 +1,627 @@
+# encoding: utf-8
+from decimal import Decimal, ROUND_HALF_EVEN
+import json
+import logging
+
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db import models
+
+from shouzhuan.const import Const, platform_constraint, verify_constraint, \
+    task_type_constraint, return_type_constraint, task_status_constraint, \
+    order_type_constraint, order_status_constraint, device_constraint, \
+    appeal_status_constraint, appeal_progress_source_constraint
+from shouzhuan.utils import msec_time, get_commision_level, fix_length_random_int, \
+    get_datetime_by_stamp, bitflag_has, bitflag_set, bitflag_dump
+from users.models import User, TBAccount, Bankcard
+from shouzhuan.settings import DEBUG
+from pinax.models.models import LogicalDeleteModel
+
+logger = logging.getLogger(__name__)
+
+
+# models
+
+
+class Store(models.Model):
+    platform = models.SmallIntegerField(default=Const['model.platform.taobao'], choices=platform_constraint)
+    name = models.CharField(max_length=255, unique=True, db_index=True)
+    wangwang = models.CharField(max_length=255, db_index=True)
+    url = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    verify_status = models.SmallIntegerField(default=Const['model.verify.need_check'], choices=verify_constraint)
+    verify_time = models.BigIntegerField(null=True, blank=True)
+    istm = models.BooleanField(default=False)  # 天猫?
+    create_time = models.BigIntegerField(default=msec_time)
+    buy_time_limit = models.BigIntegerField(default=30)
+
+    recent_buyers = models.ManyToManyField(TBAccount, through='StoreRecentBuyer')
+    user = models.ForeignKey(User)
+    verify_admin = models.ForeignKey('management.Administrator', null=True, blank=True)
+
+    def is_recent_buyer(self, tb_id):
+        if len(self.recent_buyers.filter(pk=tb_id)) > 0:
+            return True
+        else:
+            return False
+
+    def __unicode__(self):
+        return u'<Store: %d>' % self.id
+
+    class Meta:
+        ordering = ['-create_time']
+
+
+class StoreRecentBuyer(models.Model):
+    store = models.ForeignKey(Store)
+    tb = models.ForeignKey(TBAccount)
+    create_time = models.BigIntegerField(default=msec_time)
+    type = models.SmallIntegerField()
+
+    def __unicode__(self):
+        return u'<store : %d ,tb : %d>' % (self.store_id, self.tb_id)
+
+
+class StoreRecentBuyerUser(models.Model):
+    store = models.ForeignKey(Store)
+    user = models.ForeignKey(User)
+    create_time = models.BigIntegerField(default=msec_time, db_index=True)
+    type = models.SmallIntegerField(db_index=True)
+
+    def __unicode__(self):
+        return u'<store : %d ,user : %d>' % (self.store_id, self.user_id)
+
+
+class Task(LogicalDeleteModel):
+    id = models.IntegerField(primary_key=True, db_index=True)
+    platform = models.SmallIntegerField(default=Const['model.platform.taobao'], choices=platform_constraint)
+    task_type = models.SmallIntegerField(default=Const['model.task.type.mobile_taobao'], choices=task_type_constraint,
+                                         db_index=True)
+    commodities = models.TextField()
+    search_entries = models.CharField(max_length=1000)
+    low_price = models.DecimalField(max_digits=11, decimal_places=2, default=-1)
+    up_price = models.DecimalField(max_digits=11, decimal_places=2, default=-1)
+    commodity_address = models.CharField(max_length=45, null=True, blank=True)
+    total_price = models.DecimalField(max_digits=11, decimal_places=2)
+    order_types = models.CharField(max_length=255)
+    # 以下只针对刷单任务
+    comment_keyword = models.CharField(max_length=200, null=True, blank=True)
+    comment_image = models.CharField(max_length=1000, null=True, blank=True)
+    return_type = models.SmallIntegerField(default=Const['model.task.return_type.platform'],
+                                           choices=return_type_constraint, db_index=True)
+    bonus = models.DecimalField(max_digits=11, decimal_places=2, default=0)
+    order_comment = models.CharField(max_length=255, null=True, blank=True)
+    publish_start_date = models.DateField(null=True, blank=True)
+    publish_start_time = models.TimeField(null=True, blank=True)
+    publish_end_time = models.TimeField(null=True, blank=True)
+    publish_num = models.IntegerField(null=True, blank=True)
+    publish_total = models.IntegerField(null=True, blank=True)
+    ##
+    status = models.SmallIntegerField(default=Const['model.task.status.need_payment'], choices=task_status_constraint,
+                                      db_index=True)
+    verify_status = models.SmallIntegerField(default=Const['model.verify.need_check'], choices=verify_constraint,
+                                             db_index=True)
+    verify_time = models.BigIntegerField(null=True, blank=True)
+    task_remark = models.CharField(max_length=255, null=True, blank=True)
+    create_time = models.BigIntegerField(default=msec_time)
+    others = models.TextField(null=True, blank=True)
+    inviter_awarded = models.BooleanField(default=False)
+    flow = models.BooleanField(default=False)
+    step_interval = models.IntegerField(default=0)
+    prepublish = models.BooleanField(default=False)
+    appealnum = models.IntegerField(default=0)
+    # 订单详情: 包括订单步骤，评论相关图片、文字等
+    # order_detail = models.TextField()
+    '''
+    {
+        step_info: {
+            type_6: {
+
+            }
+        },
+        comment_info: {
+            images: ["", ""],
+            words: ["", ""]
+        },
+
+    }
+
+    订单分布信息(按组分配到每单任务)
+    {
+        bonus_info: {
+            # bonus分配方式
+        },
+        order_types: {
+        },
+        search_entries: {
+        }
+    }
+    '''
+    order_detail_info = None
+
+    store = models.ForeignKey(Store)
+    verify_admin = models.ForeignKey('management.Administrator', null=True, blank=True)
+    wangwang_condition = models.TextField(max_length=255, null=True)   # 旺旺条件
+    is_qian = models.SmallIntegerField(default=0)  # 是否为千人千面刷单
+    qian_search_entry = models.TextField(max_length=255, null=True)     # 千人千面第一步搜索条件
+
+    class Meta:
+        ordering = ['-create_time']
+
+    # 不同订单商家支付
+    ORDER_PAYMENT = {
+        Const['model.order.type.normal']: lambda base: base,
+        Const['model.order.type.keyword']: lambda base: base + Const['payment.commision.extra.keyword'],
+        Const['model.order.type.image']: lambda base: base + Const['payment.commision.extra.image'],
+        Const['model.order.type.flow']: lambda base: Const['payment.commision.flow'],
+        Const['model.order.type.collect']: lambda base: Const['payment.commision.collect'],
+        Const['model.order.type.direct']: lambda base: Const['payment.commision.direct'],
+        Const['model.order.type.advance']: lambda base: base + Const['payment.commision.base.deep'],
+    }
+
+    def dianzi(self):
+        '''购买单任务所有物品的垫资'''
+        return reduce(lambda a, b: a + b, map(lambda a: Decimal(a["unitprice"]) * Decimal(a["num"]),
+                                              json.loads(self.commodities)))
+
+    def order_payment(self, order_type):
+        buyorder_base = self._commision_base() + self.bonus + ((Const['payment.fee.return'] +
+                                                                self.dianzi()) if self.return_type == Const[
+            'model.task.return_type.platform'] else 0)
+        # 符合条件旺旺佣金
+        buyorder_base += self.get_wangwang_commision()
+        if order_type == Const['model.order.type.advance']:
+            buyorder_base += (self.step_interval - 1) * Const['payment.commision.deep.step']
+        return Task.ORDER_PAYMENT[order_type](buyorder_base)
+
+    def _commision_base(self):
+        '''购买单任务基础佣金(包含商家等级)'''
+        clevel = get_commision_level(self.dianzi())
+        commision = Decimal(0)
+        if clevel > 18:
+            commision = self.dianzi() * Const['payment.commisionrate']
+        else:
+            commision = Const['payment.commision'][clevel]
+
+        pay = commision * (1 - Decimal('0.01') * (self.store.user.seller_level - 1))
+        return pay.quantize(Decimal('.01'), rounding=ROUND_HALF_EVEN)
+
+    def payment(self):
+        '''任务需要的所用费用:刷单费（总垫资，总服务费，总佣金）+流量费'''
+        commodities = json.loads(self.commodities)
+        order_types = json.loads(self.order_types)
+        # 垫资
+        unit_dianzi = reduce(lambda a, b: a + b,
+                             map(lambda a: Decimal(a["unitprice"]) * Decimal(a["num"]), commodities))
+        order_total = \
+            order_types[Const['model.order.type.normal']]['order_total'] + \
+            order_types[Const['model.order.type.keyword']]['order_total'] + \
+            order_types[Const['model.order.type.image']]['order_total'] + \
+            order_types[Const['model.order.type.advance']]['order_total']
+        result = order_total * unit_dianzi if self.return_type == Const['model.task.return_type.platform'] else 0
+        # 服务费
+        result = result + (0 if (self.return_type == Const['model.task.return_type.seller']) else \
+                               Const['payment.fee.return'] * order_total)
+        # result=result+0 if len(commodities) <= 1 else Const['payment.fee.multigood']
+        # 流量单佣金
+        result = result + Const['payment.commision.flow'] * order_types[Const['model.order.type.flow']]['order_total'] \
+                 + Const['payment.commision.collect'] * order_types[Const['model.order.type.collect']]['order_total'] \
+                 + Const['payment.commision.direct'] * order_types[Const['model.order.type.direct']]['order_total']
+
+        # 深刷任务佣金 浏览收藏加购物车，N天后购买
+        result += (Const['payment.commision.base.deep'] + Const['payment.commision.deep.step'] * (
+            self.step_interval - 1)) * order_types[Const['model.order.type.advance']]['order_total']
+
+        # 符合条件旺旺佣金
+        result += self.get_wangwang_commision() * order_total
+        # 购买单佣金
+        commission_base = self._commision_base()
+        result = result + (commission_base + self.bonus) * order_total + \
+                 order_types[Const['model.order.type.keyword']]['order_total'] * Const[
+                     'payment.commision.extra.keyword'] + \
+                 order_types[Const['model.order.type.image']]['order_total'] * Const['payment.commision.extra.image']
+        return result
+
+    def get_inviter_award(self):
+        return self._commision_base() * self.get_total_buy_orders() * \
+               Const['inviter.seller.award.ratio']
+
+    def get_total_buy_orders(self):
+        order_types = json.loads(self.order_types)
+        return order_types[Const['model.order.type.normal']]['order_total'] + \
+               order_types[Const['model.order.type.keyword']]['order_total'] + \
+               order_types[Const['model.order.type.image']]['order_total'] + \
+               order_types[Const['model.order.type.advance']]['order_total']
+
+    def isMoblie(self):
+        if self.task_type in (
+                Const['model.task.type.mobile_taobao'], Const['model.task.type.flow'],
+                Const['model.task.type.special']):
+            return True
+        else:
+            return False
+
+    def remain_unreceived_orders(self):
+        return self.order_set.filter(status=Const['model.order.status.init']).all()
+
+    _display_type = {
+        Const['model.task.type.mobile_taobao']: u'手机淘宝',
+        Const['model.task.type.pc_taobao']: u'电脑淘宝',
+        Const['model.task.type.flow']: u'流量任务',
+        Const['model.task.type.special']: u'特别任务',
+    }
+
+    def get_display_type(self):
+        return self._display_type[self.task_type]
+
+    def get_seller_id(self):
+        return self.store.user_id
+
+    # 获取符合条件旺旺号的佣金
+    def get_wangwang_commision(self):
+        commision = Decimal(0)
+        if self.wangwang_condition:
+            wangwang_condition = json.loads(self.wangwang_condition)
+            tb_register_time_commision = {
+                '2012': Decimal(0.3),
+                '2013': Decimal(0.2),
+                '2014': Decimal(0.1),
+                '2015': Decimal(0),
+                '2016': Decimal(0)
+            }
+            tb_wangwang_level_commision = {
+                str(Const['tb.level.sanxing']): Decimal(0),
+                str(Const['tb.level.siwuxing']): Decimal(0.1),
+                str(Const['tb.level.yizuan']): Decimal(0.2),
+                str(Const['tb.level.erzuan']): Decimal(0.3),
+                str(Const['tb.level.sanzuan']): Decimal(0.5),
+                str(Const['tb.level.sizuan']): Decimal(0.5)
+            }
+            # 性别 0.5
+            if wangwang_condition['tb_gender'] is not None:
+                commision += Decimal(0.5)
+            if wangwang_condition['tb_age']:
+                commision += Decimal(0.5)
+            if wangwang_condition['tb_register_time']:
+                commision += tb_register_time_commision[str(wangwang_condition['tb_register_time'])]
+            if wangwang_condition['tb_wangwang_level']:
+                commision += tb_wangwang_level_commision[str(wangwang_condition['tb_wangwang_level'])]
+            if wangwang_condition['tb_is_huabei_open'] is not None and wangwang_condition['tb_is_huabei_open'] == 1:
+                commision += Decimal(0.5)
+        return commision.quantize(Decimal('0.00'))
+
+    def __unicode__(self):
+        return u'<Task: %d>' % self.id
+
+
+class OrderManager(models.Manager):
+    def avaliable_id(self):
+        while True:
+            oid = fix_length_random_int(9)
+            if super(OrderManager, self).filter(pk=oid).count() == 0:
+                return oid
+
+
+class StepInfo:
+    def __init__(self):
+        pass
+
+
+class Order(LogicalDeleteModel):
+    id = models.BigIntegerField(primary_key=True, db_index=True)
+    order_type = models.SmallIntegerField(choices=order_type_constraint, db_index=True)
+    seller_payment = models.DecimalField(max_digits=11, decimal_places=2, default=0)  # 商家总支付
+    buyer_gain = models.DecimalField(max_digits=11, decimal_places=2, default=0)  # 买手获得佣金
+    buyer_principal = models.DecimalField(max_digits=11, decimal_places=2, default=0)  # 买手获得本金 买手需要预支付的（垫资）
+
+    search_entry_index = models.SmallIntegerField()
+    status = models.SmallIntegerField(default=Const['model.order.status.init'], choices=order_status_constraint,
+                                      db_index=True)
+    receive_time = models.BigIntegerField(null=True, blank=True, db_index=True)
+    update_time = models.BigIntegerField(null=True, blank=True, db_index=True)
+    device = models.SmallIntegerField(null=True, choices=device_constraint, blank=True)
+    step_detail = models.TextField(default='{}')
+    publish_time = models.BigIntegerField(null=True, blank=True, db_index=True)
+    weights = models.IntegerField(default=0, db_index=True)
+
+    step_interval = models.IntegerField(default=0)
+    upgraded = models.BooleanField(default=True)
+    frozen = models.BooleanField(default=False, db_index=True)
+    task = models.ForeignKey(Task)
+    tb = models.ForeignKey(TBAccount, null=True, blank=True)
+    bankcard = models.ForeignKey(Bankcard, null=True, blank=True)
+
+    flags = models.IntegerField(default=0, db_index=True)
+    difference = models.DecimalField(max_digits=20, decimal_places=2, default=0, db_index=True)  # 问题订单差价
+    objects = OrderManager()
+    # 不同订单买手佣金
+    GAIN = {
+        Const['model.order.type.normal']: lambda base: base,
+        Const['model.order.type.keyword']: lambda base: base + Const['gain.commision.extra.keyword'],
+        Const['model.order.type.image']: lambda base: base + Const['gain.commision.extra.image'],
+        Const['model.order.type.flow']: lambda base: Const['gain.commision.flow'],
+        Const['model.order.type.collect']: lambda base: Const['gain.commision.collect'],
+        Const['model.order.type.direct']: lambda base: Const['gain.commision.direct'],
+        Const['model.order.type.advance']: lambda base: base + Const['gain.commision.base.deep'],
+    }
+
+    def get_order_seller(self):
+        return self.task.store.user_id
+
+    def flag_has(self, index):
+        return bitflag_has(self.flags, index)
+
+    def flag_set(self, index, value):
+        self.flags = bitflag_set(self.flags, index, value)
+
+    def flag_dump(self):
+        return bitflag_dump(self.flags)
+
+    def get_step_interval_ms(self):
+        return self.step_interval * Const['ms.per.day'] if not DEBUG else self.step_interval * Const['ms.per.day']
+    def get_qian_interval_ms(self):
+        # 6个小时
+        return Const['ms.per.day']/4
+
+
+    def commision(self, user):
+        '''订单佣金(订单未接时)'''
+        # discount = 1 + Decimal('0.01') * (user.buyer_level - 1)
+        level = get_commision_level(self.dianzi())
+        commision = Decimal(0)
+        if level > 18:
+            commision = self.dianzi() * Const['gain.commisionrate']
+        else:
+            commision = Const['gain.commision'][level]
+        sd_order_base = commision + self.task.bonus * Const['gain.commision.bonus.buyer.ratio']
+        # 打标佣金
+        print self.task.get_wangwang_commision()
+        sd_order_base += self.task.get_wangwang_commision() * Const['gain.commision.bonus.buyer.ratio']
+        if self.order_type == Const['model.order.type.advance']:
+            sd_order_base += (self.step_interval - 1) * Const['gain.commision.deep.step']
+        if self.task.is_qian == 1:
+            sd_order_base += (Const['payment.commision.qian.base'] - Const['payment.commision.base.deep']) * Const['gain.commision.bonus.buyer.ratio']
+        # logger.debug('user level %d, discount:%f, commision:%f'%(user.buyer_level,discount,commision))
+        gain = Order.GAIN[self.order_type](sd_order_base)
+
+        return gain.quantize(Decimal('.01'), rounding=ROUND_HALF_EVEN)
+
+    def dianzi(self):
+        '''订单垫资'''
+        return self.buyer_principal
+
+    def get_general_order_type(self):
+        if self.is_buy_order():
+            # 好评任务
+            if self.task.task_type == Const['model.task.type.mobile_taobao']:
+                if self.task.store.istm:
+                    return Const['app.order.type.mobile_tm']
+                else:
+                    return Const['app.order.type.mobile_tb']
+            elif self.task.task_type == Const['model.task.type.pc_taobao']:
+                return Const['app.order.type.pc_tb']
+            elif self.task.task_type == Const['model.task.type.special']:
+                return Const['app.order.type.special']
+        else:
+            # 浏览任务
+            return Const['app.order.type.mobile_scan']
+        raise Exception('order_type_error')
+
+    _display_status = {
+        Const['model.order.status.init']: u'未接单',
+        Const['model.order.status.received']: u'待操作',
+        Const['model.order.status.cancel']: u'已取消',
+        Const['model.order.status.completed']: u'已完成',
+        Const['model.order.status.comment']: u'待确认',
+        Const['model.order.status.step1']: u'待操作',
+        Const['model.order.status.step2']: u'待操作',
+        Const['model.order.status.step9']: u'待购买',
+        Const['model.order.status.step3']: u'待返款发货',
+        Const['model.order.status.returnmoney']: u'待返款发货',
+        Const['model.order.status.deliver']: u'待评价',
+        Const['model.order.status.affirm']: u'已完成',
+    }
+
+    def get_display_status(self):
+        return self._display_status[self.status]
+
+    def get_display_type(self):
+        if self.order_type in [Const['model.order.type.normal'], Const['model.order.type.keyword'],
+                               Const['model.order.type.image']]:
+            return self.task.get_display_type()
+        elif self.order_type == Const['model.order.type.collect']:
+            return u'收藏任务'
+        else:
+            return u'流量任务'
+
+    def is_buy_order(self):
+        if self.order_type in (Const['model.order.type.normal'], Const['model.order.type.keyword'],
+                               Const['model.order.type.image'], Const['model.order.type.advance']):
+            return True
+        else:
+            return False
+
+    def is_adv_order(self):
+        return self.order_type == Const['model.order.type.advance']
+
+    def is_moblie_order(self):
+        return self.task.isMoblie()
+
+    def check_upgrade(self):
+        if not self.upgraded:
+            self._steps_old = json.loads(self.step_detail)
+            i = 0
+            self._steps = {}
+            while i < len(self._steps_old):
+                self._steps['step_' + str(i)] = self._steps_old[i]
+                i += 1
+            self.step_detail = json.dumps(self._steps, cls=DjangoJSONEncoder)
+            self.upgraded = True
+            self.save()
+
+    def add_step_by(self, stepnum, **kwargs):
+        self.check_upgrade()
+        if not hasattr(self, '_steps'):
+            self._steps = json.loads(self.step_detail)
+        self._steps['step_' + str(stepnum)] = kwargs
+        self.step_detail = json.dumps(self._steps, cls=DjangoJSONEncoder)
+        self.update_time = msec_time()
+
+    def image_gb(self, num, step_num):
+        steps = json.loads(self.step_detail)
+        steps['step_' + str(num)]['pic_path'] = step_num
+        self.step_detail = json.dumps(steps, cls=DjangoJSONEncoder)
+
+    def _get_step(self, stepnum):
+        self.check_upgrade()
+        if not hasattr(self, '_steps'):
+            self._steps = json.loads(self.step_detail)
+        return self._steps["step_" + str(stepnum)] if ("step_" + str(stepnum) in self._steps) else None
+
+    def get_step_item(self, stepnum, key):
+        self.check_upgrade()
+        if not hasattr(self, '_steps'):
+            self._steps = json.loads(self.step_detail)
+        return self._steps["step_" + str(stepnum)][key] if (("step_" + str(stepnum) in self._steps) and \
+                                                            key in self._steps["step_" + str(stepnum)]) else None
+
+    def get_step1_pic(self):
+        return self.get_step_item(0, 'pic_path')
+
+    def get_step2_pic(self):
+        return self.get_step_item(1, 'pic_path')
+
+    def get_step3_pic(self):
+        return self.get_step_item(2, 'pic_path')
+
+    def get_step4_seller_commit(self):
+        return self.get_step_item(3, 'seller_commit')
+
+    def get_extrastep1_pic(self):
+        return self.get_step_item(9, 'pic_path')
+
+    def get_extrastep2_pic(self):
+        return self.get_step_item(8, 'pic_path')
+
+    def get_step0_pic(self):
+        return self.get_step_item(10, 'pic_path')
+
+    def get_extrastep_time(self):
+        time = self.get_step_item(9, 'create_time')
+        if time == None:
+            return 0
+        return time
+    def get_qian_create_time(self):
+        time  = self.get_step_item(10, 'create_time')
+        if time == None:
+            return 0
+        return time
+
+    def get_comment_pic(self):
+        return self.get_step_item(5, 'pic_path')
+
+    def get_buyer_commit(self):
+        return self.get_step_item(2, 'buyer_commit')
+
+    def get_seller_commit(self):
+        return self.get_step_item(3, 'seller_commit')
+
+    def get_steps(self):
+        self.check_upgrade()
+        if not hasattr(self, '_steps'):
+            self._steps = json.loads(self.step_detail)
+        return self._steps
+
+    class Meta:
+        ordering = ['-receive_time']
+
+    def __unicode__(self):
+        return u'<Order: %d ,orderType: %d, bolongto Task: %d, taskType:%d >' % (
+            self.id, self.order_type, self.task.id, self.task.task_type)
+
+
+class AppealType(models.Model):
+    type = models.SmallIntegerField(default=Const['model.notice.type.buyer'])
+    description = models.CharField(max_length=255)
+
+
+class Appeal(models.Model):
+    progress = models.TextField(default='[]')
+    pic_path = models.CharField(max_length=1000, null=True, blank=True)
+    status = models.SmallIntegerField(choices=appeal_status_constraint, \
+                                      default=Const['model.appeal.status.in_progress'])
+    platform_involve = models.BooleanField(default=False)
+
+    order = models.ForeignKey(Order)
+    launch = models.IntegerField(default=0)
+    finish = models.BooleanField(default=False)
+    forced = models.BooleanField(default=False)
+    order_cancel = models.BooleanField(default=False)
+    complainant = models.ForeignKey(User, related_name='complainant_appeals', null=True)
+    respondent = models.ForeignKey(User, related_name='respondent_appeals', null=True)
+    appealtype = models.ForeignKey(AppealType)
+    create_time = models.BigIntegerField(default=msec_time)
+
+    avaliable_sources = [t[0] for t in appeal_progress_source_constraint]
+
+    def _get_progress_item(self, progress_num, key):
+        if not hasattr(self, '_progress'):
+            self._progress = json.loads(self.progress)
+        return self._progress[progress_num][key] if ((len(self._progress) > progress_num) and \
+                                                     key in self._progress[progress_num]) else None
+
+    def _add_progress(self, **kwargs):
+        self.progress = self.progress[:-1] + (',' if self.progress[-2] != '[' else '') \
+                        + json.dumps(kwargs, cls=DjangoJSONEncoder) + ']'
+
+    def add_general_progress(self, source, content, **progress_detail):
+        if source not in Appeal.avaliable_sources:
+            return False
+        progress_detail['create_time'] = msec_time()
+        progress_detail['source'] = source
+        progress_detail['content'] = content
+        self._add_progress(**progress_detail)
+        return True
+
+    def get_description(self):
+        return self._get_progress_item(0, 'content')
+
+    def get_pics(self):
+        return json.loads(self.pic_path) if self.pic_path != None else None
+
+    def get_task_pic_path(self):
+        c = json.loads(self.order.task.commodities)
+        return c[0]['pic_path'] if c[0]['pic_path'] != None else None
+
+    def get_order_status(self):
+        return self.order.status
+
+    def get_complainant_qq(self):
+        return self.complainant.qq
+
+    def get_respondent_qq(self):
+        return self.respondent.qq
+
+    def get_create_time_str(self):
+        return get_datetime_by_stamp(self.create_time)
+
+    def get_type(self):
+        return self.appealtype.description
+
+    def get_talks(self):
+        if not hasattr(self, '_progress'):
+            self._progress = json.loads(self.progress)
+        return self._progress
+
+    def which(self, source_id):
+        if source_id == self.complainant_id:
+            return Const['model.appeal.progress.source.complainant']
+        elif source_id == self.respondent_id:
+            return Const['model.appeal.progress.source.respondent']
+        else:
+            return Const['model.appeal.progress.source.platform']
+
+    def __unicode__(self):
+        return 'Appeal:%d,Order:%d,appealtype:%d' % (self.id, self.order_id, self.appealtype_id)
+
+    class Meta:
+        ordering = ['-create_time']

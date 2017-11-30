@@ -1,0 +1,162 @@
+{% extends "default_header_.html" %}
+{% block css %}
+<style>.nav-group{margin-top:15px}.nav-item{width:186px;height:41px;border:1px solid #ededee;margin-bottom:1px;color:#737272;background-color:#fcfdfe}.nav-item.active{background-color:#3cb3f6}.click-wrap{display:block;width:100%;height:100%}.nav-btn{display:inline-block;color:#737272;margin-top:15px;margin-left:17px;padding-left:25px;font-size:13px}.nav-item.active .nb0{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAFdSURBVHjanJTPR+VRGIefcxuXiIhLXKJVRKuIS6sos4roP4hWbdvNasy2VfQf1Gq0axVpN4oYZjUiosVVyqSURj23zfnydure0uF1zvmc9/2c8573R1LpMkaAWWAYuAfawC5wEZVSSqCWMqnuq50usqmOVvqdTucVyYr62IOgkhv161skSx8wjvKgTkeS4cxeKRyoG4XRnfpDPQ3YsVqvSNYKg6mMHxd/UbkcdZe+5E9eLCLTAq6AZsAmgCFgqtBdSOog8I/Pj3YNaATgHvj1AcPdsG7UgNsA1IFv7xD8BrbC/rqWM7Gdgb6coT97kHwH5sP+sIpODOeZ2swRuwv4ibqotoqEXK5Imjl5qoP9jKGOqAN5PaOeFxfWUyjAFWA9PPM/cAT8AfqBSWA8nD8BcymlvbJ2VgsXuslldu3NAkQdy2nfjWBbbcQqTj36SQuYyX0F4C+wk+cX/eR5AI7rTGobPVM3AAAAAElFTkSuQmCC) left center no-repeat}.nb0{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAF1SURBVHjanNRRZNVRHAfwz/67LstmxBijSA8ZPSTKiIjRU2S3PUS97GFMEemtl2IvTYmix+2lWLu59tDT6DWNMe1ppDHGZVwbMcbo5Xc4/f3vLX1fzjlfv/M95/f7fc/pW15p6oIzmMQojtDGGvbzoOnGlFrF5st4ietdxD/gKXYSUZQCHuBbDwG4i++4WSUygzfo93cMYhXXcpFRvM6C1vGutPEI89iNdR2LH5uf6knkSagnPMQcfmRcK2qxkHHncS8VtlE6dQIdjGXcRZzGlVLs7b7lleYwDvw/2gVGSnl//YeNa9l8pMCvjKhH3r2wGV5JOCzCie0g+qNTzR4iz3Er72SRVT7hBR7hVaSXsIM7cWAu0koi8ziO+Rjeh8gpnMUQzkXHVjND7mGpli0eh2OF7X9iA1sYiDc1nt3gBPenG1PH+QN8G8HPYqyHXyYq6tLBLL5UPcAFXArbd0MLF/LiV30F27gaN7gR/0riP8f4B34PAAu7SzTLASUGAAAAAElFTkSuQmCC) left center no-repeat}.nav-item.active .nb1{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABASURBVHjaYvz//z8DFvAeSguiSzDi0AATZESXYGIgEdBHw3uom5Exsl+Q8XuSbRgOocSCQ/wDLg0AAAAA//8DAGfxFtXtpFuHAAAAAElFTkSuQmCC) left center no-repeat}.nb1{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABKSURBVHjaYvz//z8DOli1Zu17BgYGhrCQYEF0ORYG7EAAhzgDEwOJgPYaGFeuXvMen5vRwAfSbcARrP+hwco4BEIJV0x/wKUBMABWQBMDpq+WuwAAAABJRU5ErkJggg==) left center no-repeat}.nav-item.active .nb2{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAKCAYAAABSfLWiAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAC4SURBVHjanJJhDcJADIXfEgRMwjlgOEDCSZiESZgDJEzC5oCgYKBgEoaDjz89UpoxEl7SXNK7vte+awUooJaUJR0lNZZ7SnpImiTdY4GAEjUw8IkRuACLyy1AdnVvkjOwuoczkPxDoAsCgwmrEEQkoLFOekcUO70WknXrwggAWhOqbYyI7qDfGOw8mcHaMjbvjDNbp/2XcWZvbP7D2NEbWyIFpXXni1svUG0sW3LLllz+Zos2xYLXAFNvthfGVpDPAAAAAElFTkSuQmCC) left center no-repeat}.nb2{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAKCAYAAABSfLWiAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAADpSURBVHjahJLNEYIwFIQ/GQvADrACsQPsQAaHq9gBVqBUAB2oR/8GrEA7ECuQDrQELxsnEw/uJe93X7Ivvf3xhAMfmAIjIFTsDTyABmjt4nSW4DnNG+ClM1dzK7IVcAeeGvKFIYmUzOS3wBCIgaXspXIBUGuQb0gi4GoCQiy/BtaKVcDWqsmUxzOGhRvQ6fpT2ZFIL05tdDid8z7/sdE5lkY/8ICFy653F9Lmbdlzp7ZNZ0nlaW2xM6WWPwYG0iW3hEd9E3s7jRqMcKHWWQOlNlcq1+n238G2JiZZWJ8tEGEH7PSkxtXkMwAQjDwjRFiNyQAAAABJRU5ErkJggg==) left center no-repeat}.nav-item.active .nb3{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAPCAYAAADQ4S5JAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAADHSURBVHjalJJRkcJAEAV7oyAOiIOLBHAADoKDOwegAAs4AAfEAUEBoCA46PsZqhaKVEJX7d/OzHtvJqkEc6AGSl5pgQ54AKA2au84O7VMZiMm8FfwHWUR+qbwAI6oVfg4DWg/h/5arQjDjVqqDLx5FG7eTbcx+gLMgOot6m1S+w/ZD7EogAWwH/nYASvgltQzsAZuMT6X0GVb3gH33MMxtLdZ5xr4AZbRZJvUa5ib5IHI9zpyR8/oybNu1ENW3Mcyf2O5qPwPAIu6B2TVT9mHAAAAAElFTkSuQmCC) left center no-repeat}.nb3{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAPCAYAAADQ4S5JAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAADiSURBVHjalNLRTcJQGMXxX5sOwAY6QkeACZS04Rk20BGYQDfA19qawAZsQJlA3KAb1JevCTYY60lubnLzJd//nHOTvu/Be/MxR46ZnzqiXZVFB0lVN2u83Bgc6xXbDDvT9ISv1P80S9FOHO6wT7HEJszdUhv8C3QZTnjGckhirEhwh0NS1U0/irDDGXe4H0W9zWJgeJjH/fgL3jENtrc/DLfh9TL0sAkf+QihjdNFuXkWAyfsg/06rRwPgTjDNqnq5jPMTdFi6OEyobTNqiyOydVvXcf6PDZ2wX/AflUWF/geADXARLN8VZeMAAAAAElFTkSuQmCC) left center no-repeat}.nav-item.active .nb4{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAADISURBVHjahFNBEYNADNxhKuAknAQc9OrgJFQCEqgSJFAHSEBCJVAH20+Yhm2u7MwNkGTJZgMgCTmJZJZYH9QBQRFJbiSLxQYXO9RfcERy16WR+0LkrvyPSWVnkovJ8tgsrniRnHfy2OiQrENuKCq7hFnerEZmIQ7e7eISY7QWGQEk0ZlvxXl4xS8SgN49l93tGsxzl65TYGbfItNkjuYBA3LyM9dgXYrVf7pqSj0hJ1/fiTFvd/8AcAPwbOQRraTa8bEh+rM+AwCEKneWy2m9lQAAAABJRU5ErkJggg==) left center no-repeat}.nb4{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAE3SURBVHjafJMxUsMwEEVfQg5gbuC0AWZc0uHcQBl73IYjhCNwAkKV0lBalia0VMAJSJOkJJwguYFopMwiTP6MRvNXq5X+1wrnHHI0rUma1qRRLIvznHP0EdDGZsAe+NTG5j4283xPhEHEEzG/aWO71o7oi1MT4IET0MbWkvea1qRADWRR9QOwAvKoxg5YVWUx6QO3PkFufAKGVVmMgaEvEpACShub95xzaGOXgAqVq7IYRtdNgS8RuqvKYh40P4qF51hrVRY74F3wuTRM6rrpMCrxngSeA5yNLq8UsJCa1pvt98VodNS53mwXwLXIUevN9nXwz6vU2tgp8AFMvUkxdsGw4Hbd1QwCK2DiPaDnnJPaFLA8sfm8KovDnw4TjRFwD4yBF+Hy4Vd2x69STWtUFJt1/ayfAQD3XLZFQFFxsgAAAABJRU5ErkJggg==) left center no-repeat}.nav-item.active .nb5{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAOCAYAAAAmL5yKAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAACaSURBVHjaxJLRDcIwDERfIgYoGzBCVuhGbEA3gBHoJKUbMEI3aDc4fgwKxUVB+eBJJ0W2Yp+lC5JwSMAJaNhmBDokeRpURorU0dQOIAJnQJm6Xwccax3wrwF34Bb0GYQr0DsfFmCwbIRXVeUgKUma88x4DtjYvrf3AZiejR1wsegms7fYfTn5SdNbZxXf2WxSqriy2Trbv/IYAPTsxLR1LotyAAAAAElFTkSuQmCC) left center no-repeat}.nb5{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAOCAYAAAAmL5yKAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAACfSURBVHjaxJLBDYJAEEXfEgqgA1uADqATStAKxAqkBY9ED3SAdmAJlrAdwOWbTMhi3OyBn/xksrP78jczbrg/CKgEzkDBtl5Al280r0DNb9XAmJGmIhVAprizcRcLOKYmYC/AG3iGxngALrKVBybthvsehgCtvJYDGkGiv+BN7Mo2cqDX6paK53XR6mbqzxpwUj0J0gQAf03Bxz4GWAYABkQbR4cbb2MAAAAASUVORK5CYII=) left center no-repeat}.nav-item.active .nb6{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAQCAYAAADJViUEAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAADJSURBVHjalJJREYMwEESXKkACEpCQOogEJCChDioBCa0D6oA6QAISXn8u7cEkQHcmM8Ddyx7ZVIAO1EqKkp6S3qsKcLQe/NT5WnXCeZZUu/frd4ID12COIxDteUr1PbC2xgQLuPnxz4BJ6fsCzCU4ZEB/WMk9eqgBBsoaXR/AXUC7iWNP0TaYgUl/gNj/tjYFl02GOb3czaoljZKalHPccQqbBDpzB1j8YQXbaHTwUIixB0IuqmbHfbVKl2TIRHQabgzqbcxs32cAZL2lM4tKIxMAAAAASUVORK5CYII=) left center no-repeat}.nb6{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAQCAYAAADJViUEAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAESSURBVHjalJPRbYMwFEUPKAOkGzACnaCwQSJb/i1M0BFoJqCdoPmNYyt0gmSDskE6Ahu4Pw+JUgLplZ6QDcfc9y5EIQTmZJ1PgQ3QGK3a4b2YZVVSX9b54r9wCnRStThZhq3zGZAALVACa+BjEbbOr4G6XxutGmAHpL39eAY8i2WATK5vYr8CiMbTFqv1AOxVGq321vlXgberAZTIZnGjk2dgL1UBT9Hh6FJZbO6Y/NZo1Vjnr0AXHY7udCeI9JtLW1ks45/TRaJCnj1LfMTA+wyYG61yo9Uj8CBZI3AXhRD6YSVy8ssgmr3RqpyIsQDaqagS4Dp6+2XK1p+PxGj1LXEMf4xJrW7s76SNz9FBv/QzAEM5X/x33mDtAAAAAElFTkSuQmCC) left center no-repeat}.nav-item.active .nb7{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAElSURBVHjanJQxS0MxFIW/vjp2EgpCQXD1HwidBCc3x65O3broaBH8K10LHTq5CJ0EJ0snRUEKgmJBLILw4HNJIU1TkR645L2TkxNyc28qKmuwAzTC9wvwnlWpcVTVtnrvKu7U00S/ZLC3ZmGKW7WRGjTUV/+PJ7UeG4yiyS+1r5YRV6oD9TviBguD48T9Ipj2I64XuMtE2yyAVpLXBlAF6smNAOwm2hbqNHPGjwz3luEmFbUMO26CWQHM2RzzAhhnJrqh+ogqsZvRjbeAIdBcSQ50gP3w/whcZQyGqNtrktZTD9RmcqULTNVaAcyA88T5JPAj4AZ4DlyMDjCPe+Escv/J7FhGYzvXTIuqfPijBybqYbymknkPqsBRiFrgPoHrEEv4HQD0YDJZwKG+RwAAAABJRU5ErkJggg==) left center no-repeat}.nb7{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAFLSURBVHjanNNBRG1RFAbg757SqFFc4hIREW8UjZrWpBSJR9NGDaLJe9MmjWr+Is2adBUREZESj4jo0igi5fEi4hJxabJudtupQT/L2Xvt9f9nrbXXrtR3dn2CXtRifYfHsqAi23dgAVf4h4uw//Gd/0qgH5f4gx8lPxvGJs6TzN4Favj7CTHHCM5QTQW2o2ZoYg+thNTCPl6SbDfbAhMYTYLXMBOENuqYjrM2pjBaYC5LsRbNrGY3An1Z7FylvrN7nzYl8ISezPeYicJ1kain6CnxVctmpYimfRfNAo2Sg+WYPskkLpfENTpxkN2CaOwShmJ/g5USgYMCG9G0FIOYxTFO8RMDWcwDtoog/84OZ8J/hhPchi/FEpqV5DX+wmqsX9GVEVoxHy0sYj1/TGuYjHq7SurtwDXG22TozJuCQ4yFdYf/GUdhH/A2AGiKRw8KB4FbAAAAAElFTkSuQmCC) left center no-repeat}
+</style>
+{% block section_css %}{% endblock %}
+{% endblock %}
+{% block title %}主页{% endblock %}
+{% block main %}
+<a onclick="to_tutorial()"><img src="/static/image/tutorial.jpg"></a>
+<div class="w-1k" style="margin-top: 20px;margin-bottom: 10px;text-align: center;">
+    <a 
+    {% if last_notice %}
+    href="/home/notice/detail?notice_id={{ last_notice.id }}"
+    {% else %}
+    href="#"
+    {% endif %} 
+    style="font-size: 16px;font-weight: bold;text-shadow: 1px 1px 2px #bbb;max-width: 800px;overflow: hidden;">
+        <span style="color: red;">
+            {% if last_notice %}最新公告：{{last_notice.title}}{% endif %} 
+        </span>
+    </a>
+</div>
+<div class="w-1k f-cb">
+    <div class="f-fl left-nav">
+        <ul class="nav-group">
+            <li class="nav-item p-r ">
+                <a class="click-wrap" href="/home/notice">
+                    <span class="nav-btn nb0">
+                        商家公告
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item p-r ">
+                <a class="click-wrap" href="/home/publish/post">
+                    <span class="nav-btn nb1">
+                        发布任务
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item p-r ">
+                <a class="click-wrap" href="/home/task/tasks">
+                    <span class="nav-btn nb2" style="float:left;">
+                        垫付任务管理
+                    </span>
+                    <div id="mu_task_mange" style="float:left;margin-top: 16px;"></div>
+                </a>
+            </li>
+            <li class="nav-item p-r ">
+                <a class="click-wrap" href="/home/task/flow">
+                    <span class="nav-btn nb2" style="float:left;">
+                        浏览任务管理
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item p-r ">
+                <a class="click-wrap" href="/home/capital">
+                    <span class="nav-btn nb4" style="float:left;">
+                        资金明细
+                    </span>
+                    <div id="mu_fund_detail" style="float:left;margin-top: 16px;"></div>
+                </a>
+            </li>
+            <li class="nav-item p-r ">
+                <a class="click-wrap" href="/home/user">
+                    <span class="nav-btn nb3" style="float:left;">
+                        账号信息
+                    </span>
+                    <div id="mu_acc_info" style="float:left;margin-top: 16px;"></div>
+                </a>
+            </li>
+            <li class="nav-item p-r ">
+                <a class="click-wrap" href="/home/appeal">
+                    <span class="nav-btn nb5" style="float:left;">
+                        申诉中心
+                    </span>
+                    <div id="mu_appeal_center" style="float:left;margin-top: 16px;"></div>
+                </a>
+            </li>
+            <li class="nav-item p-r ">
+                <a class="click-wrap" href="/home/promote">
+                    <span class="nav-btn nb6">
+                        推广赚金
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item p-r ">
+                <a class="click-wrap" href="/home/blicklist">
+                    <span class="nav-btn nb7">
+                        黑名单
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="f-fl">
+        <div class="main-box">
+            <h2 class="tt">
+                {% block section_title %}{% endblock %}
+            </h2>
+            <div class="colorbar f-cb">
+                <div class="f-fl act">
+                </div>
+                <div class=" nor">
+                </div>
+            </div>
+            {% block section %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/static/js/lib/layer/layer.js"></script>
+<script type="text/javascript">
+    $('#ac-level').hover(function(){
+        $('#logout-btn').show();
+    },function(){
+        $('#logout-btn').hide();
+    });
+    $('#logout-btn').bind('click',function(){
+        $.getJSON('/rest_web/users/user/logout',function(res){
+            if(res.code==0){
+                location.href='/';
+            }
+        })
+    });
+    var user_phone=document.getElementById("id_user_name").innerText;
+    $.post('/rest_web/users/get/remind/' + user_phone,function(res){
+      if(res.code==0){
+      	console.log(res);
+        for(var i=0;i<res.data.length;i++){
+        	if(res.data[i] == 101){
+        		$("#mu_appeal_center").html('<img width="15px" height="15px" src="/static/image/gth.png">');
+        	}else if(res.data[i] == 105){
+        		$("#mu_fund_detail").html('<img width="15px" height="15px" src="/static/image/gth.png">');
+        	}else if(res.data[i] == 106){
+        		$("#mu_acc_info").html('<img width="15px" height="15px" src="/static/image/gth.png">');
+        	}else if(res.data[i] == 109){
+        		$("#mu_task_mange").html('<img width="15px" height="15px" src="/static/image/gth.png">');
+        	}
+        }
+      }
+    });
+    var addframe;
+function  to_tutorial(){
+    //iframe层
+	addframe = layer.open({
+	type: 2,
+	title: '手赚教程',
+	shadeClose: true,
+	shade: 0.8,
+	area: ['800px', '600px'],
+	content: '/to_tutorial' //iframe的url
+});
+    function close_frame () {
+	layer.close(addframe);
+	document.location.reload();
+}
+}
+
+</script>
+{% block section_js %}{% endblock %}
+{% endblock %}

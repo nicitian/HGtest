@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="renderer" content="webkit">
+	    <meta http-equiv="Expires" CONTENT="0">
+	    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+	    <meta http-equiv="Cache-Control" CONTENT="no-store">
+	    <meta http-equiv="Pragma" content="no-cache">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/zzsc.css" />
+		<style type="text/css">
+			#side-nav { 
+				margin-top: 63px;
+				width:150px; 
+				height: 240px; 
+				background: #fff;
+				border: 1px solid #ddd;
+				box-shadow: 1px 1px 1px #d4d4d4;
+				position:fixed;
+				right:0;
+				background-image: url(/static/image/side_notice.png);
+				background-repeat: no-repeat;
+				background-size: 100% auto; 
+				background-position: 50% 50%;
+			}
+			#side-notice{
+				margin-top: 110px;
+				margin-left: 10px;
+				margin-right: 10px;
+				color: #197db5;
+			}
+			#side-wx { 
+				margin-top: 280px;
+				width:150px; 
+				height: 150px; 
+				background: #fff;
+				border: 1px solid #ddd;
+				box-shadow: 1px 1px 1px #d4d4d4;
+				position:fixed;
+				right:0;
+				background-image: url(/static/image/wx_gzh.png);
+				background-repeat: no-repeat;
+				background-size: 100% auto; 
+				background-position: 50% 50%;
+			}
+		</style>
+		{% block css %}{% endblock %}
+		<title>{% block title %}{% endblock %}</title>
+		<script type="text/javascript" src='//cdn.staticfile.org/require.js/2.1.15/require.min.js'></script>
+		<script type="text/javascript">
+		require.config({
+			baseUrl: "/static/js",
+			paths:{
+				'jquery':'http://libs.baidu.com/jquery/1.11.1/jquery.min',
+			}
+		});
+		</script>
+	</head>
+	<body data-user-id='{{user.id}}' data-task-id='{{task.id}}' data-order-id='{{order.id}}'>
+	<header>
+		{% block header %}{% endblock %}
+	</header>
+	
+	<nav class="hd">
+		<div class="nav-div">
+			<a href="/home/notice"><img class="logo" src="/static/image/logo.png"></a>
+			<ul class="nav-menu-list">
+				<li class="nav-menu"><a class="nav-menu-a" href="/home/notice">商家中心</a></li>
+				<li class="nav-menu"><a class="nav-menu-a" href="/messages">商家消息</a></li>
+				<li class="nav-menu"><a class="nav-menu-a" href="/seller_introduce">商家介绍</a></li>
+				<li class="nav-menu"><a class="nav-menu-a" href="/help">常见问题</a></li>
+			</ul>
+		</div>
+	</nav>
+	
+	<!--div id="side-nav">
+		<div id="side-notice">各位商家：发布任务、买手做任务、充值请求、账号信息、推广等事件如有问题，请联系QQ：13456858680或者加我们微信！</div>
+	</div>
+	<div id="side-wx"></div-->
+	
+	<div id="rightArrow"><a href="javascript:;" title="在线客户"></a></div>
+	<div id="floatDivBoxs">
+		<div class="floatDtt">在线客服</div>
+		<div class="floatShadow">
+			<ul class="floatDqq">
+				<li style="padding-left:0px;"><a target="_blank" href="tencent://message/?uin=2910147293&Site=sc.chinaz.com&Menu=yes"><img src="/static/images/qq.png" align="absmiddle">&nbsp;&nbsp;问题反馈</a></li>
+				<li style="padding-left:0px;"><a target="_blank" href="tencent://message/?uin=3421819353&Site=sc.chinaz.com&Menu=yes"><img src="/static/images/qq.png" align="absmiddle">&nbsp;&nbsp;充值请求</a></li>
+				<li style="padding-left:0px;"><a target="_blank" href="tencent://message/?uin=262374276&Site=sc.chinaz.com&Menu=yes"><img src="/static/images/qq.png" align="absmiddle">&nbsp;&nbsp;技术支持</a></li>
+			</ul>
+			<div class="floatDtxt">工作时间</div>
+			<div class="floatDtel"><img src="/static/images/online_phone.jpg" width="155" height="45" alt=""></div>
+			<div style="text-align:center;padding:10PX 0 5px 0;background:#EBEBEB;"><img src="/static/images/wap_ico.jpg"><br>微信公众账号</div>
+		</div>
+		<div class="floatDbg"></div>
+	</div>
+	
+	<!-- WPA Button Begin>
+	<script charset="utf-8" type="text/javascript" src="http://wpa.b.qq.com/cgi/wpa.php?key=XzgwMDA5NzA3N18yODI5ODRfODAwMDk3MDc3Xw"></script>
+	<!-- WPA Button End -->
+	
+	<div class="bg">
+		<div class="main">
+		{% block main %}{% endblock %}
+		</div>
+	</div>
+	
+	<footer>
+		<div class="ft-div">
+			<p>浙ICP备16003626号-1</p>
+		</div>
+	</footer>
+	<div class="bg-mask"></div>
+		<script type="text/javascript" src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/main.js"></script>
+		<script type="text/javascript" src="/static/js/zzsc.js"></script>
+		{% block js %}{% endblock %}
+	</body>
+</html>

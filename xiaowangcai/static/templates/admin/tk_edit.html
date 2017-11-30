@@ -1,0 +1,251 @@
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+
+    <title>Title</title>
+    <style type="text/css">
+	h2.tt {
+		text-align:center;
+		margin-top: 20px;
+		padding-bottom: 13px;
+		border-bottom: 1px solid #E4E4E4;
+		font-size: 24px;
+		font-weight: normal;
+	}
+	.mw {
+		margin: 0 auto;
+		margin-top: 20px;
+		width: 700px;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+	.mw table {
+	  margin-left: 20px;
+	  width: 640px;
+	}
+	.mw .sel-plat {
+	  width: 97px;
+	}
+	.mw .ipt, .mw .select {
+		margin-top: 8px;
+		margin-bottom: 8px;
+		width: 291px;
+		height:30px;
+	}
+	select {
+		margin-top: 8px;
+		padding: 4px;
+		border: 1px solid #bebfbf;
+		color: #555;
+	}
+	.btn-bs {
+	  width: 136px;
+	  height: 40px;
+	  border: none;
+	  background: url(/static/image/web/home/bindstore_s.png) center center no-repeat;
+	  cursor: pointer;
+	  margin-right: 145px;
+	}
+	.btn-bc {
+	  width: 136px;
+	  height: 40px;
+	  border: none;
+	  background: url(/static/image/web/home/bindstore_c.png) center center no-repeat;
+	  cursor: pointer;
+	}
+	.mw .smtopt {
+	  width: 420px;
+	  margin: 0 auto;
+	  margin-top: 20px;
+	}
+	.prompt-add-store {
+		font-size:12px;
+		color: #a3a3a2;
+	}
+    .btn-a{
+        width: 80px;
+        height: 30px;
+        border: 1px solid #bebfbf;
+        background: #fff;
+        cursor: pointer;
+        color: #08c;
+        margin: 5px;
+        border-radius: 5px;
+    }
+	</style>
+    <link rel="stylesheet" href="/static/back_admin/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/back_admin/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="/static/back_admin/css/datepicker.css" />
+</head>
+<body>
+    <h2 class="tt">添加或修改商品</h2>
+    <form class="mw">
+        <table>
+            <tbody>
+                <tr>
+                    <td width="20%" class="f-tar">标题：</td>
+                    <td width="80%">
+                        <input class="ipt" type="text" name="title" id="title" value="{{ tkg.title }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">短标题：</td>
+                    <td width="80%">
+                        <input class="ipt" type="text" name="d_title" id="d_title" value="{{ tkg.d_title }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">商品链接：</td>
+                    <td width="80%">
+                        <input class="ipt" type="text" name="link" id="link" value="{{ tkg.link }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">商品价格：</td>
+                    <td width="80%">
+                        <input class="ipt" type="text" name="price" id="price" value="{{ tkg.price }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">主图：</td>
+                    <td width="80%">
+                        <img class="f-fl  pic" id="showpic1" src="{{ tkg.pic }}"  width="80" height="80">
+                        <div id="delete-0" style="position:absolute;top:-4px;left:132px;display:none;">
+                            <a href="javascript:void(0)" onclick="deletepic(0)">
+                                <img src="/static/image/web/home/error_tag.png">
+                            </a>
+                        </div>
+                        <ul class="f-fl uprompt">
+
+                            <li class="f-cb">
+                                <!-- 上传文件组件 -->
+                                <div class="btn-upfile f-fl">
+                                    <div class="new-contentarea">
+                                        <a href="javascript:void(0)" class="upload-img">
+                                            <label>
+                                            </label>
+                                        </a>
+                                        <input type="file" class="mainpic" id='goodpicinput1'>
+                                    </div>
+                                </div>
+
+                                <!-- 组件结束 -->
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">是否天猫:</td>
+                    <td width="80%">
+                        <input class="" type="radio" name="is_tmall"  value="0" {% if tkg.is_tmall == 0 %}checked {% endif %}> 否
+                        <input class="" type="radio" name="is_tmall"  value="1" {% if tkg.is_tmall == 1 %}checked {% endif %}> 是
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">商品分类:</td>
+                    <td width="80%">
+                        <select  name="cid" id="cid">
+                            <option value="1" {% if tkg.cid == 1 %}selected{% endif %}>服装</option>
+                            <option value="2" {% if tkg.cid == 2 %}selected{% endif %}>母婴</option>
+                            <option value="3" {% if tkg.cid == 3 %}selected{% endif %}>化妆品</option>
+                            <option value="4" {% if tkg.cid == 4 %}selected{% endif %}>居家</option>
+                            <option value="5" {% if tkg.cid == 5 %}selected{% endif %}>鞋包配饰</option>
+                            <option value="6" {% if tkg.cid == 6 %}selected{% endif %}>美食</option>
+                            <option value="7" {% if tkg.cid == 7 %}selected{% endif %}>文体车品</option>
+                            <option value="8" {% if tkg.cid == 8 %}selected{% endif %}>数码家电</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">优惠券金额：</td>
+                    <td width="80%">
+                        <input class="ipt" type="text" name="quan_price" id="quan_price" value="{{ tkg.quan_price }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">优惠券结束时间：</td>
+                    <td width="80%">
+                        <input data-date-format="yyyy-mm-dd" data-date="2015-01-01" class="datepicker ipt" type="text" name="quan_time" id="quan_time" value="{{ tkg.quan_time }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="f-tar">优惠券链接：</td>
+                    <td width="80%">
+                        <input class="ipt" type="text" name="quan_link" id="quan_link" value="{{ tkg.quan_link }}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input id="tkg_id" value="{{ tkg.id }}" hidden>
+        <div class="smtopt f-cb">
+			<input class="sure btn-bs f-fl" id='btnsubmit' style="width: 136px" type="button">
+			<input class="cancel btn-bc f-fl" type="button" style="width: 136px" onclick="close_frame()">
+		</div>
+    </form>
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src='/static/js/lib/layer/layer.js'></script>
+    <script type="text/javascript" src='//cdn.staticfile.org/require.js/2.1.15/require.min.js'></script>
+    <script src='/static/js/lib/jquery.json.js'></script>
+    <script language="javascript" type="text/javascript" src="/static/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
+    <script src="/static/back_admin/js/bootstrap.min.js"></script>
+    <script src="/static/back_admin/js/bootstrap-colorpicker.js"></script>
+    <script src="/static/back_admin/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        function close_frame () {
+            window.parent.close_frame();
+        }
+        $("#btnsubmit").bind("click", function(){
+            var postdata={};
+            postdata.id = $("#tkg_id").val()
+            postdata.title = $("#title").val();
+            postdata.d_title = $("#d_title").val();
+            postdata.price = $("#price").val();
+            postdata.link = $("#link").val();
+            postdata.pic = $('#showpic1').attr('src');
+            postdata.is_tmall = $('input[name="is_tmall"]:checked').val();
+            postdata.quan_price = $("#quan_price").val();
+            postdata.quan_time = $("#quan_time").val();
+            postdata.quan_link = $("#quan_link").val();
+            postdata.cid = $('#cid').val();
+            console.dir(postdata);
+            $.post('/rest_web/others/tkgoods/save',postdata,function(res){
+                if(res.code==0){
+                    close_frame ();
+                }else{
+                    alert(res.msg);
+                }
+            });
+        });
+        $(function () {
+            $(".datepicker").datepicker({
+                language: "zh-CN",
+                autoclose: true,//选中之后自动隐藏日期选择框
+                clearBtn: true,//清除按钮
+                todayBtn: true,//今日按钮
+                format: "yyyy-mm-dd"//日期格式，详见 http://bootstrap-datepicker.readthedocs.org/en/release/options.html#format
+            });
+        });
+    </script>
+    <script>
+        require.config({
+			baseUrl: "/static/js",
+			paths:{
+				'jquery':'http://libs.baidu.com/jquery/1.11.1/jquery.min',
+			}
+		});
+        require(['jquery','/static/js/lib/jquery.form.js'],
+            function($, jform) {
+                laifu.pic_upload('goodpicinput1', 'showpic1');
+            }
+        );
+    </script>
+</body>
+</html>

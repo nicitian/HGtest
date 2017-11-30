@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html style="font-size: 20px;" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="no">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-store">
+		<meta http-equiv="Pragma" content="no-cache">
+		<link rel="stylesheet" type="text/css" href="./css/module.css">
+		<link rel="stylesheet" type="text/css" href="./css/buyerguide.css">
+		<title>新手教程</title>
+		<script type="text/javascript" src="./js/zepto-collections-1.1.6.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				function setRootFontSize(){
+					var w_w = parseInt($(window).width()),
+						w_h = parseInt($(window).height()),
+					 	radio = (w_w>640?640:w_w) / 320;
+					$('html').css('font-size', radio*10 + 'px');
+				}
+				$(window).on('resize', function(){
+					setRootFontSize();
+				});
+				setRootFontSize();
+			});
+		</script>
+	</head>
+	<body>
+		<div class="global">
+			<div class="hd">
+				<div class="peo-wrap">
+					<img class="people" src="./images/pw_top.png">
+				</div>
+			</div>
+			<!--div class="prom">那么问题来了，什么是手赚的正确打开方式呢！</div-->
+            <br/>
+            <br/>
+			<div class="ct-wrap">
+				<div class="step-wrap">
+					<a href="./buyer_guide_video.html" class="step-tt st-1" style="font-size:18px" >手赚刷手视频教程（点击查看）</a>
+				</div>
+				<div class="step-wrap">
+					<a href="./buyer_guide_pic.html" class="step-tt st-2" style="font-size:18px">手赚刷手图文教程（点击查看）</a>
+				</div>
+			</div>
+		</div>
+</body></html>

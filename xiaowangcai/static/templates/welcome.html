@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="renderer" content="webkit">
+	    <meta http-equiv="Expires" CONTENT="0">
+	    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+	    <meta http-equiv="Cache-Control" CONTENT="no-store">
+	    <meta http-equiv="Pragma" content="no-cache">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/zzsc.css" />
+		<style type="text/css">
+			#side-nav {
+				margin-top: 63px;
+				width:150px;
+				height: 240px;
+				background: #fff;
+				border: 1px solid #ddd;
+				box-shadow: 1px 1px 1px #d4d4d4;
+				position:fixed;
+				right:0;
+				background-image: url(/static/image/side_notice.png);
+				background-repeat: no-repeat;
+				background-size: 100% auto;
+				background-position: 50% 50%;
+			}
+			#side-notice{
+				margin-top: 110px;
+				margin-left: 10px;
+				margin-right: 10px;
+				color: #197db5;
+			}
+			#side-wx {
+				margin-top: 280px;
+				width:150px;
+				height: 150px;
+				background: #fff;
+				border: 1px solid #ddd;
+				box-shadow: 1px 1px 1px #d4d4d4;
+				position:fixed;
+				right:0;
+				background-image: url(/static/image/wx_gzh.png);
+				background-repeat: no-repeat;
+				background-size: 100% auto;
+				background-position: 50% 50%;
+			}
+
+            .panel{
+              margin: 160px 0px;
+              border: 1px solid #e5e5e5;
+              height: 765px;
+              width: 100%;
+              background-color: #fdfefe;
+            }
+            .welcome{
+              margin: 140px 0px;
+              height: 2088px;
+              width: 100%;
+            }
+            .panel > p{
+              width: 5em;
+              padding-top: 4px;
+              margin: 0 auto;
+              margin-top: 100px;
+              font-size: 22px;
+              color: #197db5;
+              margin-bottom: 52px;
+            }
+            .panel .ipt-wrap {
+              width: 350px;
+              margin: 0 auto;
+            }
+            .lr-ipt {
+              margin-bottom: 20px;
+              padding-left: 42px;
+              padding-right: 7px;
+              width: 300px;
+              font-size: 15px;
+              padding-top: 13px;
+              padding-bottom: 12px;
+              border: 1px solid #ececed;
+              color: #666;
+            }
+            .user,.lock{
+              position: absolute;
+              top: 10px;
+              left: 12px;
+            }
+            .panel .pwd {
+              margin-bottom: 20px;
+            }
+            .sel {
+              width: 350px;
+              margin: 0 auto;
+              margin-bottom: 35px;
+            }
+            .f-cb, .f-cbli li {
+              zoom: 1;
+            }
+            .forgetcode {
+              margin-right: 12px;
+            }
+            .forgetcode a {
+              color: #737272;
+            }
+            .wrap-btn {
+              width: 165px;
+              margin: 0 auto;
+            }
+            .btn-login {
+              width: 165px;
+              height: 42px;
+              border: none;
+              background: url(/static/image/web/index/btn_login.png) center center no-repeat;
+              cursor: pointer;
+            }
+            .bar {
+              width: 94%;
+              margin: 0 auto;
+              margin-top: 100px;
+              border-bottom: 1px solid #d8ebf9;
+            }
+            .wrap-tag .tag {
+              margin-top: 85px;
+            }
+            .iphone-tag , .android-tag{
+              margin-left: 85px;
+            }
+            .downloadcode {
+              margin-left: 69px;
+              position: relative;
+              top: -21px;
+            }
+            .lr-ipt:focus
+            {
+              border-color: rgba(82, 168, 236, 0.8);
+              outline: thin dotted \9;
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+            }
+            .top_menu{
+                top:0px;
+                width:100%;
+                position:fixed;
+                z-index: 100;
+            }
+		</style>
+		{% block css %}{% endblock %}
+		<title>欢迎来到手赚</title>
+		<script type="text/javascript" src='//cdn.staticfile.org/require.js/2.1.15/require.min.js'></script>
+		<script type="text/javascript">
+		require.config({
+			baseUrl: "/static/js",
+			paths:{
+				'jquery':'http://libs.baidu.com/jquery/1.11.1/jquery.min',
+			}
+		});
+		</script>
+	</head>
+	<body data-user-id='{{user.id}}' data-task-id='{{task.id}}' data-order-id='{{order.id}}'>
+	<div class="top_menu">
+    <header>
+		 {% include 'component/login_bar.html' %}
+	</header>
+	<nav class="hd">
+		<div class="nav-div">
+			<a href="/home/notice"><img class="logo" src="/static/image/logo.png"></a>
+			<ul class="nav-menu-list">
+				<li class="nav-menu"><a class="nav-menu-a" href="/home/notice" style="font-size:18px;">商家中心</a></li>
+				<li class="nav-menu"><a class="nav-menu-a" href="/messages" style="font-size:18px;">商家消息</a></li>
+				<li class="nav-menu"><a class="nav-menu-a" href="/seller_introduce" style="font-size:18px;">商家介绍</a></li>
+				<li class="nav-menu"><a class="nav-menu-a" href="/help" style="font-size:18px;">常见问题</a></li>
+			</ul>
+		</div>
+	</nav>
+    </div>
+    	<div id="rightArrow"><a href="javascript:;" title="在线客户"></a></div>
+	<div id="floatDivBoxs">
+		<div class="floatDtt">扫码下载手赚APP</div>
+		<div class="floatShadow">
+			<div class="floatDtxt">支持安卓、苹果</div>
+			<div style="text-align:center;padding:10PX 0 5px 0;background:#EBEBEB;"><img src="/static/image/web/index/mobile_code.jpg"><br>手赚APP</div>
+		</div>
+		<div class="floatDbg"></div>
+	</div>
+
+
+
+	<div class="bg">
+		<div class='welcome'>
+            <a href="/login"><img class="logo" src="/static/image/welcome.jpg" style="margin-top: 160px;margin-left:5%;margin-bottom:2%;width:90%;"></a>
+        </div>
+	</div>
+
+	<div class="bg-mask"></div>
+		<script type="text/javascript" src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/main.js"></script>
+		<script type="text/javascript" src="/static/js/zzsc.js"></script>
+        <script type="text/javascript" src='/static/js/lib/md5.js'></script>
+        <script type="text/javascript" src='/static/js/lib/layer/layer.js'></script>
+		{% block js %}{% endblock %}
+	</body>
+</html>
+
+

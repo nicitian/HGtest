@@ -1,0 +1,338 @@
+{% extends "home/home_.html" %}
+{% block section_css %}
+<style type="text/css">
+.base-info {
+  margin-left: 28px;
+  margin-right: 28px;
+}
+.base-info > li {
+  margin-bottom: 26px;
+  border-bottom: 1px solid #f6f7f7;
+  padding-bottom: 26px;
+}
+.base-info .username {
+  font-weight: 800;
+  font-size: 15px;
+}
+.contact {
+  margin-left: 28px;
+  margin-bottom: 19px;
+}
+.optprompt {
+  padding-left: 20px;
+}
+.mobile {
+  margin-left: 95px;
+  margin-bottom: 52px;
+}
+h2.tt {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 28px;
+}
+h2.tt-s {
+  font-size: 13px;
+  font-weight: normal;
+  margin-left: 28px;
+}
+.shopnametb {
+  margin: 0px 28px 200px 28px;
+}
+.shopnametb table {
+  width: 100%;
+  background-color: #fff;
+}
+.shopnametb table th {
+  border: 1px solid #ededee;
+  background-color: #f6f6f7;
+  line-height: 3.0em;
+  text-align: center;
+}
+.shopnametb table td {
+  padding: 10px 0;
+  border: 1px solid #ededee;
+  text-align: center;
+}
+#addbindstore {
+  display: block;
+  margin-top: 17px;
+}
+#bindstore {
+  width: 700px;
+  height: 400px;
+  background-color: #f9f7f7;
+  border-radius: 4px;
+  overflow: hidden;
+  display: none;
+}
+#bindstore.show{
+  left: 50%;
+  top: 50%;
+  display: block;
+  transform:translate(-50%,-50%);
+  -ms-transform:translate(-50%,-50%);
+  -moz-transform:translate(-50%,-50%);
+  -webkit-transform:translate(-50%,-50%);
+  -o-transform:translate(-50%,-50%);
+}
+.ui-dialog {
+  position: fixed;
+  top: 100px;
+  left: 100px;
+  z-index: 1010;
+}
+#bindstore .tt {
+  margin: 48px 50px 22px 50px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #e4e4e4;
+  font-weight: 800;
+  font-size: 16px;
+  color: #0c0c0c;
+}
+#bindstore table {
+  margin-left: 20px;
+  width: 640px;
+}
+#bindstore .sel-plat {
+  width: 97px;
+}
+#bindstore .ipt, #bindstore .select {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.select {
+  padding: 4px;
+  border: 1px solid #bebfbf;
+  width: 67px;
+  color: #555;
+}
+.btn-bs {
+  width: 136px;
+  height: 40px;
+  border: none;
+  background: url(/static/image/web/home/bindstore_s.png) center center no-repeat;
+  cursor: pointer;
+  margin-right: 145px;
+}
+.btn-bc {
+  width: 136px;
+  height: 40px;
+  border: none;
+  background: url(/static/image/web/home/bindstore_c.png) center center no-repeat;
+  cursor: pointer;
+}
+#bindstore .smtopt {
+  width: 420px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+</style>
+{% endblock %}
+{% block section_title %}个人信息{% endblock %}
+{% block section %}
+<ul class="base-info">
+    <li>
+        <strong class="username" id="username">
+            {{user.username}}
+        </strong>
+        <!--img class="level" src="/images/level/seller_0.png"-->
+        <span class="time f-fr">
+            注册时间：{{register_date}}
+        </span>
+    </li>
+    <li>
+        密码管理：
+        <a href="../reset_pwd?mobile={{user.username}}" class="striking">
+            密码修改
+        </a>
+        <span>
+            　　　用户ID: {{user.id}}
+        </span>
+    </li>
+</ul>
+<div class="contact">
+    联系方式：QQ&nbsp;&nbsp;&nbsp;
+    <span class="mobilenum">
+        {{ user.qq }}
+    </span>
+    <span class="error optprompt" id="qqoptprompt">
+    </span>
+</div>
+<div class="mobile">手机 <span class="mobilenum">{{ user.phone }}</span> </div>
+<h2 class="tt-s p-r">
+    绑定店铺
+    <span class="prompt" style='margin-left: 200px;'>
+        温馨提示 :店铺请填写自己店铺首页地址，不可绑定其他卖家的地址，否则会被处罚
+    </span>
+</h2>
+<div class="colorbar f-cb">
+    <div class="f-fl act">
+    </div>
+    <div class=" nor">
+    </div>
+</div>
+<div class="shopnametb">
+    <table>
+        <thead>
+            <tr>
+                <th width="10%">
+                    平台
+                </th>
+                <th width="20%">
+                    店铺名称
+                </th>
+                <th width="20%">
+                    店铺旺旺ID
+                </th>
+                <th width="20%">
+                    发货地
+                </th>
+                <th width="20%">
+                    店铺地址
+                </th>
+                <th width="12%">
+                    购买间隔（天）
+                </th>
+                <th width="12%">
+                    审核状态
+                </th>
+                <th width="20%">
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for store in store_list %}
+         <tr>
+                <td class="name">
+                    <div class="plat">
+                        {% ifequal store.platform 0 %}
+                        淘宝网
+                        {% endifequal %}
+                    </div>
+                </td>
+                <td class="name">
+                    <div class="shopinfo lim-w">
+                        {{store.name}}
+                    </div>
+                </td>
+                <td class="name">
+                    <div class="shopinfo lim-w">
+                        {{store.wangwang}}
+                    </div>
+                </td>
+                <td class="send-address">
+                    <div class="shopinfo lim-w">
+                        {{store.address}}
+                    </div>
+                </td>
+                <td class="store-address">
+                    <div class="shopinfo lim-w">
+                        <a href=" {{store.url}}" target="_blank"
+                        title=" {{store.url}}">
+                            {{store.url | truncatewords:"20"}}
+                        </a>
+                    </div>
+                </td>
+                <td class="store_buy_time_limit">
+                    <div class="shopinfo lim-w">
+                       {{store.buy_time_limit}}
+                    </div>
+                </td>
+                <td class="f-pr">
+                    <div class="lim-w">
+                        {% ifequal store.verify_status 0 %}
+                        待审核
+                        {% endifequal %}
+                        {% ifequal store.verify_status 1 %}
+                        审核通过
+                        {% endifequal %}
+                        {% ifequal store.verify_status 2 %}
+                        审核不通过
+                        {% endifequal %}
+                    </div>
+                </td>
+                <td class="store-address">
+                    <div class="shopinfo lim-w" >
+                        <a  class="striking"  data-store-id="{{ store.id }}" onclick="modify_store({{ store.id }} )">
+                            修改
+                        </a>
+{#                        <a  class="striking" onclick="delete_store({{ store.id }})">#}
+{#                            删除#}
+{#                        </a>#}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="striking" id="addbindstore" onclick="add_store()">
+        + 增加绑定店铺
+    </a>
+    <input id="2modify_store_id" type="text" style="display: none;" value="0"/>
+</div>
+{% endblock %}
+{% block section_js %}
+<script type="text/javascript" src='/static/js/lib/layer/layer.js'></script>
+<script type="text/javascript" src='/static/js/lib/jquery.provincesCity.js'></script>
+<script type="text/javascript" src='/static/js/lib/provincesdata.js'></script>
+<script type="text/javascript">
+$($('.nav-item')[5]).addClass('active');
+var addframe;
+function add_store(){
+	//iframe层
+	addframe = layer.open({
+	type: 2,
+	title: '增加绑定店铺',
+	shadeClose: true,
+	shade: 0.8,
+	area: ['700px', '480px'],
+	content: '/add_store' //iframe的url
+}); 
+}
+
+function modify_store(store_id){
+	//iframe层
+    var this_url = '/modify_store?user_id='+window.laifu.get_user_id()+'&store_id='+store_id;
+	addframe = layer.open({
+	type: 2,
+	title: '修改店铺',
+	shadeClose: true,
+	shade: 0.8,
+	area: ['700px', '480px'],
+	content: this_url //iframe的url
+});
+}
+
+
+function delete_store(store_id){
+    var postdata = {};
+    postdata.user_id=window.laifu.get_user_id();
+    postdata.store_id = store_id;
+	var se=confirm("确定要删除这个店铺信息？");
+    if (se==true)
+      {
+          $.post('/rest_web/tasks/store/delete',postdata,function(res){
+                if(res.code==0){
+                    layer.msg("店铺删除成功!");
+                    document.location.reload();
+                }
+                else if(res.code!=0)
+                {
+                    layer.msg("店铺删除失败!");
+                    return;
+                }
+            });
+      }
+    else
+      {
+        return ;
+      }
+}
+
+function close_frame () {
+	layer.close(addframe);
+	document.location.reload();
+}
+</script>
+{% endblock %}

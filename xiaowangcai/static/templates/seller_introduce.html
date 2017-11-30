@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+.tp-lg {
+	height: 565px;
+	width: 100%;
+	/*background-color: #d4e9fc;*/
+}
+.scct {
+	background-color: #f8fefe;
+	min-height: 1000px;
+	padding-top: 36px;
+}
+.p-r {
+	position: relative;
+}
+.w-1k {
+	width: 1000px;
+	margin: 0 auto;
+}
+.sclogo {
+	position: relative;
+	top: 10px;
+}
+.video-wrap {
+	position: absolute;
+	top: 102px;
+	right: 0px;
+	width: 609px;
+	height: 445px;
+	overflow: hidden;
+}
+.video-img {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1000;
+	cursor: pointer;
+}
+.scct .sd-wrap {
+	padding-bottom: 32px;
+}
+.w-1k {
+	width: 1000px;
+	margin: 0 auto;
+}
+</style>
+{% endblock %}
+{% block title %}商家介绍{% endblock %}
+{% block header %}
+  {% include 'component/login_bar.html' %}
+{% endblock %}
+{% block main %}
+	<div class="tp-lg">
+		<div class="w-1k p-r">
+			<img class="sclogo" src="/static/image/sclogo.png">
+			<div class="video-wrap p-r">
+				<div class="video">
+					<embed src="http://player.youku.com/player.php/sid/XMTM5MjU0MDUzNg==/v.swf" allowFullScreen="true" quality="high" width="600" height="445" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+					<!--video width="609" height="445" controls="controls" preload="auto">
+						<source src="/static/video/laifu_introduce.m4v" type="video/mp4">
+						<source src="/static/video/laifu_introduce.webm" type="video/webm">
+						<source src="/static/video/laifu_introduce.ogv" type="video/ogg">
+						您的浏览器不支持 HTML5 video 标签。
+					</video-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="scct">
+		<div class="w-1k p-r sd-wrap">
+			<img src="/static/image/sd_one.jpg">
+		</div>
+		<div class="w-1k p-r sd-wrap">
+			<img src="/static/image/sd_two.jpg">
+		</div>
+		<div class="w-1k p-r sd-wrap">
+			<img src="/static/image/sd_three.jpg">
+		</div>
+	</div>
+{% endblock %} 
+{% block js%}
+<script type="text/javascript">
+;(function(){$('#videomask').on('click', function(){
+	$(this).hide();
+	var video = $('video')[0];
+	video.play();
+})}());
+</script>
+{% endblock %}

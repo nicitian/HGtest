@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name='Keywords' content=''/>
+    <meta name='Description' content=''/>
+    <title>手赚我淘</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/qtk.css">
+    <!--[if lt IE 9]>
+        <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default" id="top">
+        <div class="container noPadding reSetMargin " style="display: block;position: relative;">
+            <div class="collapse noPadding navbar-collapse " id="bs-example-navbar-collapse-1" style="display: block;position: relative;padding: 0;margin: 0;overflow: hidden;border: 0;">
+                <form class="navbar-form navbar-left" role="search" method="post" action="mb_tkgoods">
+                  <div class="form-group">
+                    <input type="text" name="search" value="{{ search }}" class="form-control col-xs-4" id="exampleInputName2" placeholder="请输入产品名称">
+                  </div>
+                  <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container goTop">
+        <div class="row">
+            {% for g in tkgoods %}
+                <div class=" col-xs-6 noPadding rightMargin" style="height: 288px;">
+                    <div class=" col-xs-12 noPadding divContent">
+                        <div class=" col-xs-6 noPadding  ">
+                            <a href="{{ g.link }}" class="aImg" target="_blank" rel="nofollow">
+                            <img src="{{ g.pic }}" class="img-responsive" style="width: 260px;height: 260px"/></a>
+                        </div>
+                        <div class=" col-xs-6 noPadding  ">
+                            <p class="pHeader"><a href="{{ g.link }}" target="_blank" rel="nofollow">
+                            {{ g.title }}</a></p>
+                            <p class="pDate" style="">内部券<span class="glyphicon glyphicon-yen" aria-hidden="true"></span><B>{{ g.quan_price }}</B>元
+                            </p>
+                            <!--<p class="pCoupon">优惠券剩余 <span>8503</span> 张</p>-->
+                            <div class="divPrice">券后价￥<span>{{ g.zhj }}</span>
+                            在售价￥<span>{{ g.price }}</span></div>
+                            <div class="divGo">购买流程：<a href="{{ g.quan_link }}" target="_blank" rel="nofollow"><span>①点我领券</span></a>
+                            <span>&gt;</span>
+                            <a href="{{ g.link }}" rel="nofollow" target="_blank"><span>②点击下单</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="yw0" class="pager">
+            {% ifequal page 1 %}
+                <a class="pre-page disabled" href="javascript:;">上一页</a>
+            {% else %}
+                <a href="/mb_tkgoods?page={{ page|add:-1 }}">上一页</a>
+            {% endifequal %}
+
+            {% if page > 3 %}
+
+                <a class="item" href="/mb_tkgoods?page=1">1</a>
+                <span class="item">...</span>
+            {% endif %}
+
+            {% for pagenum in pages %}
+                {% ifequal page pagenum %}
+                    <a class="item cur" href="/mb_tkgoods?page={{ pagenum }}">{{ pagenum }}</a>
+                {% else %}
+                    <a class="item" href="/mb_tkgoods?page={{ pagenum }}">{{ pagenum }}</a>
+                {% endifequal %}
+            {% endfor %}
+
+            {% if total_page > 5 and page < total_page|add:-2 %}
+                <span class="item">...</span>
+                <a class="item" href="/mb_tkgoods?page={{ total_page }}">{{ total_page }}</a>
+            {% endif %}
+
+            {% ifequal total_page 0 %}
+                <a class="next-page disabled" href="javascript:;">下一页</a>
+            {% else %}
+                {% ifequal page total_page %}
+                    <a class="next-page disabled" href="javascript:;">下一页</a>
+                {% else %}
+                    <a href="/mb_tkgoods?page={{ page|add:1 }}">下一页</a>
+                {% endifequal %}
+            {% endifequal %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% extends "home/home_.html" %}
+{% block section_css %}
+<style type="text/css">
+.list-wrap {
+    color: #737272;
+    margin: 0 26px;
+    margin-top: 7px;
+}
+.black-lst {
+    width: 100%;
+}
+.black-lst tr {
+    border-bottom: 1px solid #f6f7f7;
+}
+.black-lst td {
+    padding-top: 27px;
+    padding-bottom: 8px;
+}
+</style>{% endblock %}
+{% block section_title %}黑名单{% endblock %}
+{% block section %}
+  <div class="list-wrap"> 
+   <table class="black-lst" id="blacklist"> 
+    <tbody> 
+     <tr> 
+      <td width="15%"> 用户ID </td> 
+      <td width="30%"> 拉黑时间 </td> 
+      <td width="35%"> 拉黑原因 </td> 
+      <td width="20%"> 操作 </td> 
+     </tr>
+     {% for black in blacklists %}
+     <tr> 
+      <td> {{black.buyer_id}} </td> 
+      <td> {{black.time_str}} </td> 
+      <td> 
+       <div class="lim-w" >
+         {{black.reason}}
+       </div> </td> 
+      <td> <a class="clearblack striking" href="javascript: void(0)" data-buyer-id="{{black.buyer_id}}"> 解除黑名单 </a> </td> 
+     </tr> 
+     {% endfor %}
+    </tbody> 
+   </table> 
+  </div>
+{% endblock %}
+{% block section_js %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$($('.nav-item')[8]).addClass('active');
+		$('.clearblack').bind('click',function(){
+			var thisrow=$(this).parent().parent();
+			$.post('/rest_web/users/user/blackcancel/'+laifu.get_user_id(),{
+				'buyer_id':$(this).data('buyer-id'),
+			},function(res){
+				if(res.code==0){
+					alert('解除成功');
+					thisrow.hide();
+				}
+			});
+		});
+	});
+</script>
+{% endblock %}

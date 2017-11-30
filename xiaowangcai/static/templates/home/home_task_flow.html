@@ -1,0 +1,290 @@
+{% extends "home/home_.html" %}
+{% block section_css %}
+<style>
+.tm-tab {
+  border-bottom: 3px solid #dee1e2;
+  margin-left: 16px;
+  margin-right: 16px;
+  color: #8c8c8c;
+  padding-left: 6px;
+}
+.tm-tab .mntab.act:hover {
+  background-color: #3fb7fb;
+  color: #fff;
+}
+.tm-tab .mntab:hover {
+  background-color: #fff;
+}
+.tm-tab .mntab.act {
+  background-color: #3fb7fb;
+  color: #fff;
+}
+.tm-tab .mntab {
+  width: 120px;
+  height: 30px;
+  border: 1px solid #dee1e2;
+  border-bottom: none;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  margin-right: 2px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #f3f4f4;
+}
+.f-cb:after, .f-cbli li:after {
+  display: block;
+  clear: both;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  content: ".";
+}
+.wrap-search {
+  margin: 0px 22px;
+  margin-top: 16px;
+}
+.wrap-search-2 {
+  margin-top: 14px;
+}
+.wrap-search {
+  margin: 0px 22px;
+  margin-top: 16px;
+}
+.Wdate {
+  border: #999 1px solid;
+  height: 20px;
+  background: #fff url(datePicker.gif) no-repeat right;
+}
+.Wdate {
+  width: 90px;
+}
+.wrap-search li {
+  margin-right: 18px;
+}
+.btn-search {
+  width: 68px;
+  height: 32px;
+  border: none;
+}
+.order-list {
+  margin: 0 16px;
+}
+.order.odd {
+  background-color: #f0f4f6;
+}
+.ot {
+  padding: 20px 6px 6px 6px;
+  border-bottom: 1px dashed #d8dadb;
+}
+.ot .plat-logo {
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
+}
+.ot .vgb {
+  width: 1px;
+  height: 20px;
+  background-color: #edeeef;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.ot .xq, .ot .cf {
+  color: #605f5e;
+}
+.order .ok {
+  color: #9d9c9a;
+}
+.ot .status {
+  margin-left: 20px;
+}
+.p-r {
+  position: relative;
+}
+.ob {
+  padding: 20px 8px 16px 8px;
+}
+.ob .goods {
+  width: 80px;
+  height: 80px;
+  margin-right: 9px;
+}
+.ob .g-desc {
+  width: 18em;
+  height: 2.6em;
+  white-space: normal;
+}
+.lim-w {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ob .mainkw {
+  width: 20em;
+  white-space: normal;
+  height: 1.2em;
+  padding-top: 0.2em;
+}
+.ob .r-time {
+  position: absolute;
+  bottom: 0px;
+  left: 90px;
+  color: #9d9c9a;
+}
+.opt-c {
+  margin-top: 16px;
+}
+.opt-c .vbar {
+  border-right: 1px dashed #cfcecd;
+}
+.opt-c .count {
+  display: block;
+  padding: 9px 10px 7px 10px;
+  color: #737272;
+  text-align: center;
+}
+.opt-c .o-tag {
+  margin-top: 11px;
+}
+</style>
+{% endblock %}
+{% block section_title %}浏览任务管理{% endblock %}
+{% block section %}
+  {% include 'component/flow_task_bar.html' %}
+  <form method="POST"> 
+   <ul class="f-cb wrap-search"> 
+    <li class="f-fl"> 店铺： 
+    <select class="select" name="store_id" style="width: 130px;"> 
+    <option value="-1"> 全部 </option>
+    {% for s in stores %}
+    <option value="{{s.id}}"> {{s.name}} </option>
+    {% endfor %}
+    </select> </li> 
+    <li class="f-fl"> 任务编号： <input class="ipt" name="taskid" style="width: 90px;" value="" /> </li> 
+    <li class="f-fl"> 发布时间：从 <input class="Wdate" name="starttime" type="text" value="" onfocus="WdatePicker({isShowClear:true,readOnly:true})" /> 到 <input class="Wdate" type="text" name="endtime" onfocus="WdatePicker({isShowClear:true,readOnly:true})" value="" /> </li> 
+   </ul> 
+   <ul class="f-cb wrap-search wrap-search-2"> 
+    <!--li class="f-fl"> 任务类型： 
+    <select class="select" name="tasktype" style="width: 100px;"> 
+    <option value="-1" selected=""> 全部 </option> 
+    <option value="0"> 手机淘宝任务 </option> 
+    <option value="1"> 电脑淘宝任务 </option> 
+    <option value="2"> 浏览任务 </option>
+    <option value="3"> 特别任务 </option> 
+    <option value="4"> 美丽说手机单 </option> 
+    <option value="5"> 美丽说电脑单 </option> 
+    <option value="6"> 天猫手机单 </option> 
+    <option value="7"> 特别任务 </option> 
+    </select> </li--> 
+    <li class="f-fl"> 任务状态： <select class="select" name="taskstatus" style="width: 100px;"> <option value="-1" selected=""> 全部 </option> <option value="0"> 待审核 </option> <option value="1"> 已审核 </option> <option value="2"> 已完成 </option> <option value="3"> 不通过 </option> <!--option value="4"> 被冻结 </option--> </select> </li> 
+    <li class="f-fl"> 关键字： <input class="ipt" type="text" name="keyword" style="width: 160px;" value="" /> </li> 
+    <li class="f-fl"> <input class="btn-search" type="button" id='btn-search' value="搜索" style="position: relative;top: -5px;left: 22px;" /> </li> 
+   </ul> 
+  </form> 
+  <div class="order-list">
+   {% for t in tasks %}
+   <div class="order {% if t.odd %}odd{%endif%}">
+    <div class="ot f-cb"> 
+     <div class="f-fl"> 
+       {% if t.status_str == "待支付" %}
+       <span style="color:#FF0000"><a style="text-decoration: underline;" onclick="delete_task({{t.id}})">删除</a></span>
+       {% elif t.status_str == "已取消" and t.order_1 == 0 and t.order_2 == 0 and t.order_3 == 0 and t.order_4 == 0 and t.order_5 == 0 and t.order_6 == 0 %}
+         <span style="color:#FF0000"><a style="text-decoration: underline;" onclick="delete_task({{t.id}})">删除</a></span>
+       {% endif %}
+      <img class="plat-logo" src="/static/image/web/home/plat_logo.png" /> 
+      <span class="shopname" >{{t.store.name}}</span> 
+     </div> 
+     <div class="f-fr"> 
+      <ul class="f-cb "> 
+       <li class="f-fl prompt">
+       	<span style="color:#00FF00">
+       	手机浏览任务
+       	</span>
+        </li> 
+       <li class="f-fl vgb"> </li> 
+       <li class="f-fl prompt"> 总单数：{{t.total_orders}} </li> 
+       <li class="f-fl vgb"> </li> 
+       <li class="f-fl prompt"> 任务编号：{{t.id}} </li> 
+       <li class="f-fl vgb"> </li> 
+       <li class="f-fl"> <a class="xq" href="/task/flow/detail?task_id={{t.id}}" target="_blank"> [查看详情] </a> 　 <a class="cf" href="/home/publish/post?task_id={{t.id}}&republish=1"> [重新发布] </a> </li> 
+       <li class="f-fl status p-r">
+       	{% if t.status_str == "待支付" %}
+       	<span style="color:#FF0000"><a style="text-decoration: underline;" href="/home/publish/pay?task_id={{t.id}}">{{t.status_str}}</a></span>
+       	{% elif t.status_str == "已审核" %}
+       	<span style="color:#00FFFF">{{t.status_str}}</span>
+       	{% elif t.status_str == "已完成" %}
+       	<span style="color:#00FF00">{{t.status_str}}</span>
+       	{% elif t.status_str == "进行中" %}
+       	<span style="color:#0000FF">{{t.status_str}}</span>
+       	{% else %}
+       	<span class="ok">{{t.status_str}}</span>
+       {% endif %}
+       </li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="ob f-cb"> 
+     <div class="f-fl g-info p-r"> 
+      <div class="f-cb"> 
+       <img class="goods f-fl" src="{{t.jcommodities.0.pic_path}}" alt="商品主图" />
+       <div class="f-fl "> 
+        <div class="g-desc lim-w">
+          {% for com in t.jcommodities%}
+          {{com.name}} 
+          {% endfor %}
+        </div> 
+        <div class="mainkw lim-w">
+          搜索关键字：
+          {% for sea in t.jsearch_entries%}
+          {{sea.keyword}} 
+          {% endfor %}
+        </div> 
+        <div class="r-time">
+          {{t.create_time_str}}
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="f-fr opt-c"> 
+      <ul class="f-cb"> 
+       <li class="f-fl vbar"> <a class="count" href="javascript:void(0);" style="cursor:default"> <p class="num"> {{t.order_1}} </p> <p class="o-tag"> 未接单 </p> </a> </li> 
+       <li class="f-fl vbar"> <a class="count" href="javascript:void(0);" style="cursor:default"> <p class="num"> {{t.order_2}} </p> <p class="o-tag"> 待操作 </p> </a> </li> 
+       <li class="f-fl vbar"> <a class="count" href="javascript:void(0);" style="cursor:default"> <p class="num"> {{t.order_5}} </p> <p class="o-tag"> 待确认 </p> </a> </li> 
+       <li class="f-fl"> <a class="count" href="javascript:void(0);" style="cursor:default"> <p class="num"> {{t.order_6}} </p> <p class="o-tag"> 已完成 </p> </a> </li> 
+      </ul> 
+     </div> 
+    </div>
+   </div>
+   {% endfor %}
+   </div> 
+  </div> 
+  {% include 'component/page_bar.html' %}
+{% endblock %}
+{% block section_js %}
+<script type="text/javascript" src="/static/js/component/page_bar.js"></script>
+<script type="text/javascript" src="/static/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+  $($('.nav-item')[3]).addClass('active');
+  $('#btn-search').bind('click',function(){
+    var postdata={};
+    ($('select[name=store_id]').val()>0)&&(postdata.store_id=$('select[name=store_id]').val());
+    ($('input[name=taskid]').val())&&(postdata.task_id=$('input[name=taskid]').val());
+    ($('select[name=tasktype]').val()>=0)&&(postdata.task_type=$('select[name=tasktype]').val());
+    ($('select[name=taskstatus]').val()>=0)&&(postdata.task_status=$('select[name=taskstatus]').val());
+    ($('input[name=starttime]').val())&&(postdata.publish_start=$('input[name=starttime]').val());
+    ($('input[name=endtime]').val())&&(postdata.publish_end=$('input[name=endtime]').val());
+    ($('input[name=keyword]').val())&&(postdata.keywords=$('input[name=keyword]').val());
+    var search='?';
+    for(var i in postdata){
+      search+=i+'='+postdata[i]+'&';
+    }
+    location.search=search;
+  });
+	function delete_task(id){
+		$.post('/rest_web/tasks/task/delete/'+id,function(res){
+			if(res.code==0){
+				document.location.reload();
+			}
+		});
+	}
+</script>
+{% endblock %}

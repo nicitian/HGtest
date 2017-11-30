@@ -1,0 +1,713 @@
+{% extends "default_header_.html" %}
+{% block css %}
+<style type="text/css">
+.main {
+  margin-top: 15px;
+  border: 1px solid #ececed;
+  background-color: #fdfefe;
+  margin-bottom: 16px;
+}
+.task-ti {
+  padding: 15px 6px 4px 6px;
+  margin: 0 15px;
+  margin-bottom: 23px;
+  border-bottom: 3px solid #dee1e2;
+}
+.task-ti .tt {
+  font-size: 16px;
+  color: #090909;
+  font-weight: 800;
+}
+.task-ti .vbar {
+  padding-right: 12px;
+  margin-right: 12px;
+  border-right: 1px solid #e6eded;
+}
+.buyer-info {
+  margin: 0 15px;
+}
+.buyer-info table {
+  width: 974px;
+  background-color: #fff;
+  margin-top: 12px;
+  margin-bottom: 30px;
+}
+.buyer-info th {
+  background-color: #fafbfb;
+  padding: 14px 0px;
+  text-align: center;
+}
+.bdl {
+  border-left: 1px solid #e5e5e5;
+}
+.bdt {
+  border-top: 1px solid #e5e5e5;
+}
+.bdr {
+  border-right: 1px solid #e5e5e5;
+}
+.bdb {
+  border-bottom: 1px solid #e5e5e5;
+}
+.buyer-info td {
+  padding: 28px 0px;
+  text-align: center;
+}
+.task-pro {
+  margin: 0 15px;
+}
+.task-pro .subtt {
+  padding-left: 8px;
+  color: #767575;
+  font-size: 15px;
+  font-weight: 600;
+}
+.task-pro > table {
+  margin-top: 15px;
+  width: 974px;
+  background-color: #fff;
+  margin-bottom: 50px;
+}
+.task-pro > table th {
+  background-color: #fafbfb;
+  padding: 14px 0px;
+}
+.task-pro > table td {
+  padding: 12px 0px;
+  text-align: center;
+}
+.pl-35 {
+  padding-left: 35px !important;
+}
+.bdd-b {
+  border-bottom: 1px dashed #e5e5e5;
+}
+.task-pro .ok {
+  position: relative;
+  top: 4px;
+  left: 16px;
+}
+.task-pro .pro_img {
+  margin-right: 13px;
+  cursor: pointer;
+}
+#div-appeal{
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 100px;
+  z-index: 1000;
+  width: 740px;
+  height: 408px;
+  background-color: #f9f7f7;
+  border-radius: 4px;
+  transform:translate(-50%,0);
+  -ms-transform:translate(-50%,0);
+  -moz-transform:translate(-50%,0);
+  -webkit-transform:translate(-50%,0); 
+  -o-transform:translate(-50%,0); 
+}
+.mar10px{
+  margin: 10px;
+}
+</style>
+{% endblock %}
+{% block main%}
+   <div class="f-cb task-ti">
+    <div class="tt f-fl">
+     买手操作任务详情 (
+     {% ifequal order.order_type 0%}
+     普通好评单
+     {% endifequal %}
+     {% ifequal order.order_type 1%}
+     关键词好评单
+     {% endifequal %}
+     {% ifequal order.order_type 2%}
+     图文好评单
+     {% endifequal %}
+     {% ifequal order.order_type 3%}
+     流量单
+     {% endifequal %}
+     {% ifequal order.order_type 4%}
+     收藏单
+     {% endifequal %}
+     {% ifequal order.order_type 5%}
+     直通车单
+     {% endifequal %}
+     {% ifequal order.order_type 6%}
+         {% if order.task.is_qian == 1 %}
+             千人千面任务
+         {% else %}
+             延时购买任务
+         {% endif %}
+     {% endifequal %}
+     )
+    </div> 
+    <div class="f-fr"> 
+     <ul class="f-cb"> 
+      <li class="f-fl vbar">订单编号:{{order.id}}</li> 
+      <li class="f-fl">{{order.receive_time_str}}</li> 
+     </ul> 
+    </div> 
+   </div> 
+   <div class="buyer-info"> 
+    <p>买手信息</p> 
+    <table> 
+     <tbody>
+      <tr> 
+       <th width="20%" class="bdt bdl">ID</th> 
+       <th width="20%" class="bdt ">淘宝买号</th> 
+       <th width="20%" class="bdt ">下单终端</th> 
+       <th width="20%" class="bdt ">买手手机</th> 
+       <th width="20%" class="bdt bdr">买手QQ号</th> 
+      </tr> 
+      <tr> 
+       <td class="bdt bdb bdl">
+           {% ifequal order.status 0 %}未接单{% else %}
+           {{order.tb.user_id}}
+                {% if order.flags == 0 %}
+                    <a class="addblack" href="javascript: void(0);" style="color: #3cb3f6;" data-buyer-id="{{o.tb.user_id}}">拉黑</a>
+                {% else %}
+                    <a class="addblack_null" href="javascript: void(0);" style="color: red;" data-buyer-id="{{o.tb.user_id}}">已被拉黑</a>
+                {% endif %}
+            {% endifequal %}</td>
+       <td class="bdt bdb ">{{order.tb.wangwang}}</td> 
+       <td class="bdt bdb ">
+       {% ifequal order.device 0%}
+       电脑
+       {% endifequal %}
+       {% ifequal order.device 1%}
+       Android
+       {% endifequal %}
+       {% ifequal order.device 2%}
+       iOS
+       {% endifequal %}
+       </td>
+        {% if order.order_type == 3 %}
+           <td class="bdt bdb ">1**********</td>
+           <td class="bdt bdb bdr">********</td>
+        {% elif order.order_type == 4 %}
+            <td class="bdt bdb ">1**********</td>
+           <td class="bdt bdb bdr">********</td>
+        {% else %}
+           <td class="bdt bdb ">{{ order.tb.user.phone }}</td>
+           <td class="bdt bdb bdr"> {{ order.tb.user.qq }}</td>
+        {% endif %}
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
+   <div class="task-pro"> 
+    <div class="f-cb"> 
+     <div class="f-fl subtt">
+      操作进展
+     </div> 
+     <div class="f-fr">
+     {% ifnotequal order.status 0 %}
+      {% if order.frozen %}
+        <span style="color:red;">该订单已冻结！</span>
+      {% else %}
+        买手操作有任何问题可直接与 
+        <!--<a href="/rest/users/user/startprivatechat/{{ order.get_order_seller}}?buyer_id={{ order.tb.user_id }}"  style="color: #3cb3f6;" title="ID: 130319" target="sixin">用户</a> 联系-->
+         <a href="/startprivate_chat/{{order.tb.user_id}}"  style="color: #3cb3f6;" title="ID: 130319" target="sixin">用户</a> 联系
+        {% if progress_appeal %}
+        {% else %}
+        ，如果还无法解决可
+        <!--a class="striking" id="appealbuyer" href="javascript: appeal({{order.id}})">点此申诉</a-->
+        <a class="striking" id="appealbuyer" href="/task/order/appeal/{{order.id}}">点此申诉</a>
+        {% endif %}
+      {% endif %}
+      {% endifnotequal %}
+     </div> 
+    </div> 
+    <table> 
+     <tbody>
+      <tr> 
+       <th width="22%" class="bdt bdb bdl pl-35">任务步骤</th> 
+       <th width="18%" class="bdt bdb ">操作者</th> 
+       <th width="25%" class="bdt bdb ">操作时间</th> 
+       <th width="35%" class="bdt bdb bdr">内容</th> 
+      </tr>
+      {% if is_comment_order %}
+      {% if task_type == 3 %}
+      <tr> 
+       <td class="bdd-b bdl pl-35">目标商品和支付截图</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+       {% if order.get_steps.step_0.time_str > 0 %}
+       {{order.get_steps.step_0.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> 
+       {% for pic in order.get_steps.step_0.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+       </td> 
+      </tr>   
+      <tr> 
+       <td class="bdd-b bdl pl-35">商家返还本金</td> 
+       <td class="bdd-b">商家</td> 
+       <td class="bdd-b">
+       {% if order.get_steps.step_3.time_str > 0 %}
+       {{order.get_steps.step_3.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %} 
+       </td> 
+       <td class="bdd-b bdr "> 
+        <ul class="fk"> 
+         <li class="mb12">返款方式：银行转账　{{bankcard.bank_name}}</li> 
+         <li class="mb12">返款账号：<span class="separate-num-pre-four">{{account_str}}</span> {{bankcard.owner_name}}</li> 
+         <li class="mb12">需返金额：{{order.dianzi}}</li> 
+         <li>返款模式：<span class="striking">
+         {% ifequal task.return_type 0 %}
+         平台返款
+         {% else %}
+         商家手动返款
+         {% endifequal %}
+         </span></li> 
+         <li class="mb12">买手提交：￥<span class='money'>{{order.get_buyer_commit}}</span></li> 
+         <li class="mb12">商家确认：￥<span class='money'>{{order.get_seller_commit}}</span></li> 
+        </ul> </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">商家发货</td> 
+       <td class="bdd-b">商家</td> 
+       <td class="bdd-b">
+         {% if order.get_steps.step_4.time_str > 0 %}
+       {{order.get_steps.step_4.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">收货并好评</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+          {% if order.get_steps.step_5.time_str >= 0 %}
+       {{order.get_steps.step_5.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> 
+        <div>
+         {% for pic in order.get_steps.step_5.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+        </div> </td> 
+      </tr>
+      <tr> 
+       <td class="bdb bdl pl-35"><p>确认无误发放佣金</p><p class="striking">(无操作2小时自动确认)</p></td> 
+       <td class="bdb">商家</td> 
+       <td class="bdb">
+        {% if order.get_steps.step_6.time_str > 0 %}
+       {{order.get_steps.step_6.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdb bdr "></td> 
+      </tr>
+      {% else %}
+      <tr> 
+       <td class="bdd-b bdl pl-35">货比三家</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+       {% if order.get_steps.step_0.time_str > 0 %}
+       {{order.get_steps.step_0.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> 
+       {% for pic in order.get_steps.step_0.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+       </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">浏览店铺及目标商品</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+       {% if order.get_steps.step_1.time_str > 0 %}
+       {{order.get_steps.step_1.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr">
+         {% for pic in order.get_steps.step_1.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+       </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">聊天下单和支付</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+        {% if order.get_steps.step_2.time_str > 0 %}
+       {{order.get_steps.step_2.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr ">
+       {% for pic in order.get_steps.step_2.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %} </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">商家返还本金</td> 
+       <td class="bdd-b">商家</td> 
+       <td class="bdd-b">
+       {% if order.get_steps.step_3.time_str > 0 %}
+       {{order.get_steps.step_3.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %} 
+       </td> 
+       <td class="bdd-b bdr "> 
+        <ul class="fk"> 
+         <li class="mb12">返款方式：银行转账　{{bankcard.bank_name}}</li> 
+         <li class="mb12">返款账号：<span class="separate-num-pre-four">{{account_str}}</span> {{bankcard.owner_name}}</li> 
+         <li class="mb12">需返金额：{{order.dianzi}}</li> 
+         <li>返款模式：<span class="striking">
+         {% ifequal task.return_type 0 %}
+         平台返款
+         {% else %}
+         商家手动返款
+         {% endifequal %}
+         </span></li> 
+         <li class="mb12">买手提交：￥<span class='money'>{{order.get_buyer_commit}}</span></li> 
+         <li class="mb12">商家确认：￥<span class='money'>{{order.get_seller_commit}}</span></li> 
+        </ul> </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">商家发货</td> 
+       <td class="bdd-b">商家</td> 
+       <td class="bdd-b">
+         {% if order.get_steps.step_4.time_str > 0 %}
+       {{order.get_steps.step_4.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">收货并好评</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+          {% if order.get_steps.step_5.time_str >= 0 %}
+       {{order.get_steps.step_5.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> 
+        <div>
+         {% for pic in order.get_steps.step_5.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+        </div> </td> 
+      </tr>
+      <tr> 
+       <td class="bdb bdl pl-35"><p>确认无误发放佣金</p><p class="striking">(无操作2小时自动确认)</p></td> 
+       <td class="bdb">商家</td> 
+       <td class="bdb">
+        {% if order.get_steps.step_6.time_str > 0 %}
+       {{order.get_steps.step_6.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdb bdr "></td> 
+      </tr>
+      {% endif %}
+      {% elif order.order_type == 6 %}
+       <!--千人千面任务多了一步操作-->
+       <tr>
+         <td class="bdd-b bdl pl-35">浏览任务</td>
+         <td class="bdd-b">买手</td>
+         <td class="bdd-b">
+             {% if order.get_steps.step_10.time_str > 0 %}
+                 {{order.get_steps.step_10.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+             {% else %}
+                 未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+             {% endif %}
+         </td>
+         <td class="bdd-b bdr ">
+             {% for pic in order.get_steps.step_10.pic_path %}
+                <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>
+             {% endfor %}
+         </td>
+       </tr>
+       <tr> 
+       <td class="bdd-b bdl pl-35">浏览收藏加购物车</td>
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+       {% if order.get_steps.step_8.time_str > 0 %}
+       {{order.get_steps.step_8.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td>
+       <td class="bdd-b bdr "> 
+       {% for pic in order.get_steps.step_8.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+       {% for pic in order.get_steps.step_9.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+       </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">找到购物车中宝贝下单并支付</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+        {% if order.get_steps.step_0.time_str > 0 %}
+       {{order.get_steps.step_0.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr ">
+       {% for pic in order.get_steps.step_0.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %} </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">商家返还本金</td> 
+       <td class="bdd-b">商家</td> 
+       <td class="bdd-b">
+       {% if order.get_steps.step_3.time_str > 0 %}
+       {{order.get_steps.step_3.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %} 
+       </td> 
+       <td class="bdd-b bdr ">
+        <ul class="fk">
+         <li class="mb12">返款方式：银行转账　{{bankcard.bank_name}}</li> 
+         <li class="mb12">返款账号：<span class="separate-num-pre-four">{{account_str}}</span> {{bankcard.owner_name}}</li> 
+         <li class="mb12">需返金额：{{order.dianzi}}</li> 
+         <li>返款模式：<span class="striking">
+         {% ifequal task.return_type 0 %}
+         平台返款
+         {% else %}
+         商家手动返款
+         {% endifequal %}
+         </span></li> 
+         <li class="mb12">买手提交：￥<span class='money'>{{order.get_buyer_commit}}</span></li> 
+         <li class="mb12">商家确认：￥<span class='money'>{{order.get_seller_commit}}</span></li> 
+        </ul> </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">商家发货</td> 
+       <td class="bdd-b">商家</td> 
+       <td class="bdd-b">
+         {% if order.get_steps.step_4.time_str > 0 %}
+       {{order.get_steps.step_4.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> </td> 
+      </tr> 
+      <tr> 
+       <td class="bdd-b bdl pl-35">收货并好评</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+          {% if order.get_steps.step_5.time_str > 0 %}
+       {{order.get_steps.step_5.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> 
+        <div>
+         {% for pic in order.get_steps.step_5.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+        </div> </td> 
+      </tr>
+      <tr> 
+       <td class="bdb bdl pl-35"><p>确认无误发放佣金</p><p class="striking">(无操作2小时自动确认)</p></td> 
+       <td class="bdb">商家</td> 
+       <td class="bdb">
+        {% if order.get_steps.step_6.time_str > 0 %}
+       {{order.get_steps.step_6.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdb bdr "></td> 
+      </tr>
+      {% elif order.order_type == 3 %} 
+      <tr> 
+       <td class="bdd-b bdl pl-35">浏览宝贝</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+         {% if order.get_steps.step_0.time_str > 0 %}
+       {{order.get_steps.step_0.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> 
+       {% for pic in order.get_steps.step_0.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+       </td> 
+      </tr>
+      <tr> 
+       <td class="bdb bdl pl-35"><p>确认无误发放佣金</p><p class="striking">(无操作2小时自动确认)</p></td> 
+       <td class="bdb">商家</td> 
+       <td class="bdb">
+        {% if order.get_steps.step_6.time_str > 0 %}
+       {{order.get_steps.step_6.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdb bdr "></td> 
+      </tr> 
+      {% elif order.order_type == 4 %} 
+      <tr> 
+       <td class="bdd-b bdl pl-35">浏览宝贝</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+         {% if order.get_steps.step_0.time_str > 0 %}
+       {{order.get_steps.step_0.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> 
+       {% for pic in order.get_steps.step_0.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+       </td> 
+      </tr>
+      <tr> 
+       <td class="bdd-b bdl pl-35">收藏店铺/宝贝</td> 
+       <td class="bdd-b">买手</td> 
+       <td class="bdd-b">
+         {% if order.get_steps.step_1.time_str > 0 %}
+       {{order.get_steps.step_1.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdd-b bdr "> 
+       {% for pic in order.get_steps.step_1.pic_path %}
+       <a class="fancybox-effects-d" href="{{pic}}" target="_blank"><img class="pro_img " src="{{pic}}" width="62" height="62" /></a>  
+       {% endfor %}
+       </td> 
+      </tr>
+      <tr> 
+       <td class="bdb bdl pl-35"><p>确认无误发放佣金</p><p class="striking">(无操作2小时自动确认)</p></td> 
+       <td class="bdb">商家</td> 
+       <td class="bdb">
+        {% if order.get_steps.step_6.time_str > 0 %}
+       {{order.get_steps.step_6.time_str}} <img class="ok" src="/static/image/web/task/takestepok.png" />
+       {% else %}
+       未完成 <img class="ok" src="/static/image/web/task/takestepwait.png" />
+       {% endif %}
+       </td> 
+       <td class="bdb bdr "></td> 
+      </tr>
+      {% endif %}
+     </tbody>
+    </table> 
+   </div> 
+   <div id='div-appeal'>
+     <input hidden="hidden" id='appeal-order-id'/>
+     <div style="margin: 40px;">
+     <ul>
+     <li class='mar10px'>
+     请选择申述类型:
+     <select id="appeal-type" style="margin: 0 40px;">
+       {% for at in appeal_types %}
+       <option value='{{at.id}}' >{{at.description}}</option>
+       {% endfor %}
+     </select>
+     </li>
+     <li class='mar10px'>
+     申述内容:
+     <input id="appeal-desc" style="margin: 0 40px;" />
+     </li>
+     <li class='mar10px'>
+     申述图片:
+     <ul style="margin:10px 100px 0;">
+       <li ><img id="appeal-pic-img1" src="/static/image/web/home/default_upic.png"
+                                width="60px" height="60px">
+     <input type="file"  id="appeal-pic-input1" style="margin:0 40px;" value=""></li>
+     <li ><img id="appeal-pic-img2" src="/static/image/web/home/default_upic.png"
+                                width="60px" height="60px">
+     <input type="file"  id="appeal-pic-input2" style="margin:0 40px;" value=""></li>
+     <li ><img id="appeal-pic-img3" src="/static/image/web/home/default_upic.png"
+                                width="60px" height="60px">
+     <input type="file"  id="appeal-pic-input3" style="margin:0 40px;" value=""></li>
+     </ul>
+     </li>
+     </ul>
+     </div>
+     <div style="margin: 10px auto;text-align: center;">
+     <button id='appeal-submit' style="margin:0 40px;">确定</button>
+     <button id='appeal-cancel'>取消</button>
+     </div>
+   </div>
+   {% include 'component/add_black_dialog.html' %}
+{%endblock%}
+{% block js %}
+<script type="text/javascript">
+require(['jquery','laifu'],function($,laifu){
+    laifu.pic_upload('appeal-pic-input1','appeal-pic-img1');
+    laifu.pic_upload('appeal-pic-input2','appeal-pic-img2');
+    laifu.pic_upload('appeal-pic-input3','appeal-pic-img3');
+    window.appeal=function(oid){
+      $('#appeal-order-id').val(oid);
+      $('#div-appeal').show();
+    }
+    $('#appeal-cancel').bind('click',function(){
+      $('#div-appeal').hide();
+    });
+    var enable=true;
+    $('#appeal-submit').bind('click',function(){
+      if(!enable){
+        return;
+      }
+      enable=false;
+      var data={};
+      data.appealtype_id=$('#appeal-type').val();
+      if($('#appeal-desc').val()){
+        data.description=$('#appeal-desc').val();
+      }
+      for(var i=0;i<3;i++){
+        var src=$('#appeal-pic-img'+(i+1)).attr('src');
+        if(src&&src!='/static/image/web/home/default_upic.png'){
+          data['pic'+i]=src;
+        }
+      }
+      $.post('/rest_web/tasks/order/applyappeal/'+$('#appeal-order-id').val(),data,function(res){
+        if(res.code==0){
+          alert('申述成功');
+        }else{
+          enable=true;
+          alert('申述失败');
+        }
+        $('#div-appeal').hide();
+      });
+    });
+});
+$('.addblack').bind('click',function(){
+    addblack($(this).data('buyer-id'));
+  });
+</script>
+{% endblock %}

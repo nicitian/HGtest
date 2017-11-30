@@ -1,0 +1,119 @@
+{% extends "home/home_.html" %}
+{% block section_css %}
+<style>
+.none{
+  display:none;
+}
+.step-content{
+  display:none;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.act{
+  display:block !important;
+}
+.step-wrap {
+  margin-left: 11px;
+  margin-top: 18px;
+}
+.step-wrap .r-step.act {
+  background-color: #3cb3f6;
+  color: #fff;
+}
+.step-wrap .r-step {
+  width: 173px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #ecedef;
+  color: #919294;
+  margin-right: 14px;
+}
+.step-wrap .r-step span {
+  padding-left: 15px;
+}
+.step-wrap .tri-tag {
+  position: absolute;
+  top: 12px;
+  right: -15px;
+}
+.warning-info {
+  margin: 12px;
+  border: 1px solid #f5c7bc;
+  background-color: #f9f4e4;
+  padding: 3px;
+  line-height: 29px;
+  color: #919294;
+}
+</style>
+{% block css_more %}{% endblock %}
+{% endblock %}
+{% block section_title %}发布任务{% endblock %}
+{% block section %}
+<ul class="f-cb step-wrap">
+    <li class="p-r f-fl r-step act">
+        <span>
+            1.选择任务类型
+        </span>
+        <img class="tri-tag" src="/static/image/web/home/triangle_act.png">
+    </li>
+    <li class="p-r f-fl r-step">
+        <span>
+            2.填写任务信息
+        </span>
+        <img class="tri-tag" src="/static/image/web/home/triangle_nor.png">
+    </li>
+    <li class="p-r f-fl r-step">
+        <span>
+            3.支付
+        </span>
+        <img class="tri-tag" src="/static/image/web/home/triangle_nor.png">
+    </li>
+    <li class="p-r f-fl r-step  r-step-4">
+        <span>
+            4.发布成功
+        </span>
+    </li>
+</ul>
+<div class="warning-info">
+    <span>
+		所有商家都要注意在手赚刷单务必严格控制好以下3点：<br>
+		1. 物流一定要有真实物流记录，一定要有重量并且重量跟真实商品一致！一定不要网上买那些小快递的，便宜的空包；（不要信当地快递网点手动输入的重量，当地网点无法控制包裹在中转站和到达点的重量统计）<br>
+		2. 刷单比例一定不要过高，最高最高不能超过<span style="color:red;">40%</span><br>
+		3. 移动端搜索转化率务必不要过高，保持在<span style="color:red;">行业平均转化率的1.5倍</span>左右最佳<br>
+    </span>
+</div>
+<div id='step-container'>
+{% block section_more %}{% endblock %}
+</div>
+{% endblock %}
+{% block section_js %}
+<script type="text/javascript">
+function go_sec(page){
+	$('.tri-tag').map(function(i,e){
+		if(page==i){
+			$(e).attr('src','/static/image/web/home/triangle_act.png')
+		}else{
+			$(e).attr('src','/static/image/web/home/triangle_nor.png')
+		}
+	});
+	$('.r-step').map(function(i,e){
+		if(page==i){
+			$(e).addClass('act')
+		}else{
+			$(e).removeClass('act')
+		}
+	});
+	$('section').map(function(i,e){
+		if($(e).data('page')==page){
+			$(e).addClass('act')
+		}else{
+			$(e).removeClass('act')
+		}
+	});
+}
+$($('.nav-item')[1]).addClass('active');
+</script>
+{% block js_more %}{% endblock %}
+{% endblock %}

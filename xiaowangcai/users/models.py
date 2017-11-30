@@ -345,11 +345,12 @@ class TBAccount(models.Model):
     name = models.CharField(max_length=255, db_index=True)
     phone = models.CharField(max_length=11, db_index=True)
     city = models.CharField(max_length=20)
-    place = models.CharField(max_length=255)
+    #modify
+    place = models.CharField(max_length=255,null=True)
     address = models.CharField(max_length=255)
     pic_paths = models.CharField(max_length=600)
     status = models.SmallIntegerField(default=Const['model.verify.need_check'], choices=verify_constraint,
-                                      db_index=True)
+                                    db_index=True)
     verify_time = models.BigIntegerField(null=True, blank=True, db_index=True)
     create_time = models.BigIntegerField(default=msec_time, db_index=True)
 

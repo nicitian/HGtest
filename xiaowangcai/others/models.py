@@ -35,7 +35,7 @@ class TkGoods(models.Model):
     quan_goods_link = models.TextField(null=False)  # 领券并下单链接
     status = models.SmallIntegerField(default=1)  # 1 正常 0 冻结
     fr = models.SmallIntegerField(default=1)  # 来源  1 手动添加 2 大淘客
-    tkl = models.CharField(max_length=255)
+    tkl = models.CharField(max_length=255,default=' ')
     create_time = models.DateTimeField(auto_now_add=True, null=True)
 
 

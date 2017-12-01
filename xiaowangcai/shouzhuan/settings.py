@@ -102,15 +102,22 @@ WSGI_APPLICATION = 'shouzhuan.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'shouzhuan',
+    #     'USER': 'shouzhuan123',
+    #     'PASSWORD': 'shouzhuan123$$',
+    #     'HOST': '120.55.64.35',
+    #     'PORT': '3306',
+    # }
+'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'shouzhuan',
-        'USER': 'shouzhuan123',
+        'USER': 'root',
         'PASSWORD': 'shouzhuan123$$',
-        'HOST': '120.55.64.35',
+        'HOST': '118.190.154.148',
         'PORT': '3306',
     }
-
     #     'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'shouzhuan',
